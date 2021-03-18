@@ -25,12 +25,18 @@
         </svg>
       </a>
       <a class="py-2 d-none d-md-inline-block" href="#">Tour</a>
-      <a class="py-2 d-none d-md-inline-block" href="#">Product</a>
+      <router-link 
+        class="py-2 d-none d-md-inline-block"
+        :to="{name: 'products.index'}">Product</router-link>
       <a class="py-2 d-none d-md-inline-block" href="#">Features</a>
       <a class="py-2 d-none d-md-inline-block" href="#">Enterprise</a>
       <a class="py-2 d-none d-md-inline-block" href="#">Support</a>
       <a class="py-2 d-none d-md-inline-block" href="#">Pricing</a>
-      <a class="py-2 d-none d-md-inline-block" href="#">Cart</a>
+      <router-link 
+        class="py-2 d-none d-md-inline-block"
+        :to="{name: 'order.checkout'}"
+      >Cart ( {{ $store.state.cart.length }} ) Items        
+      </router-link>
     </nav>
   </header>
 </template>
