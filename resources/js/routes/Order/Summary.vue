@@ -1,7 +1,8 @@
 <template>
 <div class="container">
-    <h3 v-text="'Order Number'.order.transaction_id" class="mt-3"></h3>
+    <h4 v-text="order.transaction_id" class="mt-5"></h4>
     <h2>Thank you for your order</h2>
+    <div v-text="order.user.address+', '+order.user.city+', '+order.user.state+', '+order.user.zip_code"></div>
     <div class="row mt-4"> 
        <table class="table table-striped">
            <thead>

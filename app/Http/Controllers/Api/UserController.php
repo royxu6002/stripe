@@ -28,6 +28,8 @@ class UserController extends Controller
 
 
         try {
+            $user->createOrGetStripeCustomer();
+
             $payment = $user->charge(
                 $request->input('amount'),
                 $request->input('payment_method_id')
@@ -46,7 +48,7 @@ class UserController extends Controller
                     ->attach($item['id'], ['quantity' => $item['quantity']]);
             }
 
-            $order->load('products');
+            $order->load('products', 'user');
 
             return $order;
         } catch (\Exception $e) {
