@@ -7,3 +7,5 @@ Route::get('/products/{product}', 'Api\ProductController@show');
 
 Route::get('/categories', 'Api\CategoryController@index');
 Route::get('/categories/{category}', 'Api\CategoryController@show');
+
+Route::post('/purchase', 'Api\UserController@purchase');

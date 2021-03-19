@@ -99,25 +99,33 @@
                 placeholder="California">
         </div>
         <div class="form-group col-lg-2">
-            <label for="address">Zip Code</label>
+            <label for="zip_code">Zip Code</label>
             <input type="text"
                 class="form-control"
                 id="zip_code"
-                name="zio_code"
+                name="zip_code"
                 v-model="customer.zip_code"
                 :disabled="paymentProcessing"
                 placeholder="786EJ">
         </div>
     </div>
-    <div class="row mt-5">
-        <div>
+    <div class="row mt-4">
+        <div class="form-group col-12">
             <label for="card-element">Credit Card Info</label>
-            <div id="card-element"></div>
+            <div id="card-element" class="form-control"></div>
+            <button
+                class="form-control button button-primary mx-auto text-large mt-3"
+                @click="processPayment"
+                :disabled="paymentProcessing"
+                v-text="paymentProcessing ? 'Processing': 'Pay Now'">
+            </button>
         </div>
     </div>
 </div>
 </template>
 <script>
+import { loadStripe } from "@stripe/stripe-js";
+
 export default {
     data() {
         return {
@@ -130,7 +138,9 @@ export default {
                 state: '',
                 zip_code: ''
             },
-            paymentProcessing: false
+            paymentProcessing: false,
+            stripe : {},
+            cardElement: {}
         }
     },
     computed: {
@@ -149,6 +159,19 @@ export default {
             });
         }
     },
+    async mounted() {
+        this.stripe = await loadStripe("pk_test_51IWKjoFTDiNMhVuSBz8HdCyKmQAQqifcsE0HM4n571NsiBYHtCHYRaz7APdKEsoNxV4VGuBKxsxWSlmwNxdDhqbQ00qaaoi0o1");
+
+        const elements = this.stripe.elements();
+
+        this.cardElement = elements.create('card', {
+            classes : {
+                base: 'form-control'
+            }
+        });
+
+        this.cardElement.mount('#card-element');
+    },
     methods: {
         cartLineTotal(item) {
             let amount =  item.price * item.quantity;
@@ -157,6 +180,53 @@ export default {
                 style: 'currency',
                 currency: 'USD',
             });
+        },
+        async processPayment() {
+            this.paymentProcessing = true;
+
+            const {paymentMethod, error} = await this.stripe.createPaymentMethod('card', this.cardElement, {
+                billing_details : {
+                    name: this.customer.first_name +  ' ' + this.customer.last_name,
+                    email: this.customer.email,
+                    address: {
+                        line1: this.customer.address,
+                        city: this.customer.city,
+                        state: this.customer.state,
+                        postal_code: this.customer.zip_code
+                    }
+                }
+            });
+
+            if (error) {
+                this.paymentProcessing = false;
+                console.error(error);
+            } else {
+                console.log(paymentMethod);
+
+                console.log('i am looped');
+
+                this.customer.payment_method_id = paymentMethod.id;
+
+                this.customer.amount = this.$store.state.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+
+                this.customer.cart = JSON.stringify(this.$store.state.cart);
+
+                axios.post('/api/purchase', this.customer)
+                    .then((response) => {
+                        this.paymentProcessing = false;
+                        console.log(response);
+
+                        this.$store.commit('updateOrder', response.data);
+                        this.$store.dispatch('clearCart');
+
+                        this.$router.push({name: 'order.summary'});
+                    })
+                    .catch((error) => {
+                        this.paymentProcessing = false;
+                        console.error(error);
+                    })
+            }
+
         }
     }
 }

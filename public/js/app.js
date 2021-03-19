@@ -37163,7 +37163,7 @@ module.exports = [{
   path: '/checkout',
   name: 'order.checkout',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./routes/Order/Checkout.vue */ "./resources/js/routes/Order/Checkout.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(4), __webpack_require__.e(0)]).then(__webpack_require__.bind(null, /*! ./routes/Order/Checkout.vue */ "./resources/js/routes/Order/Checkout.vue"));
   }
 }, {
   path: '/summary',

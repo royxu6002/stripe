@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "adcc4fbe389ff411e09413ea03453982",
+    "content-hash": "5b1c69fa2d862cda39edaf2c28df03ea",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -524,16 +524,16 @@
         },
         {
             "name": "laravel/cashier",
-            "version": "v12.9.3",
+            "version": "v12.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/cashier-stripe.git",
-                "reference": "8cf08649446b7c9d91fa9f344e12ab924f5d29f4"
+                "reference": "4a1c61cca1db26487946b87bc53c4c735cbc840d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/cashier-stripe/zipball/8cf08649446b7c9d91fa9f344e12ab924f5d29f4",
-                "reference": "8cf08649446b7c9d91fa9f344e12ab924f5d29f4",
+                "url": "https://api.github.com/repos/laravel/cashier-stripe/zipball/4a1c61cca1db26487946b87bc53c4c735cbc840d",
+                "reference": "4a1c61cca1db26487946b87bc53c4c735cbc840d",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -604,7 +604,7 @@
                 "issues": "https://github.com/laravel/cashier/issues",
                 "source": "https://github.com/laravel/cashier"
             },
-            "time": "2021-03-09T18:56:42+00:00"
+            "time": "2021-03-16T15:56:57+00:00"
         },
         {
             "name": "laravel/framework",

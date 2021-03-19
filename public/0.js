@@ -9,6 +9,15 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _stripe_stripe_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @stripe/stripe-js */ "./node_modules/@stripe/stripe-js/dist/stripe.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -128,6 +137,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -140,7 +156,9 @@ __webpack_require__.r(__webpack_exports__);
         state: '',
         zip_code: ''
       },
-      paymentProcessing: false
+      paymentProcessing: false,
+      stripe: {},
+      cardElement: {}
     };
   },
   computed: {
@@ -163,6 +181,37 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var elements;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return Object(_stripe_stripe_js__WEBPACK_IMPORTED_MODULE_1__["loadStripe"])("pk_test_51IWKjoFTDiNMhVuSBz8HdCyKmQAQqifcsE0HM4n571NsiBYHtCHYRaz7APdKEsoNxV4VGuBKxsxWSlmwNxdDhqbQ00qaaoi0o1");
+
+            case 2:
+              _this.stripe = _context.sent;
+              elements = _this.stripe.elements();
+              _this.cardElement = elements.create('card', {
+                classes: {
+                  base: 'form-control'
+                }
+              });
+
+              _this.cardElement.mount('#card-element');
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
   methods: {
     cartLineTotal: function cartLineTotal(item) {
       var amount = item.price * item.quantity;
@@ -171,6 +220,72 @@ __webpack_require__.r(__webpack_exports__);
         style: 'currency',
         currency: 'USD'
       });
+    },
+    processPayment: function processPayment() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var _yield$_this2$stripe$, paymentMethod, error;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.paymentProcessing = true;
+                _context2.next = 3;
+                return _this2.stripe.createPaymentMethod('card', _this2.cardElement, {
+                  billing_details: {
+                    name: _this2.customer.first_name + ' ' + _this2.customer.last_name,
+                    email: _this2.customer.email,
+                    address: {
+                      line1: _this2.customer.address,
+                      city: _this2.customer.city,
+                      state: _this2.customer.state,
+                      postal_code: _this2.customer.zip_code
+                    }
+                  }
+                });
+
+              case 3:
+                _yield$_this2$stripe$ = _context2.sent;
+                paymentMethod = _yield$_this2$stripe$.paymentMethod;
+                error = _yield$_this2$stripe$.error;
+
+                if (error) {
+                  _this2.paymentProcessing = false;
+                  console.error(error);
+                } else {
+                  console.log(paymentMethod);
+                  console.log('i am looped');
+                  _this2.customer.payment_method_id = paymentMethod.id;
+                  _this2.customer.amount = _this2.$store.state.cart.reduce(function (acc, item) {
+                    return acc + item.price * item.quantity;
+                  }, 0);
+                  _this2.customer.cart = JSON.stringify(_this2.$store.state.cart);
+                  axios.post('/api/purchase', _this2.customer).then(function (response) {
+                    _this2.paymentProcessing = false;
+                    console.log(response);
+
+                    _this2.$store.commit('updateOrder', response.data);
+
+                    _this2.$store.dispatch('clearCart');
+
+                    _this2.$router.push({
+                      name: 'order.summary'
+                    });
+                  })["catch"](function (error) {
+                    _this2.paymentProcessing = false;
+                    console.error(error);
+                  });
+                }
+
+              case 7:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
   }
 });
@@ -443,7 +558,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group col-lg-2" }, [
-        _c("label", { attrs: { for: "address" } }, [_vm._v("Zip Code")]),
+        _c("label", { attrs: { for: "zip_code" } }, [_vm._v("Zip Code")]),
         _vm._v(" "),
         _c("input", {
           directives: [
@@ -458,7 +573,7 @@ var render = function() {
           attrs: {
             type: "text",
             id: "zip_code",
-            name: "zio_code",
+            name: "zip_code",
             disabled: _vm.paymentProcessing,
             placeholder: "786EJ"
           },
@@ -475,7 +590,30 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(2)
+    _c("div", { staticClass: "row mt-4" }, [
+      _c("div", { staticClass: "form-group col-12" }, [
+        _c("label", { attrs: { for: "card-element" } }, [
+          _vm._v("Credit Card Info")
+        ]),
+        _vm._v(" "),
+        _c("div", {
+          staticClass: "form-control",
+          attrs: { id: "card-element" }
+        }),
+        _vm._v(" "),
+        _c("button", {
+          staticClass:
+            "form-control button button-primary mx-auto text-large mt-3",
+          attrs: { disabled: _vm.paymentProcessing },
+          domProps: {
+            textContent: _vm._s(
+              _vm.paymentProcessing ? "Processing" : "Pay Now"
+            )
+          },
+          on: { click: _vm.processPayment }
+        })
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -502,20 +640,6 @@ var staticRenderFns = [
     return _c("label", [
       _vm._v("First Name "),
       _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mt-5" }, [
-      _c("div", [
-        _c("label", { attrs: { for: "card-element" } }, [
-          _vm._v("Credit Card Info")
-        ]),
-        _vm._v(" "),
-        _c("div", { attrs: { id: "card-element" } })
-      ])
     ])
   }
 ]
