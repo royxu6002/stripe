@@ -31,7 +31,7 @@ class ProductSeeder extends Seeder
 
         $orders = Order::all();
 
-        Product::all()->each(function($product) usAppe($orders){
+        Product::all()->each(function($product) use ($orders){
             $orderIds = $orders->random(3)->pluck('id')->toArray();
             foreach($orderIds as $orderId) {
                 $product->orders()->attach($orderId, [

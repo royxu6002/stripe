@@ -1,5 +1,6 @@
 require('./bootstrap');
 
+
 import Vue from "vue";
 
 import Vuex from "vuex";
@@ -15,6 +16,8 @@ import Header from "./components/Header";
 Vue.component("Header", Header);
 import Footer from "./components/Footer";
 Vue.component("Footer", Footer);
+
+import "@storefront-ui/vue/styles.scss";
 
 const router = new VueRouter({
     mode: 'history',

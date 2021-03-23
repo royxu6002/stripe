@@ -82,12 +82,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container mx-auto" }, [
-    _c("div", { staticClass: "row mx-auto" }, [
+    _c("div", { staticClass: "row offset-md-2" }, [
       _vm._m(0),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-4 col-md-4" },
+        { staticClass: "col-5 col-md-5" },
         [
           _vm._l(_vm.product[0].categories, function(category) {
             return _c("h2", {
@@ -132,7 +132,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-4 col-md-4" }, [
+    return _c("div", { staticClass: "col-5 col-md-5" }, [
       _c("img", { attrs: { src: "http://placehold.it/700x400", alt: "" } })
     ])
   }

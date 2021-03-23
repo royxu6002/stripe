@@ -1,11 +1,11 @@
 <template>
     <div class="container mx-auto">
-        <div class="row mx-auto">
-            <div class="col-4 col-md-4">
+        <div class="row offset-md-2">
+            <div class="col-5 col-md-5">
                 <img src="http://placehold.it/700x400" alt="">
             </div>
 
-            <div class="col-4 col-md-4">
+            <div class="col-5 col-md-5">
                 <h2
                     v-for="category in product[0].categories"
                     v-text="category.name"

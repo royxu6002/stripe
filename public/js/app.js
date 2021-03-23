@@ -2110,7 +2110,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Footer"
 });
@@ -20004,25 +20003,19 @@ var staticRenderFns = [
       _c("ul", { staticClass: "list-unstyled text-small" }, [
         _c("li", [
           _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Resource name")
+            _vm._v("Manual")
           ])
         ]),
         _vm._v(" "),
         _c("li", [
           _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Resource")
+            _vm._v("Color Box")
           ])
         ]),
         _vm._v(" "),
         _c("li", [
           _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Another resource")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Final resource")
+            _vm._v("Support")
           ])
         ])
       ])
@@ -37163,13 +37156,13 @@ module.exports = [{
   path: '/checkout',
   name: 'order.checkout',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(4), __webpack_require__.e(0)]).then(__webpack_require__.bind(null, /*! ./routes/Order/Checkout.vue */ "./resources/js/routes/Order/Checkout.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(4), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./routes/Order/Checkout.vue */ "./resources/js/routes/Order/Checkout.vue"));
   }
 }, {
   path: '/summary',
   name: 'order.summary',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./routes/Order/Summary.vue */ "./resources/js/routes/Order/Summary.vue"));
+    return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./routes/Order/Summary.vue */ "./resources/js/routes/Order/Summary.vue"));
   }
 }];
 
@@ -37193,8 +37186,8 @@ module.exports = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/Code/cc/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/Code/cc/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/cc/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/cc/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -37,10 +37,9 @@
       <div class="col-6 col-md">
         <h5>Resources</h5>
         <ul class="list-unstyled text-small">
-          <li><a class="link-secondary" href="#">Resource name</a></li>
-          <li><a class="link-secondary" href="#">Resource</a></li>
-          <li><a class="link-secondary" href="#">Another resource</a></li>
-          <li><a class="link-secondary" href="#">Final resource</a></li>
+          <li><a class="link-secondary" href="#">Manual</a></li>
+          <li><a class="link-secondary" href="#">Color Box</a></li>
+          <li><a class="link-secondary" href="#">Support</a></li>
         </ul>
       </div>
       <div class="col-6 col-md">
