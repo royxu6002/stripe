@@ -201,9 +201,6 @@ export default {
                 this.paymentProcessing = false;
                 console.error(error);
             } else {
-                console.log(paymentMethod);
-
-                console.log('i am looped');
 
                 this.customer.payment_method_id = paymentMethod.id;
 
@@ -214,7 +211,6 @@ export default {
                 axios.post('/api/purchase', this.customer)
                     .then((response) => {
                         this.paymentProcessing = false;
-                        console.log(response);
 
                         this.$store.commit('updateOrder', response.data);
                         this.$store.dispatch('clearCart');
