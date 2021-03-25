@@ -47,6 +47,11 @@ export default {
                 currency: 'USD'
             });
         }
+    },
+    created() {
+        window.addEventListener('beforeunload', () => {
+            sessionStorage.setItem('state', JSON.stringify(this.$store.state));
+        })
     }
 }
 </script>

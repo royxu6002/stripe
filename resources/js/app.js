@@ -17,8 +17,6 @@ Vue.component("Header", Header);
 import Footer from "./components/Footer";
 Vue.component("Footer", Footer);
 
-import "@storefront-ui/vue/styles.scss";
-
 const router = new VueRouter({
     mode: 'history',
     routes: require('./routes.js')

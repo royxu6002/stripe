@@ -1,47 +1,31 @@
 <template>
-  <header class="site-header sticky-top py-1">
-    <nav
-      class="container d-flex flex-column flex-md-row justify-content-between"
-    >
-      <a class="py-2" href="#" aria-label="Product">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          class="d-block mx-auto"
-          role="img"
-          viewBox="0 0 24 24"
-        >
-          <title>Product</title>
-          <circle cx="12" cy="12" r="10"></circle>
-          <path
-            d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"
-          ></path>
-        </svg>
-      </a>
-      <a class="py-2 d-none d-md-inline-block" href="#">Tour</a>
-      <router-link 
-        class="py-2 d-none d-md-inline-block"
-        :to="{name: 'products.index'}">Product</router-link>
-      <a class="py-2 d-none d-md-inline-block" href="#">Features</a>
-      <a class="py-2 d-none d-md-inline-block" href="#">Enterprise</a>
-      <a class="py-2 d-none d-md-inline-block" href="#">Support</a>
-      <a class="py-2 d-none d-md-inline-block" href="#">Pricing</a>
-      <router-link 
-        class="py-2 d-none d-md-inline-block"
-        :to="{name: 'order.checkout'}"
+  <nav class="nav-container container">
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">ICON</a>
+      </li>
+      <li class="nav-item dropdown">
+        <router-link to="/products" class="nav-link" data-toggle="dropdown">Products</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/about" class="nav-link">About</router-link>
+      </li>
+    </ul>
+    <router-link 
+      class="py-2 d-none d-md-inline-block"
+      :to="{name: 'order.checkout'}"
       >Cart ( {{ $store.state.cart.length }} ) Items        
-      </router-link>
-    </nav>
-  </header>
+    </router-link>
+  </nav>
 </template>
 <script>
 export default {
   name: "Header",
 };
 </script>
+<style scoped>
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+}
+</style>

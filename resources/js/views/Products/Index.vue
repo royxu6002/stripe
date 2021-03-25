@@ -85,23 +85,23 @@ export default {
         }
     },  
     created() {
-        if(sessionStorage.getItem('store') {
+        if(sessionStorage.getItem('store')){
             this.$store.replaceState(
                 Object.assign(
                     {},
                     this.$store.state,
                     JSON.parse(sessionStorage.getItem('store'))
                 )
-            )
-        }),
+            );
+        }
         window.addEventListener('beforeunload', () => {
-            sessionStorage.setItem('state', JSON.stringify(this.$store.state))
+            sessionStorage.setItem('state', JSON.stringify(this.$store.state));
         })
     },
-    // computed: {
-    //     products() {
-    //         return this.$store.state.products;
-    //     }
-    // }
+    computed: {
+        products() {
+            return this.$store.state.products;
+        }
+    }
 }
 </script>
