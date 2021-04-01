@@ -5,10 +5,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Customer lab review page</title>
+    <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    
+    </style>
 
     <!-- Fonts -->
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.1.0/css/bootstrap-grid.min.css" rel="stylesheet">
 </head>
+
 
 <body>
     <div class="">
@@ -180,7 +189,7 @@
                 <div class="row">
                     <!-- person and company profile -->
                     <div class="col-xl-4">
-                        <div>
+                        <div class="main-contact">
                             <div class="d-flex justify-content-between">
                                 <small><strong>Name:</strong></small>
                                 <small>James Blunt</small>
@@ -198,7 +207,9 @@
                                 <small>Api Goods, Inc</small>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-between" style="font-size: 6px; margin-top: 20px;">
+                        
+                        
+                        <div class="contact-summary d-flex justify-content-between" style="font-size: 6px; margin-top: 20px;">
                             <div>
                                 <div style="font-weight: 800">Since</div>
                                 <div>Feb 2018</div>
@@ -210,6 +221,26 @@
                             <div>
                                 <div style="font-weight: 800">Order</div>
                                 <div>10 batches</div>
+                            </div>
+                        </div>
+
+                        <div class="other-contact">
+                            <h4>Other contacts</h4>
+                            <div class="d-flex justify-content-between">
+                                <small><strong>Name:</strong></small>
+                                <small>James Blunt</small>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <small><strong>Email:</strong></small>
+                                <small>James.Blunt@example.com</small>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <small><strong>Position:</strong></small>
+                                <small>Director</small>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <small><strong>Company:</strong></small>
+                                <small>Api Goods, Inc</small>
                             </div>
                         </div>
 
