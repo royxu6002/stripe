@@ -1,24 +1,35 @@
 <template>
     <div class="container mx-auto">
-        <div class="row offset-md-2">
-            <div class="col-5 col-md-5">
-                <img src="http://placehold.it/700x400" alt="">
+        <div class="row">
+            <div class="col-6 col-md-6">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" v-for="(image, index) in product[0].images" :key=index>
+                            <img :src="'http://stripe.test/uploads/'+ image " alt="" style="width:100%">
+                        </div>
+                    </div>
+                    <!-- 如果需要分页器 -->
+                    <div class="swiper-pagination"></div>
+                    <!-- 如果需要导航按钮 -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
             </div>
 
-            <div class="col-5 col-md-5">
-                <h2
+            <div class="col-6 col-md-6">
+                <h4
                     v-for="category in product[0].categories"
-                    v-text="category.name"
+                    
                     :key="category.id"
                 >
-                </h2>
+                <h2 v-text="category.name"></h2>
+                </h4>
+
                 <h1
                     v-text="product[0].name"
                 >
                 </h1>
-                <p
-                    v-text="product[0].description"
-                ></p>
+                <p v-html="product[0].description"></p>
                 <div>
                     <span
                         v-text="formatCurrency(product[0].price)"
@@ -33,6 +44,9 @@
     </div>
 </template>
 <script>
+import Swiper from 'swiper';
+import 'swiper/dist/css/swiper.min.css';
+
 export default {
     computed: {
         product() {
@@ -46,12 +60,45 @@ export default {
                 style: 'currency',
                 currency: 'USD'
             });
+        },
+        onSwiper(swiper) {
+            console.log(swiper);
+        },
+        onSlideChange() {
+            console.log('slide change');
         }
     },
-    created() {
-        window.addEventListener('beforeunload', () => {
-            sessionStorage.setItem('state', JSON.stringify(this.$store.state));
+    mounted() {
+        var mySwiper = new Swiper('.swiper-container',{
+            loop : true,
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
         })
+    },
+    watch: {
+        product(value) {
+            this.$nextTick(() => {
+                var mySwiper = new Swiper('.swiper-container',{
+                    loop : true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                })
+            })
+        }
     }
+
 }
 </script>
+<style scoped>
+
+</style>

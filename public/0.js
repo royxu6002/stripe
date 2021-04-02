@@ -186,6 +186,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
@@ -238,12 +239,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("h4", {
+    _c("h2", [_vm._v("Thank you for your order")]),
+    _vm._v(" "),
+    _c("span", {
       staticClass: "mt-5",
       domProps: { textContent: _vm._s(_vm.order.transaction_id) }
     }),
-    _vm._v(" "),
-    _c("h2", [_vm._v("Thank you for your order")]),
     _vm._v(" "),
     _c("div", {
       domProps: {
@@ -254,7 +255,9 @@ var render = function() {
             ", " +
             _vm.order.user.state +
             ", " +
-            _vm.order.user.zip_code
+            _vm.order.user.zip_code +
+            ", " +
+            _vm.order.user.country
         )
       }
     }),

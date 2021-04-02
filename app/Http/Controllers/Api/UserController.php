@@ -19,10 +19,12 @@ class UserController extends Controller
             [
                 'password' => Hash::make(Str::random(12)),
                 'name' => $request->input('first_name').' '.$request->input('last_name'),
+                'phone' => $request->input('phone'),
                 'address' => $request->input('address'),
                 'city' => $request->input('city'),
                 'state' => $request->input('state'),
-                'zip_code' => $request->input('zip_code')
+                'zip_code' => $request->input('zip_code'),
+                'country' => $request->input('country'),
             ]
         );
 

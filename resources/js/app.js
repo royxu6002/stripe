@@ -22,10 +22,12 @@ const router = new VueRouter({
     routes: require('./routes.js')
 });
 
+let shopcart = JSON.parse(window.localStorage.getItem('cle_takeout')||[]);
+
 const store = new Vuex.Store({
     state: {
         products: [],
-        cart: [],
+        cart: shopcart,
         order: {}
     },
     mutations: {
@@ -36,19 +38,23 @@ const store = new Vuex.Store({
             let productInCartIndex = state.cart.findIndex(item => item.slug === product.slug);
             if(productInCartIndex !== -1) {
                 state.cart[productInCartIndex].quantity++;
+                window.localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
                 return;
             }
             product.quantity = 1;
             state.cart.push(product);
+            window.localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
         },
         removeFromCart(state, index) {
             state.cart.splice(index, 1);
+            window.localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
         },
         updateOrder(state, order) {
             state.order = order;
         },
         updateCart(state, cart) {
             state.cart = cart;
+            window.localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
         }
     },
     actions: {

@@ -2134,29 +2134,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Footer"
 });
@@ -20602,67 +20579,17 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("small", { staticClass: "d-block mb-3 text-muted" }, [
-          _vm._v("© 2017-2021")
+          _vm._v("© 2021")
         ])
       ]),
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _vm._m(3)
+      _vm._m(1)
     ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-6 col-md" }, [
-      _c("h5", [_vm._v("Features")]),
-      _vm._v(" "),
-      _c("ul", { staticClass: "list-unstyled text-small" }, [
-        _c("li", [
-          _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Cool stuff")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Random feature")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Team feature")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Stuff for developers")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Another one")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Last time")
-          ])
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -20681,46 +20608,6 @@ var staticRenderFns = [
           _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
             _vm._v("Color Box")
           ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Support")
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-6 col-md" }, [
-      _c("h5", [_vm._v("Resources")]),
-      _vm._v(" "),
-      _c("ul", { staticClass: "list-unstyled text-small" }, [
-        _c("li", [
-          _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Business")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Education")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Government")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Gaming")
-          ])
         ])
       ])
     ])
@@ -20735,25 +20622,13 @@ var staticRenderFns = [
       _c("ul", { staticClass: "list-unstyled text-small" }, [
         _c("li", [
           _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Team")
+            _vm._v("Government")
           ])
         ]),
         _vm._v(" "),
         _c("li", [
           _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Locations")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Privacy")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "link-secondary", attrs: { href: "#" } }, [
-            _vm._v("Terms")
+            _vm._v("Gaming")
           ])
         ])
       ])
@@ -37534,10 +37409,11 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   mode: 'history',
   routes: __webpack_require__(/*! ./routes.js */ "./resources/js/routes.js")
 });
+var shopcart = JSON.parse(window.localStorage.getItem('cle_takeout') || []);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     products: [],
-    cart: [],
+    cart: shopcart,
     order: {}
   },
   mutations: {
@@ -37551,20 +37427,24 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 
       if (productInCartIndex !== -1) {
         state.cart[productInCartIndex].quantity++;
+        window.localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
         return;
       }
 
       product.quantity = 1;
       state.cart.push(product);
+      window.localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
     },
     removeFromCart: function removeFromCart(state, index) {
       state.cart.splice(index, 1);
+      window.localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
     },
     updateOrder: function updateOrder(state, order) {
       state.order = order;
     },
     updateCart: function updateCart(state, cart) {
       state.cart = cart;
+      window.localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
     }
   },
   actions: {
@@ -37786,7 +37666,7 @@ module.exports = [{
   path: '/products/:slug',
   name: 'products.show',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./views/Products/Show.vue */ "./resources/js/views/Products/Show.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./views/Products/Show.vue */ "./resources/js/views/Products/Show.vue"));
   }
 }, {
   path: '/checkout',

@@ -23,4 +23,7 @@ class Product extends Model
         return $this->belongsToMany(Order::class);
     }
     
+    protected $casts = [
+        'images' => 'array'
+    ];
 }
