@@ -148,14 +148,12 @@
             </div>
         </div>
         <div class="form-group col-12 tabpaymentcontent" :class="{active: paymentMethod=='paypal'}">
-            <label for="paypal">Paypal info</label>
-            <div id="paypal" class="form-control"></div>
-            <button
-                class="form-control button button-primary mx-auto text-large mt-3"
-                @click="processPayment"
-                :disabled="paymentProcessing"
-                v-text="paymentProcessing ? 'Processing': 'Pay Now'">
-            </button>
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="PJ3ZN3FDP3ZYG">
+                <input type="image" src="https://www.paypalobjects.com/zh_XC/C2/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal——最安全便捷的在线支付方式！">
+                <img alt="" border="0" src="https://www.paypalobjects.com/zh_XC/i/scr/pixel.gif" width="1" height="1">
+            </form>
         </div>
         <div class="form-group col-12 tabpaymentcontent" :class="{active: paymentMethod=='stripe'}">
             <label for="card-element">Credit Card Info</label>

@@ -199,8 +199,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -857,23 +855,7 @@ var render = function() {
           staticClass: "form-group col-12 tabpaymentcontent",
           class: { active: _vm.paymentMethod == "paypal" }
         },
-        [
-          _c("label", { attrs: { for: "paypal" } }, [_vm._v("Paypal info")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-control", attrs: { id: "paypal" } }),
-          _vm._v(" "),
-          _c("button", {
-            staticClass:
-              "form-control button button-primary mx-auto text-large mt-3",
-            attrs: { disabled: _vm.paymentProcessing },
-            domProps: {
-              textContent: _vm._s(
-                _vm.paymentProcessing ? "Processing" : "Pay Now"
-              )
-            },
-            on: { click: _vm.processPayment }
-          })
-        ]
+        [_vm._m(2)]
       ),
       _vm._v(" "),
       _c(
@@ -962,6 +944,55 @@ var staticRenderFns = [
       _vm._v("First Name "),
       _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "form",
+      {
+        attrs: {
+          action: "https://www.paypal.com/cgi-bin/webscr",
+          method: "post",
+          target: "_top"
+        }
+      },
+      [
+        _c("input", {
+          attrs: { type: "hidden", name: "cmd", value: "_s-xclick" }
+        }),
+        _vm._v(" "),
+        _c("input", {
+          attrs: {
+            type: "hidden",
+            name: "hosted_button_id",
+            value: "PJ3ZN3FDP3ZYG"
+          }
+        }),
+        _vm._v(" "),
+        _c("input", {
+          attrs: {
+            type: "image",
+            src:
+              "https://www.paypalobjects.com/zh_XC/C2/i/btn/btn_buynowCC_LG.gif",
+            border: "0",
+            name: "submit",
+            alt: "PayPal——最安全便捷的在线支付方式！"
+          }
+        }),
+        _vm._v(" "),
+        _c("img", {
+          attrs: {
+            alt: "",
+            border: "0",
+            src: "https://www.paypalobjects.com/zh_XC/i/scr/pixel.gif",
+            width: "1",
+            height: "1"
+          }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true
