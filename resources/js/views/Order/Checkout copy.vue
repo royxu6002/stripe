@@ -149,6 +149,12 @@
         </div>
         <div class="form-group col-12 tabpaymentcontent" :class="{active: paymentMethod=='paypal'}">
             <div id="paypal-element"></div>
+            <!-- <button
+                class="form-control button button-primary mx-auto text-large mt-3"
+                @click="processPaypal"
+                :disabled="paymentProcessing"
+                v-text="paymentProcessing ? 'Processing': 'Pay Now'">
+            </button> -->
         </div>
         <div class="form-group col-12 tabpaymentcontent" :class="{active: paymentMethod=='stripe'}">
             <div id="card-element" class="form-control"></div>
@@ -222,51 +228,60 @@ export default {
         });
         this.cardElement.mount('#card-element');
 
+        // PayPal 付款;
         loadScript({
-            'client-id': 'ARGvGYQJqTPeIGweb2kuhzefstiR98ZHm8qeaXjppCDgYWwvUrf4gui01o3qUPwSI-N4vsyQjUcfuN5c'
+            'client-id': 'AXLPbFKK6Smq9e_Ad87nsfNerEc3-GCsQSczDUiSY0Qb7gCqMc2KRHg44o8EGU4EBi3f34GeE_2w8EQv'
         }).then((paypal) => {
-            paypal.Buttons({
-                createOrder: function(data, actions) {
-                 return actions.order.create({
-                     purchase_units: [{
-                         amount: {
-                             value: JSON.parse(window.localStorage.getItem('cle_takeout')).reduce((acc, item) => acc+ (item.price* item.quantity)/100, 0),
-                             currency_code: 'USD',
-                             "breakdown": {
-                                "item_total": {
-                                    "currency_code": "USD",
-                                    "value": JSON.parse(window.localStorage.getItem('cle_takeout')).reduce((acc, item) => acc+ (item.price* item.quantity)/100, 0),
+                paypal.Buttons({
+                    env: 'sandbox', /* sandbox | production */
+                    style: {
+                        layout: 'horizontal',   // horizontal | vertical 
+                        size:   'responsive',   /* medium | large | responsive*/
+                        shape:  'pill',         /* pill | rect*/
+                        color:  'silver',         /* gold | blue | silver | black*/
+                        fundingicons: false,    /* true | false */
+                        tagline: false          /* true | false */
+                    }, 
+                    createOrder: function(data, actions) {
+                        // This function sets up the details of the transaction, including the amount and line item details.
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: JSON.parse(window.localStorage.getItem('cle_takeout')).reduce((acc, item) => acc + (item.price * item.quantity)/100, 0),
                                 }
-                            }
-                         },
-                         items: JSON.parse(window.localStorage.getItem('cle_takeout')).map(item => {
-                             return {
-                                "name": item.name,
-                                 "unit_amount": {
-                                     "value": item.price/100,
-                                     "currency_code": "USD",
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        // Authorize the transaction
+                        actions.order.authorize().then(function(authorization) {
 
-                                 },
-                                 "tax": {
-                                    "currency_code": "USD",
-                                    "value": 0
+                            // Get the authorization id
+                            var authorizationID = authorization.purchase_units[0].payments.authorizations[0].id
+
+                            // Call your server to validate and capture the transaction
+                            return fetch('/paypal-transaction-complete', {
+                                method: 'post',
+                                headers: {
+                                    'content-type': 'application/json'
                                 },
-                                 "quantity": item.quantity,
-                                 "sku": "cle"+item.id
-                             }
-                         }),
-                     }],
-                     
-                 })   
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        console.log(details);
-                        window.location.href = details.links[0].href
-                    });
-                }
-            }).render('#paypal-element');
-        }).catch((err) => console.error('failed to load paypal js sdk script', err))
+                                body: JSON.stringify({
+                                    orderID: data.orderID,
+                                    authorizationID: authorizationID
+                                })
+                            });
+                        })
+
+                        // This function captures the funds from the transaction.
+                        return actions.order.capture().then(function(details) {
+                            // This function shows a transaction success message to your buyer.
+                            alert('Transaction completed by ' + details.payer.name.given_name);
+                        });
+                    }
+                }).render('#paypal-element');
+        }).catch((err)=> {
+            console.error('failed to load the PayPal JS SDK script', err);
+        })
     },
     methods: {
         cartLineTotal(item) {

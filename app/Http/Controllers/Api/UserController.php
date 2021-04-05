@@ -8,8 +8,23 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
 
+use PayPal\Api\Payer;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Details;
+use PayPal\Api\Amount;
+use PayPal\Api\Transaction;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\Payment;
+use PayPal\Exception\PayPalConnectionException;
+use PayPal\Api\PaymentExecution;
+use PayPal\Api\ShippingAddress;
+
+
+
 class UserController extends Controller
 {
+    // stripe 付款
     public function purchase(Request $request)
     {
         $user = User::firstOrCreate(
