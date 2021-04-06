@@ -22,7 +22,7 @@ const router = new VueRouter({
     routes: require('./routes.js')
 });
 
-let shopcart = JSON.parse(window.localStorage.getItem('cle_takeout')||[]);
+let shopcart = JSON.parse(window.localStorage.getItem('cle_takeout')||'[]');
 
 const store = new Vuex.Store({
     state: {

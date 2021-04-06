@@ -311,6 +311,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       }).then(function (data) {
                         // 从数据拿到返回的数据
                         console.log(data);
+                        window.localStorage.setItem('cle_order', JSON.stringify(data));
+                        window.location.replace('/review');
                       })["catch"](function (error) {
                         return console.error('Error:', error);
                       });
