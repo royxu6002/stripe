@@ -5,7 +5,6 @@
 </template>
 <script>
 // 安装 @paypal/paypal-js: npm install @paypal/paypal-js
-
 import { loadScript } from '@paypal/paypal-js';
 
 loadScript({
@@ -13,25 +12,70 @@ loadScript({
 }).then(
 Paypal => paypal.Buttons({
 	createOrder: function(data, actions) {
-                    // redirect_url: [
-                    //     return_url: 'http://localhost.com/create-payment'
-                    // ]
+
+    // set up order from client side
 		return actions.order.create({
 			// order Api 创建, 更新, 删除: https://developer.paypal.com/docs/api/orders/v2/#orders_create
-
+      purchase_units: [{
+          amount: {
+              value: JSON.parse(window.localStorage.getItem('cle_takeout')).reduce((acc, item) => acc+ (item.price* item.quantity)/100, 0),
+              currency_code: 'USD',
+              // breakdown item_total 要和items 总和一致
+              "breakdown": {
+                "item_total": {
+                    "currency_code": "USD",
+                    "value": JSON.parse(window.localStorage.getItem('cle_takeout')).reduce((acc, item) => acc+ (item.price* item.quantity)/100, 0),
+                }
+            }
+          },
+          // 创建产品 line_item, 
+          items: JSON.parse(window.localStorage.getItem('cle_takeout')).map(item => {
+              return {
+                "name": item.name,
+                  "unit_amount": {
+                      "value": item.price/100,
+                      "currency_code": "USD",
+                  },
+                  "tax": {
+                    "currency_code": "USD",
+                    "value": 0
+                },
+                  "quantity": item.quantity,
+                  "sku": "cle"+item.id
+              }
+          }),
+          
+      }]
 		})
 	},
+    // Call your server to set up the transaction
+    createOrder: function(data, actions) {
+      return fetch('/demo/checkout/api/paypal/order/create/', {
+              method: 'post'
+          }).then(function(res) {
+              return res.json();
+          }).then(function(orderData) {
+              return orderData.id;
+          });
+    },
+
+    // execute payment at client side
     onApprove: function(data, actions) {
-        // 这里是没有效果的
+        /**
+         * payment.execute() 是之前 api, 现在已经不起作用
+         */
         // return actions.payment.execute().then(function(){
         //     alert('Thank you for payment!');
         // }); 
 
+        /**
+         *  client side
+         */
         return actions.order.capture().then(function(details) {
             // This function shows a transaction success message to your buyer.
             alert('Transaction completed by ' + details.payer.name.given_name);
-
-            // console.log(data); 
+            
+            console.log(data); 
             // below is data object;
             // {
             //     "orderID": "6XY801410C666811S",
@@ -41,16 +85,85 @@ Paypal => paypal.Buttons({
             //     "facilitatorAccessToken": "A21AALqoqE9j-o8rDdNUVKqSIQ_acBr05QXlzuyuvrN9j_wQuc6QozXAPJV_HDVY7_Kt8V8SrQVg_yCq1oO6IrEmrszdTlnAw"
             // }
 
+            console.log(details);
+            /** 
+             * please refer details object in order.detail.vue
+            */  
+        });
 
+
+        // This guide assumes you have completed a basic Smart Payment Buttons integration. These features are all upgrades for that basic integration. After you add a new feature, you can test it on your site then go live.
+        /** 
+         * server side
+         * https://developer.paypal.com/demo/checkout/#/pattern/server
+         * 
+        */
+       // Authorize the transaction
+       actions.order.authorize().then(function(authorization){
+
+        // Get the authorization id
+         var authorizationID =  authorization.purchase_units[0].payments.authorizations[0].id;
+
+        // Call your server to validate and capture the transaction
+         return fetch(url, {
+           method: 'post',
+           headers: {
+             'content-type': 'application/json'
+           },
+           body: JSON.stringify({
+             orderID: data.orderID,
+             authorizationID: authorizationID
+           })
+         });
+       });
+      
+
+
+
+    }
+
+    // Call your server to finalize the transaction
+    onApprove: function(data, actions) {
+        return fetch('/demo/checkout/api/paypal/order/' + data.orderID + '/capture/', {
+            method: 'post'
+        }).then(function(res) {
+            return res.json();
+        }).then(function(orderData) {
+            // Three cases to handle:
+            //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+            //   (2) Other non-recoverable errors -> Show a failure message
+            //   (3) Successful transaction -> Show confirmation or thank you
+
+            // This example reads a v2/checkout/orders capture response, propagated from the server
+            // You could use a different API or structure for your 'orderData'
+            var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+            if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                return actions.restart(); // Recoverable state, per:
+                // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
+            }
+
+            if (errorDetail) {
+                var msg = 'Sorry, your transaction could not be processed.';
+                if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                return alert(msg); // Show a failure message
+            }
+
+            // Show a success message
+            alert('Transaction completed by ' + orderData.payer.name.given_name);
         });
     }
 }).render('#paypal-element')
 .catch( error => console.error(error))
 
  
-拿到这个 这两个 ID 	可以在开始在后端写订单程序;
 
 </script>
+
+<script>
+</script>
+
 
 <script>
 {
@@ -128,6 +241,7 @@ Paypal => paypal.Buttons({
           }
         },
         "payments": {
+
           "captures": [
             {
               "id": "40J088343X584271G",

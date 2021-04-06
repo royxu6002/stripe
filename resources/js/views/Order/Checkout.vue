@@ -230,12 +230,12 @@ export default {
                  return actions.order.create({
                      purchase_units: [{
                          amount: {
-                             value: JSON.parse(window.localStorage.getItem('cle_takeout')).reduce((acc, item) => acc+ (item.price* item.quantity)/100, 0),
+                             value: JSON.parse(window.localStorage.getItem('cle_takeout')).reduce((acc, item) => acc+ (item.price* item.quantity), 0)/100,
                              currency_code: 'USD',
                              "breakdown": {
                                 "item_total": {
                                     "currency_code": "USD",
-                                    "value": JSON.parse(window.localStorage.getItem('cle_takeout')).reduce((acc, item) => acc+ (item.price* item.quantity)/100, 0),
+                                    "value": JSON.parse(window.localStorage.getItem('cle_takeout')).reduce((acc, item) => acc+ (item.price* item.quantity), 0)/100,
                                 }
                             }
                          },
@@ -245,28 +245,41 @@ export default {
                                  "unit_amount": {
                                      "value": item.price/100,
                                      "currency_code": "USD",
-
                                  },
                                  "tax": {
                                     "currency_code": "USD",
                                     "value": 0
                                 },
                                  "quantity": item.quantity,
-                                 "sku": "cle"+item.id
+                                 "sku": item.id
                              }
-                         }),
-                     }],
-                     
+                         })
+                     }]
                  })   
                 },
                 onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
+                    actions.order.capture().then(function(details){
                         console.log(details);
-                        window.location.href = details.links[0].href
-                    });
+                    
+                        // call server to capture the transation
+                        return fetch('/api/paypal', {
+                                    method: 'post',
+                                    headers: {
+                                        'content-type': 'application/json'
+                                    },
+                                    body: JSON.stringify(details)
+                                })
+                                .then(res => res.json())
+                                .then(data => {
+                                    // 从数据拿到返回的数据
+                                    console.log(data);
+                                })
+                                .catch(error => console.error('Error:', error));
+                    })
                 }
             }).render('#paypal-element');
         }).catch((err) => console.error('failed to load paypal js sdk script', err))
+        
     },
     methods: {
         cartLineTotal(item) {

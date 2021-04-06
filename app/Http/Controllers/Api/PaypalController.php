@@ -17,29 +17,27 @@ class PaypalController extends Controller
 
         $user = User::firstOrCreate(
             [
-                'email' => $request->input('email')
+                'email' => $request->input('payer')['email_address'],
             ],
             [
                 'password' => Hash::make(Str::random(12)),
-                'name' => $request->input('name'),
-                'address' => $request->input('address'),
-                'city' => $request->input('city'),
-                'state' => $request->input('state'),
-                'zip_code' => $request->input('zip_code'),
-                'country' => $request->input('country'),
+                'name' => $request->input('payer')['name']['given_name'] .' '.$request->input('payer')['name']['surname'],
+                'address' => $request->input('purchase_units')[0]['shipping']['address']['address_line_1'],
+                'city' => $request->input('purchase_units')[0]['shipping']['address']['admin_area_2'],
+                'state' => $request->input('purchase_units')[0]['shipping']['address']['admin_area_1'],
+                'zip_code' => $request->input('purchase_units')[0]['shipping']['address']['postal_code'],
+                'country' => $request->input('purchase_units')[0]['shipping']['address']['country_code'],
             ]
         );
 
         try {
            $order = $user->orders()->create([
-                'transaction_id' => $request->input('transaction_id'),
-                'total' => $request->input('total'),
+                'transaction_id' => $request->input('purchase_units')[0]['payments']['captures'][0]['id'],
+                'total' => $request->input('purchase_units')[0]['amount']['value']*100,
             ]);
 
-            foreach(json_decode($request->input('cart'), true) as $item) {
-                $order->products()->attach([
-                    $item['id'],['quantity' => $iem['quantity']];
-                ])
+            foreach($request->input('purchase_units')[0]['items'] as $item) {
+                $order->products()->attach($item['sku'],['quantity' => $item['quantity']]);
             }
 
             $order->load('products', 'user');

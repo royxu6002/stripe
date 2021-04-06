@@ -37672,7 +37672,7 @@ module.exports = [{
   path: '/checkout',
   name: 'order.checkout',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./views/Order/Checkout.vue */ "./resources/js/views/Order/Checkout.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(0)]).then(__webpack_require__.bind(null, /*! ./views/Order/Checkout.vue */ "./resources/js/views/Order/Checkout.vue"));
   }
 }, {
   path: '/summary',
@@ -37684,7 +37684,7 @@ module.exports = [{
   path: '/about',
   name: 'About',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./views/About.vue */ "./resources/js/views/About.vue"));
+    return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./views/About.vue */ "./resources/js/views/About.vue"));
   }
 }];
 
