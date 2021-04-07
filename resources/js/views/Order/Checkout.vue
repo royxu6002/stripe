@@ -148,10 +148,10 @@
             </div>
         </div>
         <div class="form-group col-12 tabpaymentcontent" :class="{active: paymentMethod=='paypal'}">
-            <div id="paypal-element"></div>
+            <div id="paypalbutton"></div>
         </div>
         <div class="form-group col-12 tabpaymentcontent" :class="{active: paymentMethod=='stripe'}">
-            <div id="card-element" class="form-control"></div>
+            <div id="cardelement" class="form-control"></div>
             <button
                 class="form-control button button-primary mx-auto text-large mt-3"
                 @click="processPayment"
@@ -192,6 +192,7 @@ export default {
             paymentProcessing: false,
             stripe : {},
             cardElement: {},
+            paypal: {},
             paymentMethod: '',
         }
     },
@@ -220,68 +221,11 @@ export default {
                 base: 'form-control'
             }
         });
-        this.cardElement.mount('#card-element');
+        this.cardElement.mount('#cardelement');
 
-        loadScript({
-            'client-id': 'ARGvGYQJqTPeIGweb2kuhzefstiR98ZHm8qeaXjppCDgYWwvUrf4gui01o3qUPwSI-N4vsyQjUcfuN5c'
-        }).then((paypal) => {
-            paypal.Buttons({
-                createOrder: function(data, actions) {
-                 return actions.order.create({
-                     purchase_units: [{
-                         amount: {
-                             value: JSON.parse(window.localStorage.getItem('cle_takeout')).reduce((acc, item) => acc+ (item.price* item.quantity), 0)/100,
-                             currency_code: 'USD',
-                             "breakdown": {
-                                "item_total": {
-                                    "currency_code": "USD",
-                                    "value": JSON.parse(window.localStorage.getItem('cle_takeout')).reduce((acc, item) => acc+ (item.price* item.quantity), 0)/100,
-                                }
-                            }
-                         },
-                         items: JSON.parse(window.localStorage.getItem('cle_takeout')).map(item => {
-                             return {
-                                "name": item.name,
-                                 "unit_amount": {
-                                     "value": item.price/100,
-                                     "currency_code": "USD",
-                                 },
-                                 "tax": {
-                                    "currency_code": "USD",
-                                    "value": 0
-                                },
-                                 "quantity": item.quantity,
-                                 "sku": item.id
-                             }
-                         })
-                     }]
-                 })   
-                },
-                onApprove: function(data, actions) {
-                    actions.order.capture().then(function(details){
-                        console.log(details);
-                    
-                        // call server to capture the transation
-                        return fetch('/api/paypal', {
-                                    method: 'post',
-                                    headers: {
-                                        'content-type': 'application/json'
-                                    },
-                                    body: JSON.stringify(details)
-                                })
-                                .then(res => res.json())
-                                .then(data => {
-                                    // 从数据拿到返回的数据
-                                    console.log(data);
-                                    window.localStorage.setItem('cle_order', JSON.stringify(data));
-                                    window.location.replace('/review');
-                                })
-                                .catch(error => console.error('Error:', error));
-                    })
-                }
-            }).render('#paypal-element');
-        }).catch((err) => console.error('failed to load paypal js sdk script', err))
-        
+        this.paypal =  loadScript({'client-id':'ARGvGYQJqTPeIGweb2kuhzefstiR98ZHm8qeaXjppCDgYWwvUrf4gui01o3qUPwSI-N4vsyQjUcfuN5c'});
+        this.paypal.then(this.loadPaypalButton).catch((err) => console.error('failed to load paypal js sdk script', err));
+
     },
     methods: {
         cartLineTotal(item) {
@@ -294,7 +238,6 @@ export default {
         },
         async processPayment() {
             this.paymentProcessing = true;
-
             const {paymentMethod, error} = await this.stripe.createPaymentMethod('card', this.cardElement, {
                 billing_details : {
                     name: this.customer.first_name +  ' ' + this.customer.last_name,
@@ -309,22 +252,16 @@ export default {
                     phone: this.customer.phone
                 }
             });
-
             if (error) {
                 this.paymentProcessing = false;
                 console.error(error);
             } else {
-
                 this.customer.payment_method_id = paymentMethod.id;
-
                 this.customer.amount = this.$store.state.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-
                 this.customer.cart = JSON.stringify(this.$store.state.cart);
-
                 axios.post('/api/purchase', this.customer)
                     .then((response) => {
                         this.paymentProcessing = false;
-
                         this.$store.commit('updateOrder', response.data);
                         this.$store.dispatch('clearCart');
 
@@ -336,6 +273,63 @@ export default {
                     })
             }
 
+        },
+        loadPaypalButton() {
+            paypal.Buttons({
+                // 必须使用 =>函数 
+                createOrder: (data, actions) => {
+                    return actions.order.create({
+                        purchase_units: [{
+                                amount: {
+                                    value: this.$store.state.cart.reduce((acc, item)=> acc+(item.price*item.quantity), 0)/100,
+                                    currency_code: 'USD',
+                                    "breakdown": {
+                                        "item_total": {
+                                            "currency_code": "USD",
+                                            "value": this.$store.state.cart.reduce((acc, item) => acc+ (item.price* item.quantity), 0)/100,
+                                        }
+                                    }
+                                },
+                                // 重构 cart 数组
+                                items: this.$store.state.cart.map(item => {
+                                    return {
+                                        "name": item.name,
+                                        "unit_amount": {
+                                            "value": item.price/100,
+                                            "currency_code": "USD",
+                                        },
+                                        "tax": {
+                                            "currency_code": "USD",
+                                            "value": 0
+                                        },
+                                        "quantity": item.quantity,
+                                        "sku": item.id
+                                    }
+                                })
+                        }]
+                    })   
+                },
+                onApprove: (data, actions) => {
+                    actions.order.capture().then((details) => {
+                        // call server to capture the transation
+                        return fetch('/api/paypal', {
+                                    method: 'post',
+                                    headers: {
+                                        'content-type': 'application/json'
+                                    },
+                                    body: JSON.stringify(details)
+                                })
+                                .then(res => res.json())
+                                .then(data => {
+                                    console.log(data);
+                                    this.$store.commit('updateOrder', data);
+                                    this.$store.dispatch('clearCart');
+                                    this.$router.push({name: 'order.summary'});
+                                })
+                                .catch(error => console.error('Error:', error));
+                    })
+                }
+            }).render('#paypalbutton')
         }
     }
 }

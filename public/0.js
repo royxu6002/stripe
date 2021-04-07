@@ -211,6 +211,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       paymentProcessing: false,
       stripe: {},
       cardElement: {},
+      paypal: {},
       paymentMethod: ''
     };
   },
@@ -255,75 +256,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
               });
 
-              _this.cardElement.mount('#card-element');
+              _this.cardElement.mount('#cardelement');
 
-              Object(_paypal_paypal_js__WEBPACK_IMPORTED_MODULE_2__["loadScript"])({
+              _this.paypal = Object(_paypal_paypal_js__WEBPACK_IMPORTED_MODULE_2__["loadScript"])({
                 'client-id': 'ARGvGYQJqTPeIGweb2kuhzefstiR98ZHm8qeaXjppCDgYWwvUrf4gui01o3qUPwSI-N4vsyQjUcfuN5c'
-              }).then(function (paypal) {
-                paypal.Buttons({
-                  createOrder: function createOrder(data, actions) {
-                    return actions.order.create({
-                      purchase_units: [{
-                        amount: {
-                          value: JSON.parse(window.localStorage.getItem('cle_takeout')).reduce(function (acc, item) {
-                            return acc + item.price * item.quantity;
-                          }, 0) / 100,
-                          currency_code: 'USD',
-                          "breakdown": {
-                            "item_total": {
-                              "currency_code": "USD",
-                              "value": JSON.parse(window.localStorage.getItem('cle_takeout')).reduce(function (acc, item) {
-                                return acc + item.price * item.quantity;
-                              }, 0) / 100
-                            }
-                          }
-                        },
-                        items: JSON.parse(window.localStorage.getItem('cle_takeout')).map(function (item) {
-                          return {
-                            "name": item.name,
-                            "unit_amount": {
-                              "value": item.price / 100,
-                              "currency_code": "USD"
-                            },
-                            "tax": {
-                              "currency_code": "USD",
-                              "value": 0
-                            },
-                            "quantity": item.quantity,
-                            "sku": item.id
-                          };
-                        })
-                      }]
-                    });
-                  },
-                  onApprove: function onApprove(data, actions) {
-                    actions.order.capture().then(function (details) {
-                      console.log(details); // call server to capture the transation
+              });
 
-                      return fetch('/api/paypal', {
-                        method: 'post',
-                        headers: {
-                          'content-type': 'application/json'
-                        },
-                        body: JSON.stringify(details)
-                      }).then(function (res) {
-                        return res.json();
-                      }).then(function (data) {
-                        // 从数据拿到返回的数据
-                        console.log(data);
-                        window.localStorage.setItem('cle_order', JSON.stringify(data));
-                        window.location.replace('/review');
-                      })["catch"](function (error) {
-                        return console.error('Error:', error);
-                      });
-                    });
-                  }
-                }).render('#paypal-element');
-              })["catch"](function (err) {
+              _this.paypal.then(_this.loadPaypalButton)["catch"](function (err) {
                 return console.error('failed to load paypal js sdk script', err);
               });
 
-            case 7:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -404,6 +347,75 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2);
       }))();
+    },
+    loadPaypalButton: function loadPaypalButton() {
+      var _this3 = this;
+
+      paypal.Buttons({
+        // 必须使用 =>函数 
+        createOrder: function createOrder(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: _this3.$store.state.cart.reduce(function (acc, item) {
+                  return acc + item.price * item.quantity;
+                }, 0) / 100,
+                currency_code: 'USD',
+                "breakdown": {
+                  "item_total": {
+                    "currency_code": "USD",
+                    "value": _this3.$store.state.cart.reduce(function (acc, item) {
+                      return acc + item.price * item.quantity;
+                    }, 0) / 100
+                  }
+                }
+              },
+              // 重构 cart 数组
+              items: _this3.$store.state.cart.map(function (item) {
+                return {
+                  "name": item.name,
+                  "unit_amount": {
+                    "value": item.price / 100,
+                    "currency_code": "USD"
+                  },
+                  "tax": {
+                    "currency_code": "USD",
+                    "value": 0
+                  },
+                  "quantity": item.quantity,
+                  "sku": item.id
+                };
+              })
+            }]
+          });
+        },
+        onApprove: function onApprove(data, actions) {
+          actions.order.capture().then(function (details) {
+            // call server to capture the transation
+            return fetch('/api/paypal', {
+              method: 'post',
+              headers: {
+                'content-type': 'application/json'
+              },
+              body: JSON.stringify(details)
+            }).then(function (res) {
+              return res.json();
+            }).then(function (data) {
+              console.log(data);
+
+              _this3.$store.commit('updateOrder', data);
+
+              _this3.$store.dispatch('clearCart');
+
+              _this3.$router.push({
+                name: 'order.summary'
+              });
+            })["catch"](function (error) {
+              return console.error('Error:', error);
+            });
+          });
+        }
+      }).render('#paypalbutton');
     }
   }
 });
@@ -915,7 +927,7 @@ var render = function() {
           staticClass: "form-group col-12 tabpaymentcontent",
           class: { active: _vm.paymentMethod == "paypal" }
         },
-        [_c("div", { attrs: { id: "paypal-element" } })]
+        [_c("div", { attrs: { id: "paypalbutton" } })]
       ),
       _vm._v(" "),
       _c(
@@ -927,7 +939,7 @@ var render = function() {
         [
           _c("div", {
             staticClass: "form-control",
-            attrs: { id: "card-element" }
+            attrs: { id: "cardelement" }
           }),
           _vm._v(" "),
           _c("button", {
