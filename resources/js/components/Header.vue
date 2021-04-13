@@ -8,7 +8,11 @@
         <router-link to="/products" class="nav-link" data-toggle="dropdown">Products</router-link>
       </li>
       <li class="nav-item">
-        <router-link to="/about" class="nav-link">About</router-link>
+        <router-link to="/login" class="nav-link">Sign In&Up</router-link>
+      </li>
+      
+      <li class="nav-item">
+        <router-link :to="{name: 'Users.Index'}" class="nav-link">Users</router-link>
       </li>
     </ul>
     <router-link 

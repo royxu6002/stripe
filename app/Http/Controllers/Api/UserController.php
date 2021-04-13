@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
+use App\Http\Resources\UserResource;
 
 use PayPal\Api\Payer;
 use PayPal\Api\Item;
@@ -19,8 +20,6 @@ use PayPal\Api\Payment;
 use PayPal\Exception\PayPalConnectionException;
 use PayPal\Api\PaymentExecution;
 use PayPal\Api\ShippingAddress;
-
-
 
 class UserController extends Controller
 {
@@ -71,5 +70,10 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
+    }
+
+    public function index()
+    {
+        return UserResource::collection(User::paginate(2));
     }
 }

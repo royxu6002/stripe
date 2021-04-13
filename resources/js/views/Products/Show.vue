@@ -1,7 +1,7 @@
 <template>
     <div class="container mx-auto">
         <div class="row">
-            <div class="col-6 col-md-6">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="(image, index) in product[0].images" :key=index>
@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <div class="col-6 col-md-6">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <h4
                     v-for="category in product[0].categories"
                     

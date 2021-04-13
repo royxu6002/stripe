@@ -27,6 +27,7 @@ $factory->define(User::class, function (Faker $faker) {
         'address' => $faker->address,
         'city' => $faker->city,
         'state' => $faker->state,
-        'zip_code' => $faker->postcode
+        'zip_code' => $faker->postcode,
+        'phone' => $faker->phoneNumber
     ];
 });

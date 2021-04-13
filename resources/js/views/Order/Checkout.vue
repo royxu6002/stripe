@@ -162,7 +162,7 @@
         <div class="form-group col-12 tabpaymentcontent" :class="{active: paymentMethod=='bank'}"> 
             <button
                 class="form-control button button-primary mx-auto text-large mt-3"
-                @click="processPayment"
+                @click="bankTransfer"
                 :disabled="paymentProcessing">
                 Place the order
             </button>
@@ -259,7 +259,7 @@ export default {
                 this.customer.payment_method_id = paymentMethod.id;
                 this.customer.amount = this.$store.state.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
                 this.customer.cart = JSON.stringify(this.$store.state.cart);
-                axios.post('/api/purchase', this.customer)
+                axios.post('/api/stripe', this.customer)
                     .then((response) => {
                         this.paymentProcessing = false;
                         this.$store.commit('updateOrder', response.data);
@@ -330,6 +330,18 @@ export default {
                     })
                 }
             }).render('#paypalbutton')
+        },
+        bankTransfer() {
+            this.customer.cart = JSON.stringify(this.$store.state.cart);
+            this.customer.amount = this.$store.state.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+
+            axios.post('/api/bank', this.customer)
+                .then(res => { 
+                    console.log(res.data);
+
+                 })
+                .catch(err => console.log(err))
+            
         }
     }
 }

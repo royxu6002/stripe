@@ -11,6 +11,10 @@ Vue.use(VueRouter);
 
 import App from "./App.vue";
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
+
 // 全局组件 Header, Footer;
 import Header from "./components/Header";
 Vue.component("Header", Header);

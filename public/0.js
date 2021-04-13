@@ -324,7 +324,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return acc + item.price * item.quantity;
                   }, 0);
                   _this2.customer.cart = JSON.stringify(_this2.$store.state.cart);
-                  axios.post('/api/purchase', _this2.customer).then(function (response) {
+                  axios.post('/api/stripe', _this2.customer).then(function (response) {
                     _this2.paymentProcessing = false;
 
                     _this2.$store.commit('updateOrder', response.data);
@@ -416,6 +416,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           });
         }
       }).render('#paypalbutton');
+    },
+    bankTransfer: function bankTransfer() {
+      this.customer.cart = JSON.stringify(this.$store.state.cart);
+      this.customer.amount = this.$store.state.cart.reduce(function (acc, item) {
+        return acc + item.price * item.quantity;
+      }, 0);
+      axios.post('/api/bank', this.customer).then(function (res) {
+        console.log(res.data);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     }
   }
 });
@@ -969,7 +980,7 @@ var render = function() {
               staticClass:
                 "form-control button button-primary mx-auto text-large mt-3",
               attrs: { disabled: _vm.paymentProcessing },
-              on: { click: _vm.processPayment }
+              on: { click: _vm.bankTransfer }
             },
             [_vm._v("\n                Place the order\n            ")]
           )
