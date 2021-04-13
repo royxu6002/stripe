@@ -50,7 +50,7 @@ class LoginController extends Controller
         $user = User::where('email', $request->email)->first();
         if(!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
-                'errors' => 'username/password does not match'
+                'msg' => 'username/password does not match'
             ]);
         }
         $token = Str::random(80);

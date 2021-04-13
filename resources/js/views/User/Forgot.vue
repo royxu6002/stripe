@@ -1,12 +1,22 @@
 <template>
     <div class="container">
-        <h4>Forgot your password</h4>
-        <div class="form-group">
+        <div class="form-group col-lg-8 col-md-8 col-sm-12 col-xs-12 container">
+            <h4 class="mt-4 mb-4">Forgot your password</h4>
              <label for="email">Email</label>
-             <p v-if="errors">{{errors.email}}</p>
+             <div v-if="errors">
+                 <p 
+                    v-for="(err, index) in errors.email"
+                    :key="index"
+                    class="alert alert-warning">
+                     {{ err }}
+                 </p>
+             </div>
+             <div v-if="messages">
+                 <p class="alert alert-info">{{ messages }}</p>
+             </div>
             <input type="text" name="email" v-model="customer.email" class="form-control" required>
+            <button @click="sendLinkToEmail" class="btn btn-primary mt-3 form-control">Submit</button>
         </div>
-        <button @click="sendLinkToEmail" class="btn btn-primary">Submit</button>
     </div>
 </template>
 <script>
@@ -18,18 +28,21 @@ export default {
             customer: {
                 email: ''
             },
-            errors: null
+            errors: '',
+            messages: ''
         }
     },
     methods: {
         sendLinkToEmail() {
-            apiUser.forgot(this.customer.email)
+            this.errors = '';
+            this.messages = '';
+            axios.post('/api/password/email', this.customer)
                 .then(res => {
-                    console.log(res.data)
+                    if(res.data.errors) this.errors = res.data.errors;
+                    this.messages = res.data.msg;
                 })
                 .catch(error =>  {
-                    console.log(res.error);
-                    this.errors = error;
+                    console.log(error);
                 })
         }
     }

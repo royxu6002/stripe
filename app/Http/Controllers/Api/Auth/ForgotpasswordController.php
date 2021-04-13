@@ -18,24 +18,24 @@ class ForgotpasswordController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api');
+    
     }
 
    public function sendResetLinkEmail(Request $request)
    {
 
-       $validator =$this->validateEmail($request->all());
+       $validator = $this->validateEmail($request->all());
 
         if($validator->fails()) {
             return response()->json([
-                'errors' => $validator->errors()
+                'errors' => $validator->getMessageBag()->toArray()
             ]);
         }
 
         $user = User::where('email', $request->email)->first();
         if(!$user) {
             return response()->json([
-                'errors' => 'Your email is not registerd at our website'
+                'msg' => 'Your email is not registerd at our website'
             ]);
         }
 
@@ -45,7 +45,7 @@ class ForgotpasswordController extends Controller
         $result = $user->sendPasswordResetNotification($token);
         if($result = false) {
             return response()->json([
-                'errors' => 'sorry, something has go wrong, please try again'
+                'msg' => 'sorry, something has go wrong, please try again'
             ]);
         } 
         
@@ -59,11 +59,6 @@ class ForgotpasswordController extends Controller
         return Validator::make($data, [
             'email' => 'email|required'
        ]);
-   }
-
-   public function findEmail($data)
-   {
-       return User::query()->where('email', $data);
    }
 
    public function broker()

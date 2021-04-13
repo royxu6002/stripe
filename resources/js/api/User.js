@@ -12,17 +12,25 @@ export default {
     update() {
         return axios.put(`/api/users/${id}`, data);
     },
-    login() {
+    login(data) {
         return axios.post('/api/login', data);
     },
-    loginSocial() {
-        return axios.post(`/api/${social}`, data)
+    logout() {
+        window.sessionStorage.removeItem('cle_store_token');
     },
-    forgot() {
+    loginSocial(data) {
+        return axios.post(`/api/${social}`, data);
+    },
+    register(data) {
+        return axios.post('/api/register', data);
+    },
+    forgot(data) {
         return axios.post('/api/password/email', data)
     },
-    reset() {
+    reset(data) {
         return axios.post('/api/password/reset', data)
+    },
+    confirm(data) {
+        return axios.post('/api/password/confirm', data)
     }
-    
 }

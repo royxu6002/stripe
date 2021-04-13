@@ -1,32 +1,42 @@
 <template>
-    <div class="login-pagen container col-lg-8 col-md-10 col-sm-12 col-xs-12">
-        <h4 class="mt-4 mb-3">Welcome, thanks for using our application</h4>
+    <div class="login-pagen container col-lg-6 col-md-10 col-sm-12 col-xs-12">
+        <h4 class="mt-4 mb-4">Welcome, thanks for using our application</h4>
         <div class="form-group">
             <label for="email">Email</label>
-            <p v-if="errors.email">{{errors.email}}</p>
-            <input type="text" class="form-control">
+            <div v-if="errors">
+                <p  
+                    v-for="(err, index) in errors.email" 
+                    :key="index" 
+                    class="alert alert-warning">
+                    <span>{{ err }}</span>
+                </p>
+            </div>
+            <div v-if="messages">
+                <p class="alert alert-info">
+                    {{messages}}
+                </p>
+            </div>
+            <input type="text" class="form-control" v-model="customer.email" name="email">
         </div>
         <div class="form-group">
             <label for="password">Password</label> 
             <router-link to="/forgotpassword">
              <span class="ml-4">Forgot password?</span>
             </router-link>
-            <p v-if="errors.password">{{errors.password}}</p>
-            <input type="password" class="form-control">
+            <div v-if="errors">
+                <p  v-for="(pas, index) in errors.password" :key="index" class="alert alert-warning">
+                    <span>{{ pas }}</span>
+                </p>
+            </div>
+            <input type="password" class="form-control" v-model="customer.password" name="password">
         </div>
-        <button class="btn btn-primary" @click="login">Submit</button>
+        <button class="btn btn-primary form-control" @click="loginUser">Submit</button>
         <p class="mt-3">
             I wanna be a member, please 
-            <span class="ml-3">
+            <span class="ml-2">
                <router-link to="/register">Sign up</router-link>
-        </span>
+            </span>
         </p>
-        <!-- <div class="socialization-button">
-            <span @click="loginSocial">Facebook</span>
-            <span>Twitter</span>
-            <span>Linkedin</span>
-            <span>Github</span>
-        </div> -->
     </div>
 </template>
 <script>
@@ -39,24 +49,22 @@ export default {
                 email: '',
                 password: ''
             },
-            errors: {
-            }
+            errors: '',
+            messages: ''
         }
     },
     methods: {
-        // loginSocial() {
-        //     apiUser.login()
-        //         .then(res => res.data)
-        //         .catch(err => alert(err))
-        // },
-        login() {
+        loginUser() {
+            this.errors = '';
+            this.messages = '';
             apiUser.login(this.customer)
                 .then(res => {
-                    console.log(res.data);
+                    if(res.data.errors) this.errors = res.data.errors;
                     window.sessionStorage.setItem('cle_store_token', res.data.cle_store_token);
+                    this.messages = res.data.msg;
                 })
                 .catch(err => {
-                    this.errors = err;
+                    console.log(err);
                 })
         }
     }

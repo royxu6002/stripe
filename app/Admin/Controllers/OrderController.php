@@ -50,6 +50,15 @@ class OrderController extends AdminController
         $show->field('user_id', __('User id'));
         $show->field('transaction_id', __('Transaction id'));
         $show->field('total', __('Total'));
+        $show->products('Products', function ($products) {
+            $products->resource('/admin/product');
+
+            $products->pivot('order_product.quantity');
+
+            $products->id();
+            $products->name();
+            $products->description()->limit(20);
+        });
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
