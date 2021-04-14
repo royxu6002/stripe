@@ -31,7 +31,7 @@
     </div>
 </template>
 <script>
-import apiUsers from "../../api/User";
+import axios from "axios";
 
 const getUsers = (page, callback) => {
     const params = { page };

@@ -16,7 +16,7 @@
       </li>
     </ul>
     <router-link 
-      class="py-2 d-none d-md-inline-block"
+      class="py-2 d-md-inline-block"
       :to="{name: 'order.checkout'}"
       >Cart ( {{ $store.state.cart.length }} ) Items        
     </router-link>

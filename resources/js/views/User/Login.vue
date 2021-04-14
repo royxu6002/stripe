@@ -62,6 +62,8 @@ export default {
                     if(res.data.errors) this.errors = res.data.errors;
                     window.sessionStorage.setItem('cle_store_token', res.data.cle_store_token);
                     this.messages = res.data.msg;
+                    this.$store.commit('auth/setUserData', res.data.user);
+                    this.$router.push('/user');
                 })
                 .catch(err => {
                     console.log(err);

@@ -59,6 +59,7 @@ class LoginController extends Controller
         ]);
         return \Response::make([
             'cle_store_token' => $token,
+            'user' => $user->with('orders.products')->where('email', $user->email)->get(),
             'msg' => 'You have logged in'
         ]);
     }
