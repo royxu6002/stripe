@@ -8,18 +8,20 @@
         <router-link to="/products" class="nav-link" data-toggle="dropdown">Products</router-link>
       </li>
       <li class="nav-item">
-        <router-link to="/login" class="nav-link">Sign In</router-link>
-      </li>
-      
-      <li class="nav-item">
         <router-link :to="{name: 'Users.Index'}" class="nav-link">Users</router-link>
       </li>
     </ul>
-    <router-link 
-      class="py-2 d-md-inline-block"
-      :to="{name: 'order.checkout'}"
-      >Cart ( {{ $store.state.cart.length }} ) Items        
-    </router-link>
+
+    <div class="nav-container-right">
+        <router-link to="/login" class="nav-link" v-if="!$store.state.auth.userInfo.length">Sign In</router-link>
+        <router-link :to="{name: 'Show'}" class="nav-link" v-else>Profile</router-link>
+        <router-link 
+          class="py-2 d-md-inline-block"
+          :to="{name: 'order.checkout'}">
+          Cart ( {{ $store.state.cart.length }} ) Items        
+        </router-link>
+    </div>
+    
   </nav>
 </template>
 <script>
@@ -28,7 +30,12 @@ export default {
 };
 </script>
 <style scoped>
-.nav-container {
+.nav-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-container-right{
   display: flex;
   justify-content: space-between;
 }

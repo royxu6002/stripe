@@ -1,7 +1,9 @@
 <template>
     <div class="container">
-        <div>this is index page for user after login</div>
-        <div class="card"
+        <h5 class="mt-3">My Order</h5> 
+        <span>{{ orderTotal | myCurrency }}</span>
+        <span>Total {{ orderQuantity }} orders</span>
+        <div class="card mb-3"
             v-for="(order, index) in userOrders.orders"
             :key="index">
             <div class="card-body">
@@ -12,7 +14,7 @@
                     :key="index" 
                     class="card-body-order-detail">
                     <div class="col-3 col-sm-4 col-md-3 col-lg-2">
-                        <img v-if="product.images" :src="'http://stripe.test/uploads/'+product.images[0]" alt="" width="100%">
+                        <img v-if="product.images" :src="GLOBAL.baseUrl+product.images[0]" alt="" width="100%">
                     </div>
                     <div class="col-9 col-sm-8 col-md-9 col-lg-10">
                         <h6 v-text="product.name">
@@ -38,7 +40,13 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('auth', ['userOrders'])
+        ...mapGetters('auth', ['userOrders']),
+        orderTotal() {
+            return this.userOrders.orders.reduce((acc, order) => acc + (order.total), 0);
+        },
+        orderQuantity() {
+            return this.userOrders.orders.length;
+        }
     },
     filters: {
         myCurrency(value) {

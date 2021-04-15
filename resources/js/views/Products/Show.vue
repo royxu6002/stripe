@@ -1,11 +1,11 @@
 <template>
-    <div class="container mx-auto">
+    <div class="container mx-auto mt-5">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="(image, index) in product[0].images" :key=index>
-                            <img :src="'http://stripe.test/uploads/'+ image " alt="" style="width:100%">
+                            <img :src="GLOBAL.baseUrl +image " alt="" style="width:100%">
                         </div>
                     </div>
                     <!-- 如果需要分页器 -->
@@ -34,11 +34,10 @@
                     <span
                         v-text="formatCurrency(product[0].price)"
                     ></span>
-
-                    <button @click="$store.commit('addToCart', product[0])">
+                </div>
+                 <button @click="$store.commit('addToCart', product[0])">
                         Add To Cart
                     </button>
-                </div>
             </div>
         </div>
     </div>

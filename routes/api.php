@@ -4,15 +4,16 @@ use Illuminate\Http\Request;
 
 Route::namespace('Api')->group(function() {
     Route::get('/users', 'UserController@index');
+    Route::get('/products', 'ProductController@index');
+    Route::get('/products/{product}', 'ProductController@show');
+    Route::get('/categories', 'CategoryController@index');
+    Route::get('/categories/{category}', 'CategoryController@show');
+
+    Route::post('/paypal', 'PaypalController@create');
+    Route::post('/stripe', 'UserController@purchase');
+
 });
 
-Route::get('/products', 'Api\ProductController@index');
-Route::get('/products/{product}', 'Api\ProductController@show');
-Route::get('/categories', 'Api\CategoryController@index');
-Route::get('/categories/{category}', 'Api\CategoryController@show');
-
-Route::post('/paypal', 'Api\PaypalController@create');
-Route::post('/stripe', 'Api\UserController@purchase');
 
 
 

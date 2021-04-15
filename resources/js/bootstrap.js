@@ -1,5 +1,3 @@
-// const { default: axios } = require('axios');
-
 // window._ = require('lodash');
 
 window.axios = require('axios');

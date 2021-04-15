@@ -11,11 +11,7 @@ class CategoryController extends Controller
     public function index()
     {
 
-        if(error) {
-            return error;
-        } else {
-            return Category::with('products')->get();
-        }
+        return Category::with('products')->get();
     }
 
     public function show(Category $category)

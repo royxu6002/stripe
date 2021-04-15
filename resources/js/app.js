@@ -3,7 +3,9 @@ require('./bootstrap');
 import Vue from "vue";
 import router from "./route/routes";
 import store from "./store/index";
-// import axios from "axios";
+
+import baseUrl from "./api/baseUrl";
+Vue.prototype.GLOBAL = baseUrl;
 
 axios.interceptors.request.use((config) => {
     config.headers['Authorization'] = `Bearer ${window.sessionStorage.getItem('cle_store_token')}`;
