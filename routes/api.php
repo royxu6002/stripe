@@ -9,11 +9,10 @@ Route::namespace('Api')->group(function() {
     Route::get('/categories', 'CategoryController@index');
     Route::get('/categories/{category}', 'CategoryController@show');
 
-    Route::post('/paypal', 'PaypalController@create');
-    Route::post('/stripe', 'UserController@purchase');
-
+    Route::post('/paypal', 'UserController@paypal');
+    Route::post('/stripe', 'UserController@stripe');
+    Route::post('/bank', 'UserController@bank');
 });
-
 
 
 

@@ -65406,16 +65406,16 @@ var render = function() {
       "div",
       { staticClass: "nav-container-right" },
       [
-        !_vm.$store.state.auth.userInfo.length
+        _vm.$store.state.auth.userInfo
           ? _c(
-              "router-link",
-              { staticClass: "nav-link", attrs: { to: "/login" } },
-              [_vm._v("Sign In")]
-            )
-          : _c(
               "router-link",
               { staticClass: "nav-link", attrs: { to: { name: "Show" } } },
               [_vm._v("Profile")]
+            )
+          : _c(
+              "router-link",
+              { staticClass: "nav-link", attrs: { to: "/login" } },
+              [_vm._v("Sign In")]
             ),
         _vm._v(" "),
         _c(
@@ -82345,7 +82345,6 @@ var guest = function guest(to, from, next) {
 
 var auth = function auth(to, from, next) {
   if (window.sessionStorage.getItem('cle_store_token')) return next();
-  console.log('here');
   next({
     name: 'Login'
   });
@@ -82370,7 +82369,7 @@ var routes = [{
   path: '/checkout',
   name: 'order.checkout',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(12), __webpack_require__.e(0)]).then(__webpack_require__.bind(null, /*! ../views/Order/Checkout.vue */ "./resources/js/views/Order/Checkout.vue"));
+    return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../views/Order/Checkout.vue */ "./resources/js/views/Order/Checkout.vue"));
   }
 }, {
   path: '/summary',
@@ -82382,7 +82381,7 @@ var routes = [{
   path: '/about',
   name: 'About',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../views/About.vue */ "./resources/js/views/About.vue"));
+    return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/About.vue */ "./resources/js/views/About.vue"));
   }
 }, {
   path: '/login',
@@ -82451,11 +82450,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 var state = {
-  userInfo: []
+  userInfo: null
 };
 var getters = {
   userOrders: function userOrders(state) {
-    return state.userInfo[0];
+    return state.userInfo.orders;
   }
 };
 var mutations = {
@@ -82556,7 +82555,9 @@ var shopcart = JSON.parse(window.localStorage.getItem('cle_takeout') || '[]');
   modules: {
     auth: _auth__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  plugins: [Object(vuex_persistedstate__WEBPACK_IMPORTED_MODULE_4__["default"])()]
+  plugins: [Object(vuex_persistedstate__WEBPACK_IMPORTED_MODULE_4__["default"])({
+    storage: window.sessionStorage
+  })]
 }));
 
 /***/ }),

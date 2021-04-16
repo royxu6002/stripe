@@ -1,10 +1,10 @@
 import axios from "axios";
 const state = {
-    userInfo: []
+    userInfo: null,
 }
 const getters = {
     userOrders(state) {
-        return state.userInfo[0];
+        return state.userInfo.orders;
     }
 };
 const mutations = {

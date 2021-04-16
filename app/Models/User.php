@@ -30,4 +30,14 @@ class User extends Authenticatable
         $this->notify(new ResetPasswordNotification($token));
     }
 
+    public function invoiceaddresses()
+    {
+        return $this->hasMany(InvoiceAddress::class);
+    }
+
+    public function consigneeaddresses()
+    {
+        return $this->hasMany(ConsigneeAddress::class);
+    }
+
 }

@@ -55,12 +55,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('auth', ['userOrders'])), {}, {
     orderTotal: function orderTotal() {
-      return this.userOrders.orders.reduce(function (acc, order) {
+      return this.userOrders.reduce(function (acc, order) {
         return acc + order.total;
       }, 0);
     },
     orderQuantity: function orderQuantity() {
-      return this.userOrders.orders.length;
+      return this.userOrders.length;
     }
   }),
   filters: {
@@ -142,11 +142,15 @@ var render = function() {
     [
       _c("h5", { staticClass: "mt-3" }, [_vm._v("My Order")]),
       _vm._v(" "),
-      _c("span", [_vm._v(_vm._s(_vm._f("myCurrency")(_vm.orderTotal)))]),
+      _vm.userOrders
+        ? _c("span", [_vm._v(_vm._s(_vm._f("myCurrency")(_vm.orderTotal)))])
+        : _vm._e(),
       _vm._v(" "),
-      _c("span", [_vm._v("Total " + _vm._s(_vm.orderQuantity) + " orders")]),
+      _vm.userOrders
+        ? _c("span", [_vm._v("Total " + _vm._s(_vm.orderQuantity) + " orders")])
+        : _vm._e(),
       _vm._v(" "),
-      _vm._l(_vm.userOrders.orders, function(order, index) {
+      _vm._l(_vm.userOrders, function(order, index) {
         return _c("div", { key: index, staticClass: "card mb-3" }, [
           _c(
             "div",

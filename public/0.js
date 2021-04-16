@@ -1,5 +1,252 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[0],{
 
+/***/ "./node_modules/@paypal/paypal-js/dist/paypal.esm.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@paypal/paypal-js/dist/paypal.esm.js ***!
+  \***********************************************************/
+/*! exports provided: loadCustomScript, loadScript, version */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadCustomScript", function() { return loadCustomScript; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadScript", function() { return loadScript; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "version", function() { return version; });
+/*!
+ * paypal-js v3.1.6 (2021-04-02T19:09:10.301Z)
+ * Copyright 2020-present, PayPal, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+function findScript(url, attributes) {
+  var currentScript = document.querySelector("script[src=\"".concat(url, "\"]"));
+  if (currentScript === null) return null;
+  var nextScript = createScriptElement(url, attributes); // ignore the data-uid-auto attribute that gets auto-assigned to every script tag
+
+  var currentScriptDataset = Object.assign({}, currentScript.dataset);
+  delete currentScriptDataset.uidAuto; // check if the new script has the same number of data attributes
+
+  if (Object.keys(currentScriptDataset).length !== Object.keys(nextScript.dataset).length) {
+    return null;
+  }
+
+  var isExactMatch = true; // check if the data attribute values are the same
+
+  Object.keys(currentScriptDataset).forEach(function (key) {
+    if (currentScriptDataset[key] !== nextScript.dataset[key]) {
+      isExactMatch = false;
+    }
+  });
+  return isExactMatch ? currentScript : null;
+}
+function insertScriptElement(_ref) {
+  var url = _ref.url,
+      attributes = _ref.attributes,
+      onSuccess = _ref.onSuccess,
+      onError = _ref.onError;
+  var newScript = createScriptElement(url, attributes);
+  newScript.onerror = onError;
+  newScript.onload = onSuccess;
+  document.head.insertBefore(newScript, document.head.firstElementChild);
+}
+function processOptions(options) {
+  var sdkBaseURL = "https://www.paypal.com/sdk/js";
+
+  if (options.sdkBaseURL) {
+    sdkBaseURL = options.sdkBaseURL;
+    delete options.sdkBaseURL;
+  }
+
+  var processedMerchantIDAttributes = processMerchantID(options["merchant-id"], options["data-merchant-id"]);
+  var newOptions = Object.assign({}, options, processedMerchantIDAttributes);
+
+  var _Object$keys$filter$r = Object.keys(newOptions).filter(function (key) {
+    return typeof newOptions[key] !== "undefined" && newOptions[key] !== null && newOptions[key] !== "";
+  }).reduce(function (accumulator, key) {
+    var value = newOptions[key].toString();
+
+    if (key.substring(0, 5) === "data-") {
+      accumulator.dataAttributes[key] = value;
+    } else {
+      accumulator.queryParams[key] = value;
+    }
+
+    return accumulator;
+  }, {
+    queryParams: {},
+    dataAttributes: {}
+  }),
+      queryParams = _Object$keys$filter$r.queryParams,
+      dataAttributes = _Object$keys$filter$r.dataAttributes;
+
+  return {
+    url: "".concat(sdkBaseURL, "?").concat(objectToQueryString(queryParams)),
+    dataAttributes: dataAttributes
+  };
+}
+function objectToQueryString(params) {
+  var queryString = "";
+  Object.keys(params).forEach(function (key) {
+    if (queryString.length !== 0) queryString += "&";
+    queryString += key + "=" + params[key];
+  });
+  return queryString;
+}
+
+function createScriptElement(url) {
+  var attributes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var newScript = document.createElement("script");
+  newScript.src = url;
+  Object.keys(attributes).forEach(function (key) {
+    newScript.setAttribute(key, attributes[key]);
+
+    if (key === "data-csp-nonce") {
+      newScript.setAttribute("nonce", attributes["data-csp-nonce"]);
+    }
+  });
+  return newScript;
+}
+
+function processMerchantID(merchantID, dataMerchantID) {
+  var newMerchantID = "";
+  var newDataMerchantID = "";
+
+  if (Array.isArray(merchantID)) {
+    if (merchantID.length > 1) {
+      newMerchantID = "*";
+      newDataMerchantID = merchantID.toString();
+    } else {
+      newMerchantID = merchantID.toString();
+    }
+  } else if (typeof merchantID === "string" && merchantID.length > 0) {
+    newMerchantID = merchantID;
+  } else if (typeof dataMerchantID === "string" && dataMerchantID.length > 0) {
+    newMerchantID = "*";
+    newDataMerchantID = dataMerchantID;
+  }
+
+  return {
+    "merchant-id": newMerchantID,
+    "data-merchant-id": newDataMerchantID
+  };
+}
+
+/**
+ * Load the Paypal JS SDK script asynchronously.
+ *
+ * @param {Object} options - used to configure query parameters and data attributes for the JS SDK.
+ * @param {PromiseConstructor} [PromisePonyfill=window.Promise] - optional Promise Constructor ponyfill.
+ * @return {Promise<Object>} paypalObject - reference to the global window PayPal object.
+ */
+
+function loadScript(options) {
+  var PromisePonyfill = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : getDefaultPromiseImplementation();
+  validateArguments(options, PromisePonyfill); // resolve with null when running in Node
+
+  if (typeof window === "undefined") return PromisePonyfill.resolve(null);
+
+  var _processOptions = processOptions(options),
+      url = _processOptions.url,
+      dataAttributes = _processOptions.dataAttributes;
+
+  var namespace = dataAttributes["data-namespace"] || "paypal";
+  var existingWindowNamespace = getPayPalWindowNamespace(namespace); // resolve with the existing global paypal namespace when a script with the same params already exists
+
+  if (findScript(url, dataAttributes) && existingWindowNamespace) {
+    return PromisePonyfill.resolve(existingWindowNamespace);
+  }
+
+  return loadCustomScript({
+    url: url,
+    attributes: dataAttributes
+  }, PromisePonyfill).then(function () {
+    var newWindowNamespace = getPayPalWindowNamespace(namespace);
+
+    if (newWindowNamespace) {
+      return newWindowNamespace;
+    }
+
+    throw new Error("The window.".concat(namespace, " global variable is not available."));
+  });
+}
+/**
+ * Load a custom script asynchronously.
+ *
+ * @param {Object} options - used to set the script url and attributes.
+ * @param {PromiseConstructor} [PromisePonyfill=window.Promise] - optional Promise Constructor ponyfill.
+ * @return {Promise<void>} returns a promise to indicate if the script was successfully loaded.
+ */
+
+function loadCustomScript(options) {
+  var PromisePonyfill = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : getDefaultPromiseImplementation();
+  validateArguments(options, PromisePonyfill);
+  var url = options.url,
+      attributes = options.attributes;
+
+  if (typeof url !== "string" || url.length === 0) {
+    throw new Error("Invalid url.");
+  }
+
+  if (typeof attributes !== "undefined" && typeof attributes !== "object") {
+    throw new Error("Expected attributes to be an object.");
+  }
+
+  return new PromisePonyfill(function (resolve, reject) {
+    // resolve with undefined when running in Node
+    if (typeof window === "undefined") return resolve();
+    insertScriptElement({
+      url: url,
+      attributes: attributes,
+      onSuccess: function onSuccess() {
+        return resolve();
+      },
+      onError: function onError() {
+        return reject(new Error("The script \"".concat(url, "\" failed to load.")));
+      }
+    });
+  });
+}
+
+function getDefaultPromiseImplementation() {
+  if (typeof Promise === "undefined") {
+    throw new Error("Promise is undefined. To resolve the issue, use a Promise polyfill.");
+  }
+
+  return Promise;
+}
+
+function getPayPalWindowNamespace(namespace) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return window[namespace];
+}
+
+function validateArguments(options, PromisePonyfill) {
+  if (typeof options !== "object" || options === null) {
+    throw new Error("Expected an options object.");
+  }
+
+  if (typeof PromisePonyfill !== "undefined" && typeof PromisePonyfill !== "function") {
+    throw new Error("Expected PromisePonyfill to be a function.");
+  }
+}
+
+var version = "3.1.6";
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Order/Checkout.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Order/Checkout.vue?vue&type=script&lang=js& ***!
@@ -9,14 +256,13 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _paypal_paypal_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @paypal/paypal-js */ "./node_modules/@paypal/paypal-js/dist/paypal.esm.js");
+/* harmony import */ var _paypal_paypal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @paypal/paypal-js */ "./node_modules/@paypal/paypal-js/dist/paypal.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -186,6 +432,162 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -193,22 +595,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       customer: {
         first_name: '',
         last_name: '',
+        company_name: '',
         email: '',
         phone: '',
         address: '',
         city: '',
         country: '',
         state: '',
-        zip_code: ''
+        zip_code: '',
+        consignee: {}
       },
+      consignee: '',
       paymentProcessing: false,
       stripe: {},
       cardElement: {},
       paypal: {},
-      paymentMethod: ''
+      paymentMethod: '',
+      errors: '',
+      messages: ''
     };
   },
-  computed: {
+  computed: _objectSpread({
     cart: function cart() {
       return this.$store.state.cart;
     },
@@ -227,36 +634,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         currency: "USD"
       });
     }
-  },
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])('auth', ['userInfo'])),
   mounted: function mounted() {
-    var _this = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _this.paypal = Object(_paypal_paypal_js__WEBPACK_IMPORTED_MODULE_1__["loadScript"])({
-                'client-id': 'ARGvGYQJqTPeIGweb2kuhzefstiR98ZHm8qeaXjppCDgYWwvUrf4gui01o3qUPwSI-N4vsyQjUcfuN5c'
-              });
-              _context.t0 = _this.paypal;
-              _context.next = 4;
-              return _this.loadPaypalButton;
-
-            case 4:
-              _context.t1 = _context.sent;
-
-              _context.t0.then.call(_context.t0, _context.t1)["catch"](function (err) {
-                return console.error('failed to load paypal js sdk script', err);
-              });
-
-            case 6:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }))();
+    this.paypal = Object(_paypal_paypal_js__WEBPACK_IMPORTED_MODULE_0__["loadScript"])({
+      'client-id': 'ARGvGYQJqTPeIGweb2kuhzefstiR98ZHm8qeaXjppCDgYWwvUrf4gui01o3qUPwSI-N4vsyQjUcfuN5c'
+    });
+    this.paypal.then(this.loadPaypalButton)["catch"](function (err) {
+      return console.error('failed to load paypal js sdk script', err);
+    });
   },
   methods: {
     cartLineTotal: function cartLineTotal(item) {
@@ -268,7 +653,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     loadPaypalButton: function loadPaypalButton() {
-      var _this2 = this;
+      var _this = this;
 
       paypal.Buttons({
         // 必须使用 =>函数 
@@ -276,21 +661,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           return actions.order.create({
             purchase_units: [{
               amount: {
-                value: _this2.$store.state.cart.reduce(function (acc, item) {
+                value: _this.$store.state.cart.reduce(function (acc, item) {
                   return acc + item.price * item.quantity;
                 }, 0) / 100,
                 currency_code: 'USD',
                 "breakdown": {
                   "item_total": {
                     "currency_code": "USD",
-                    "value": _this2.$store.state.cart.reduce(function (acc, item) {
+                    "value": _this.$store.state.cart.reduce(function (acc, item) {
                       return acc + item.price * item.quantity;
                     }, 0) / 100
                   }
                 }
               },
               // 重构 cart 数组
-              items: _this2.$store.state.cart.map(function (item) {
+              items: _this.$store.state.cart.map(function (item) {
                 return {
                   "name": item.name,
                   "unit_amount": {
@@ -320,29 +705,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }).then(function (res) {
               return res.json();
             }).then(function (data) {
-              console.log(data);
+              _this.$store.commit('updateOrder', data);
 
-              _this2.$store.commit('updateOrder', data);
+              _this.$store.dispatch('clearCart');
 
-              _this2.$store.dispatch('clearCart');
-
-              _this2.$router.push({
+              _this.$router.push({
                 name: 'order.summary'
               });
             })["catch"](function (error) {
-              return console.error('Error:', error);
+              console.error('Error:', error);
+              _this.paymentProcessing = false;
             });
           });
         }
       }).render('#paypalbutton');
     },
     bankTransfer: function bankTransfer() {
+      var _this2 = this;
+
+      this.paymentProcessing = true;
       this.customer.cart = JSON.stringify(this.$store.state.cart);
       this.customer.amount = this.$store.state.cart.reduce(function (acc, item) {
         return acc + item.price * item.quantity;
-      }, 0);
+      }, 0); // 把 consignee的 值传到后台, if 判断来决定 consignee 的地址, if same, copy invoice_address, if different, create;
+
+      console.log(this.customer);
+      this.customer.ic_address = this.consignee;
       axios.post('/api/bank', this.customer).then(function (res) {
         console.log(res.data);
+
+        _this2.$store.commit('updateOrder', res.data);
+
+        _this2.$store.dispatch('clearCart'); // this.$router.push({name: 'order.summary'});
+
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -418,275 +813,806 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row mt-3" }, [
-      _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12 col-xs-12" }, [
-        _c("h4", { staticClass: "mt-3 mb-3 ml-3" }, [
-          _vm._v("Billing Details")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-12" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.customer.first_name,
-                expression: "customer.first_name"
-              }
+      _vm.$store.state.auth.userInfo
+        ? _c(
+            "div",
+            { staticClass: "col-lg-6 col-md-6 col-sm-12 col-xs-12" },
+            [
+              _c("div", { staticClass: "card" }, [
+                _c("p", [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.userInfo.name) +
+                      "\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.userInfo.phone) +
+                      "\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(_vm.userInfo.email))]),
+                _vm._v(" "),
+                _vm.userInfo.address
+                  ? _c("p", [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.userInfo.address) +
+                          "\n                    " +
+                          _vm._s(_vm.userInfo.city) +
+                          "\n                    " +
+                          _vm._s(_vm.userInfo.state) +
+                          "\n                    " +
+                          _vm._s(_vm.userInfo.zip_code) +
+                          "\n                    " +
+                          _vm._s(_vm.userInfo.country) +
+                          "\n                "
+                      )
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.userInfo.addresses, function(address, index) {
+                return _vm.userInfo.addresses
+                  ? _c("div", { key: index, staticClass: "card" }, [
+                      _c("p", [_vm._v(_vm._s(address.phone))])
+                    ])
+                  : _vm._e()
+              })
             ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              id: "first_name",
-              name: "first_name",
-              disabled: _vm.paymentProcessing,
-              placeholder: "James"
-            },
-            domProps: { value: _vm.customer.first_name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.customer, "first_name", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-12" }, [
-          _c("label", { attrs: { for: "last_name" } }, [_vm._v("Last name")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.customer.last_name,
-                expression: "customer.last_name"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              id: "last_name",
-              name: "last_name",
-              disabled: _vm.paymentProcessing,
-              placeholder: "Blunt"
-            },
-            domProps: { value: _vm.customer.last_name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.customer, "last_name", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-12" }, [
-          _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.customer.email,
-                expression: "customer.email"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "email",
-              id: "email",
-              name: "email",
-              disabled: _vm.paymentProcessing,
-              placeholder: "example@example.com"
-            },
-            domProps: { value: _vm.customer.email },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.customer, "email", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "form-text text-muted" }, [
-            _vm._v("We'll never shall your details")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-12" }, [
-          _c("label", { attrs: { for: "address" } }, [_vm._v("Address")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.customer.address,
-                expression: "customer.address"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              id: "address",
-              name: "address",
-              disabled: _vm.paymentProcessing,
-              placeholder: "Room 43, Suit Job. Street 129"
-            },
-            domProps: { value: _vm.customer.address },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.customer, "address", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-12" }, [
-          _c("label", { attrs: { for: "city" } }, [_vm._v("City")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.customer.city,
-                expression: "customer.city"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              id: "city",
-              name: "city",
-              disabled: _vm.paymentProcessing,
-              placeholder: "New York"
-            },
-            domProps: { value: _vm.customer.city },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.customer, "city", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-12" }, [
-          _c("label", { attrs: { for: "state" } }, [_vm._v("State")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.customer.state,
-                expression: "customer.state"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              id: "state",
-              name: "state",
-              disabled: _vm.paymentProcessing,
-              placeholder: "California"
-            },
-            domProps: { value: _vm.customer.state },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.customer, "state", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-12" }, [
-          _c("label", { attrs: { for: "zip_code" } }, [_vm._v("Zip Code")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.customer.zip_code,
-                expression: "customer.zip_code"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              id: "zip_code",
-              name: "zip_code",
-              disabled: _vm.paymentProcessing,
-              placeholder: "786EJ"
-            },
-            domProps: { value: _vm.customer.zip_code },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.customer, "zip_code", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-12" }, [
-          _c("label", { attrs: { for: "country" } }, [_vm._v("Country")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.customer.country,
-                expression: "customer.country"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              id: "country",
-              name: "country",
-              disabled: _vm.paymentProcessing,
-              placeholder: "USA"
-            },
-            domProps: { value: _vm.customer.country },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.customer, "country", $event.target.value)
-              }
-            }
-          })
-        ])
-      ]),
+            2
+          )
+        : _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12 col-xs-12" }, [
+            _c("div", { staticClass: "billing-details-wrap" }, [
+              _c("h4", { staticClass: "mt-3 mb-3 ml-3" }, [
+                _vm._v("Billing Details")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.customer.first_name,
+                      expression: "customer.first_name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "first_name",
+                    name: "first_name",
+                    disabled: _vm.paymentProcessing,
+                    placeholder: "James"
+                  },
+                  domProps: { value: _vm.customer.first_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.customer, "first_name", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "last_name" } }, [
+                  _vm._v("Last name")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.customer.last_name,
+                      expression: "customer.last_name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "last_name",
+                    name: "last_name",
+                    disabled: _vm.paymentProcessing,
+                    placeholder: "Blunt"
+                  },
+                  domProps: { value: _vm.customer.last_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.customer, "last_name", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "company_name" } }, [
+                  _vm._v("Company name")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.customer.company_name,
+                      expression: "customer.company_name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "company_name",
+                    name: "company_name",
+                    disabled: _vm.paymentProcessing,
+                    placeholder: "Blunt"
+                  },
+                  domProps: { value: _vm.customer.company_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.customer,
+                        "company_name",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.customer.email,
+                      expression: "customer.email"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "email",
+                    id: "email",
+                    name: "email",
+                    disabled: _vm.paymentProcessing,
+                    placeholder: "example@example.com"
+                  },
+                  domProps: { value: _vm.customer.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.customer, "email", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", { staticClass: "form-text text-muted" }, [
+                  _vm._v("We'll never share your details to third parties")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "phone" } }, [_vm._v("Phone")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.customer.phone,
+                      expression: "customer.phone"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "phone",
+                    name: "phone",
+                    disabled: _vm.paymentProcessing,
+                    placeholder: "+190899888"
+                  },
+                  domProps: { value: _vm.customer.phone },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.customer, "phone", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", { staticClass: "form-text text-muted" }, [
+                  _vm._v("Need phone contact for goods collection")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "address" } }, [_vm._v("Address")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.customer.address,
+                      expression: "customer.address"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "address",
+                    name: "address",
+                    disabled: _vm.paymentProcessing,
+                    placeholder: "Room 43, Suit Job. Street 129"
+                  },
+                  domProps: { value: _vm.customer.address },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.customer, "address", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "city" } }, [_vm._v("City")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.customer.city,
+                      expression: "customer.city"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "city",
+                    name: "city",
+                    disabled: _vm.paymentProcessing,
+                    placeholder: "New York"
+                  },
+                  domProps: { value: _vm.customer.city },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.customer, "city", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "state" } }, [_vm._v("State")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.customer.state,
+                      expression: "customer.state"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "state",
+                    name: "state",
+                    disabled: _vm.paymentProcessing,
+                    placeholder: "California"
+                  },
+                  domProps: { value: _vm.customer.state },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.customer, "state", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "zip_code" } }, [
+                  _vm._v("Zip Code")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.customer.zip_code,
+                      expression: "customer.zip_code"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "zip_code",
+                    name: "zip_code",
+                    disabled: _vm.paymentProcessing,
+                    placeholder: "786EJ"
+                  },
+                  domProps: { value: _vm.customer.zip_code },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.customer, "zip_code", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "country" } }, [_vm._v("Country")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.customer.country,
+                      expression: "customer.country"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "country",
+                    name: "country",
+                    disabled: _vm.paymentProcessing,
+                    placeholder: "USA"
+                  },
+                  domProps: { value: _vm.customer.country },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.customer, "country", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "billing-consignee-option" }, [
+              _c("div", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.consignee,
+                      expression: "consignee"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "same" },
+                  domProps: { checked: _vm._q(_vm.consignee, "same") },
+                  on: {
+                    change: function($event) {
+                      _vm.consignee = "same"
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }, [
+                  _vm._v("Ship to same place")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.consignee,
+                      expression: "consignee"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "different" },
+                  domProps: { checked: _vm._q(_vm.consignee, "different") },
+                  on: {
+                    change: function($event) {
+                      _vm.consignee = "different"
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }, [
+                  _vm._v("Ship to another place")
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _vm.consignee == "different"
+              ? _c("div", { staticClass: "consignee-details-wrap" }, [
+                  _c("h4", { staticClass: "mt-3 mb-3 ml-3" }, [
+                    _vm._v("Consignee Details")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-12" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.customer.consignee.first_name,
+                          expression: "customer.consignee.first_name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "c_first_name",
+                        name: "c_first_name",
+                        disabled: _vm.paymentProcessing,
+                        placeholder: "James"
+                      },
+                      domProps: { value: _vm.customer.consignee.first_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.customer.consignee,
+                            "first_name",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-12" }, [
+                    _c("label", { attrs: { for: "c_last_name" } }, [
+                      _vm._v("Last name")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.customer.consignee.last_name,
+                          expression: "customer.consignee.last_name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "c_last_name",
+                        name: "c_last_name",
+                        disabled: _vm.paymentProcessing,
+                        placeholder: "Blunt"
+                      },
+                      domProps: { value: _vm.customer.consignee.last_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.customer.consignee,
+                            "last_name",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-12" }, [
+                    _c("label", { attrs: { for: "c_company_name" } }, [
+                      _vm._v("Company name")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.customer.consignee.company_name,
+                          expression: "customer.consignee.company_name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "c_company_name",
+                        name: "c_company_name",
+                        disabled: _vm.paymentProcessing,
+                        placeholder: "Blunt"
+                      },
+                      domProps: { value: _vm.customer.consignee.company_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.customer.consignee,
+                            "company_name",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-12" }, [
+                    _c("label", { attrs: { for: "c_phone" } }, [
+                      _vm._v("Phone")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.customer.consignee.phone,
+                          expression: "customer.consignee.phone"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "c_phone",
+                        name: "c_phone",
+                        disabled: _vm.paymentProcessing,
+                        placeholder: "+190899888"
+                      },
+                      domProps: { value: _vm.customer.consignee.phone },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.customer.consignee,
+                            "phone",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "form-text text-muted" }, [
+                      _vm._v("Need phone contact for goods collection")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-12" }, [
+                    _c("label", { attrs: { for: "address" } }, [
+                      _vm._v("Address")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.customer.consignee.address,
+                          expression: "customer.consignee.address"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "c_address",
+                        name: "c_address",
+                        disabled: _vm.paymentProcessing,
+                        placeholder: "Room 43, Suit Job. Street 129"
+                      },
+                      domProps: { value: _vm.customer.consignee.address },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.customer.consignee,
+                            "address",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-12" }, [
+                    _c("label", { attrs: { for: "city" } }, [_vm._v("City")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.customer.consignee.city,
+                          expression: "customer.consignee.city"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "c_city",
+                        name: "c_city",
+                        disabled: _vm.paymentProcessing,
+                        placeholder: "New York"
+                      },
+                      domProps: { value: _vm.customer.consignee.city },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.customer.consignee,
+                            "city",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-12" }, [
+                    _c("label", { attrs: { for: "state" } }, [_vm._v("State")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.customer.consignee.state,
+                          expression: "customer.consignee.state"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "c_state",
+                        name: "c_state",
+                        disabled: _vm.paymentProcessing,
+                        placeholder: "California"
+                      },
+                      domProps: { value: _vm.customer.consignee.state },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.customer.consignee,
+                            "state",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-12" }, [
+                    _c("label", { attrs: { for: "zip_code" } }, [
+                      _vm._v("Zip Code")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.customer.consignee.zip_code,
+                          expression: "customer.consignee.zip_code"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "c_zip_code",
+                        name: "c_zip_code",
+                        disabled: _vm.paymentProcessing,
+                        placeholder: "786EJ"
+                      },
+                      domProps: { value: _vm.customer.consignee.zip_code },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.customer.consignee,
+                            "zip_code",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-12" }, [
+                    _c("label", { attrs: { for: "country" } }, [
+                      _vm._v("Country")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.customer.consignee.country,
+                          expression: "customer.consignee.country"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "c_country",
+                        name: "c_country",
+                        disabled: _vm.paymentProcessing,
+                        placeholder: "USA"
+                      },
+                      domProps: { value: _vm.customer.consignee.country },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.customer.consignee,
+                            "country",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ])
+              : _vm._e()
+          ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12 col-xs-12" }, [
         _c("table", { staticClass: "table table-striped" }, [
-          _vm._m(1),
+          _vm._m(2),
           _vm._v(" "),
           _c(
             "tbody",
@@ -756,7 +1682,11 @@ var render = function() {
                   expression: "paymentMethod"
                 }
               ],
-              attrs: { type: "radio", value: "paypal" },
+              attrs: {
+                type: "radio",
+                value: "paypal",
+                disabled: _vm.paymentProcessing
+              },
               domProps: { checked: _vm._q(_vm.paymentMethod, "paypal") },
               on: {
                 change: function($event) {
@@ -816,7 +1746,7 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(2)
+            _vm._m(3)
           ]),
           _vm._v(" "),
           _c(
@@ -848,6 +1778,15 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("First Name "),
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

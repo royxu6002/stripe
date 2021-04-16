@@ -9,7 +9,6 @@ const guest = (to, from, next) => {
   
 const auth = (to, from, next) => {
     if(window.sessionStorage.getItem('cle_store_token')) return next();
-    console.log('here');
     next({name: 'Login'});
 };
 

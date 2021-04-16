@@ -1,10 +1,10 @@
 <template>
     <div class="container">
         <h5 class="mt-3">My Order</h5> 
-        <span>{{ orderTotal | myCurrency }}</span>
-        <span>Total {{ orderQuantity }} orders</span>
+        <span v-if="userOrders">{{ orderTotal | myCurrency }}</span>
+        <span v-if="userOrders">Total {{ orderQuantity }} orders</span>
         <div class="card mb-3"
-            v-for="(order, index) in userOrders.orders"
+            v-for="(order, index) in userOrders"
             :key="index">
             <div class="card-body">
                 <h5 v-text="order.transaction_id"></h5>
@@ -42,10 +42,10 @@ export default {
     computed: {
         ...mapGetters('auth', ['userOrders']),
         orderTotal() {
-            return this.userOrders.orders.reduce((acc, order) => acc + (order.total), 0);
+            return this.userOrders.reduce((acc, order) => acc + (order.total), 0);
         },
         orderQuantity() {
-            return this.userOrders.orders.length;
+            return this.userOrders.length;
         }
     },
     filters: {

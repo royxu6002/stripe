@@ -13,8 +13,8 @@
     </ul>
 
     <div class="nav-container-right">
-        <router-link to="/login" class="nav-link" v-if="!$store.state.auth.userInfo.length">Sign In</router-link>
-        <router-link :to="{name: 'Show'}" class="nav-link" v-else>Profile</router-link>
+        <router-link :to="{name: 'Show'}" class="nav-link" v-if="$store.state.auth.userInfo">Profile</router-link>
+        <router-link to="/login" class="nav-link" v-else>Sign In</router-link>
         <router-link 
           class="py-2 d-md-inline-block"
           :to="{name: 'order.checkout'}">
