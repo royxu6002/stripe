@@ -8,12 +8,12 @@
         <router-link to="/products" class="nav-link" data-toggle="dropdown">Products</router-link>
       </li>
       <li class="nav-item">
-        <router-link :to="{name: 'Users.Index'}" class="nav-link">Users</router-link>
+        <router-link to="/users" class="nav-link">Users</router-link>
       </li>
     </ul>
 
     <div class="nav-container-right">
-        <router-link :to="{name: 'Show'}" class="nav-link" v-if="$store.state.auth.userInfo">Profile</router-link>
+        <router-link :to="{name: 'UserProfile', params: {user: $store.state.auth.userInfo.id}}" class="nav-link" v-if="$store.state.auth.userInfo">Profile</router-link>
         <router-link to="/login" class="nav-link" v-else>Sign In</router-link>
         <router-link 
           class="py-2 d-md-inline-block"

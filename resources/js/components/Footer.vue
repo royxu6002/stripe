@@ -23,20 +23,6 @@
         </svg>
         <small class="d-block mb-3 text-muted">© 2021</small>
       </div>
-      <div class="col-6 col-md">
-        <h5>Resources</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="link-secondary" href="#">Manual</a></li>
-          <li><a class="link-secondary" href="#">Color Box</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-md">
-        <h5>About</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="link-secondary" href="#">Government</a></li>
-          <li><a class="link-secondary" href="#">Gaming</a></li>
-        </ul>
-      </div>
     </div>
   </footer>
 </template>

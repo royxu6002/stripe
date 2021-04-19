@@ -10,6 +10,7 @@ use App\Models\User;
 use Hash;
 use Str;
 use Auth;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -49,9 +50,7 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
         $user = User::where('email', $request->email)->first();
         if(!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'msg' => 'username/password does not match'
-            ]);
+            return $this->sendFailedLoginResponse($request);
         }
         $token = Str::random(80);
         $user->update([
@@ -67,6 +66,13 @@ class LoginController extends Controller
     public function username()
     {
         return 'email';
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        $message = collect(['errors' => ['email' => ['password/email does not match']]]);
+
+        return $message->toArray();
     }
 
     public function logout(Request $request)

@@ -76,10 +76,48 @@ const routes =  [
         beforeEnter: auth,
     },
     {
-        path: '/user',
-        name: 'Show',
+        path: '/user/:user',
         component: () => import('../views/User/Show.vue'),
+        children: [
+            {
+                path: '/user/:user/profile',
+                name: 'UserProfile',
+                component: () => import('../views/User/Profile.vue')
+            },
+            {
+                path: '/user/:user/address',
+                name: 'UserAddress',
+                component: () => import('../views/User/Address.vue'),
+            },
+            {
+                path: '/user/:user/order',
+                name: 'UserOrder',
+                component: () => import('../views/User/Order.vue')
+            },
+            {
+                path: '/',
+                redirect: '/user/profile'
+            }
+        ]
+    },
+    {
+        path: '/user/:user/address/:address/edit',
+        name: 'AddressEdit',
+        component: () => import('../views/Address/Edit.vue')
+    },
+    {
+        path: '/user/:user/address/create',
+        name: 'AddressCreate',
+        component: () => import('../views/Address/Create.vue')
+    },
+    {
+        path: '/user/:user/order/:order',
+        name: 'OrderReview',
+        component: () => import('../views/Order/Show.vue'),
     }
+    
+
+
 ];
 
 

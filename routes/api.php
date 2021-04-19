@@ -11,7 +11,14 @@ Route::namespace('Api')->group(function() {
 
     Route::post('/paypal', 'UserController@paypal');
     Route::post('/stripe', 'UserController@stripe');
-    Route::post('/bank', 'UserController@bank');
+    Route::post('/user/{user}/bank', 'UserController@bank');
+    // invoiceAddress 
+    Route::post('/user/{user}/invoiceaddress/create', 'InvoiceaddController@create');
+    Route::get('/user/{user}/invoiceaddress/{address}/show', 'InvoiceaddController@show');
+    Route::put('/user/{user}/invoiceaddress/{address}/update', 'InvoiceaddController@update');
+    Route::delete('/user/{user}/invoiceaddress/{address}/delete', 'InvoiceaddController@destroy');
+    // consignedAddress
+    
 });
 
 
@@ -30,4 +37,5 @@ Route::group([
     Route::post('/password/reset', 'ResetPasswordController@reset');
     // 修改密码
     Route::post('/password/confirm', 'ConfirmPasswordController@confirm');
+
 });

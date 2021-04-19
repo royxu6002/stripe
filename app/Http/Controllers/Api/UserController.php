@@ -76,100 +76,20 @@ class UserController extends Controller
         }
     }
 
-    public function bank(Request $request)
+    public function bank(Request $request, User $user)
     {
-        if($request->input('ic_address') === 'same') {
-           $validator = Validator::make($request->all(), [
-                'first_name' => ['required', 'min:2'],
-                'last_name'  => ['required', 'min:2'],
-                'email'      => ['required', 'email'],
-                'phone'      => ['required'],
-                'address'    => ['required'],
-                'city'       => ['required'],
-                'state'      => ['required'],
-                'zip_code'   => ['required'],
-                'country'    => ['required'],
-            ]);
-        } else {
-           $validator = Validator::make($request->all(), [
-                'first_name' => ['required', 'min:2'],
-                'last_name'  => ['required', 'min:2'],
-                'email'      => ['required', 'email'],
-                'phone'      => ['required'],
-                'address'    => ['required'],
-                'city'       => ['required'],
-                'state'      => ['required'],
-                'zip_code'   => ['required'],
-                'country'    => ['required'],
-                'consignee.first_name' => ['required'],
-                'consignee.last_name' => ['required'],
-                'consignee.phone' => ['required'],
-                'consignee.address' => ['required'],
-                'consignee.city' => ['required'],
-                'consignee.state' => ['required'],
-                'consignee.zip_code' => ['required'],
-                'consignee.country' => ['required'],
-            ]);
-        }
-        
-        if($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors()
-            ]);
-        }
-
-        $user = User::firstOrCreate(
-            [
-                'email' => $request->input('email')
-            ],
-            [
-                'password' => Hash::make(Str::random(12)),
-                'name' => $request->input('first_name').' '.$request->input('last_name'),
-                'phone' => $request->input('phone'),
-                'address' => $request->input('address'),
-                'city' => $request->input('city'),
-                'state' => $request->input('state'),
-                'zip_code' => $request->input('zip_code'),
-                'country' => $request->input('country'),
-            ]
-        );
-
+    
         DB::beginTransaction();
         try {
-            $invoice_address = $user->invoiceaddresses()->create([
-                'name' => $request->input('first_name').' '.$request->input('last_name'),
-                'company_name' => $request->input('compancy') ?? null,
-                'phone' => $request->input('phone'),
-                'address' => $request->input('address'),
-                'city' => $request->input('city'),
-                'state' => $request->input('state'),
-                'zip_code' => $request->input('zip_code'),
-                'country' => $request->input('country'),
-            ]);
-            
-            if($request->input('ic_address') == 'same') {
-               $consignee_address = $user->consigneeaddresses()->create([
-                    'name' => $request->input('first_name').' '.$request->input('last_name'),
-                    'company_name' => $request->input('compancy') ?? null,
-                    'phone' => $request->input('phone'),
-                    'address' => $request->input('address'),
-                    'city' => $request->input('city'),
-                    'state' => $request->input('state'),
-                    'zip_code' => $request->input('zip_code'),
-                    'country' => $request->input('country'),
-                ]);
-            } else {
-               $consignee_address = $user->consigneeaddresses()->create($request->consignee);
-            }
-            
+                      
             $order = $user->orders()
                 ->create([
                     'transaction_id' => 'BankT'.Str::random(10),
                     'total' => $request->input('amount'),
-                    'payment_method' => 'banktransfer',
+                    'payment_method' => $request->input('paymentMethod'),
                     'status' => 'unpaid',
-                    'invoice_address_id' => $invoice_address->id,
-                    'consignee_address_id' => $consignee_address->id,
+                    'invoice_address_id' => $request->input('iav')??null,
+                    'consignee_address_id' => $request->input('cav')??null,
                 ]);
 
             foreach(json_decode($request->input('cart'), true) as $item) {
@@ -177,10 +97,8 @@ class UserController extends Controller
             }
             
             DB::commit();
-
-            $order->load('products', 'user.invoiceaddresses', 'user.consigneeaddresses');
-
-            return $order;
+            
+            return $order->load('products');
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(['message' => $e->getMessage()], 500);
@@ -222,7 +140,7 @@ class UserController extends Controller
                 $order->products()->attach($item['sku'],['quantity' => $item['quantity']]);
             }
 
-            $order->load('products', 'user.addresses');
+            $order->load('products');
 
             return $order;
 

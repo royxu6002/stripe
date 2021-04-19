@@ -10,6 +10,18 @@ const getters = {
 const mutations = {
     setUserData(state, user) {
         state.userInfo = user;
+    },
+    addUserInvoiceAddressData(state, address) {
+        state.userInfo.invoiceaddresses.push(address);
+    },
+    updateUserInvoiceAddressData(state, {index, address}) {
+        state.userInfo.invoiceaddresses.splice(index, 1, address);
+    },
+    deleteUserInvoiceAddressData(state, {index}) {
+        state.userInfo.invoiceaddresses.splice(index, 1);
+    },
+    addUserOrderData(state, order) {
+        state.userInfo.orders.push(order);
     }
 };
 const actions = {

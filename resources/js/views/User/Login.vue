@@ -59,11 +59,15 @@ export default {
             this.messages = '';
             apiUser.login(this.customer)
                 .then(res => {
-                    if(res.data.errors) this.errors = res.data.errors;
-                    window.sessionStorage.setItem('cle_store_token', res.data.cle_store_token);
+                    if(res.data.errors) {
+                        this.errors = res.data.errors;
+                        return;
+                        console.log(this.errors);
+                    }
+                    window.sessionStorage.setItem('cle_store_token', res.data.cle_store_token??null);
                     this.messages = res.data.msg;
                     this.$store.commit('auth/setUserData', res.data.user);
-                    this.$router.push('/user');
+                    this.$router.push({name: 'UserProfile', params: {user: this.$store.state.auth.userInfo.id}});
                 })
                 .catch(err => {
                     console.log(err);

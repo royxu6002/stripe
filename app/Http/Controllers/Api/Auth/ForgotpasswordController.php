@@ -35,7 +35,7 @@ class ForgotpasswordController extends Controller
         $user = User::where('email', $request->email)->first();
         if(!$user) {
             return response()->json([
-                'msg' => 'Your email is not registerd at our website'
+                'errors' => collect(['email' => ['Your email is not registerd at our website']])->toArray()
             ]);
         }
 
@@ -45,7 +45,7 @@ class ForgotpasswordController extends Controller
         $result = $user->sendPasswordResetNotification($token);
         if($result = false) {
             return response()->json([
-                'msg' => 'sorry, something has go wrong, please try again'
+                'errors' => collect(['email' => ['sorry, something has go wrong, please try again']])->toArray()
             ]);
         } 
         

@@ -14,8 +14,8 @@ class AddAddressIdToOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->unsignedBigInteger('invoice_address_id');
-            $table->unsignedBigInteger('consignee_address_id');
+            $table->unsignedBigInteger('invoice_address_id')->nullable();
+            $table->unsignedBigInteger('consignee_address_id')->nullable();
         });
     }
 

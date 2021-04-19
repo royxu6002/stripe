@@ -12,7 +12,6 @@ export default new Vuex.Store({
     state: {
         products: [],
         cart: shopcart,
-        order: {}
     },
     mutations: {
         updateProducts(state, products) {
@@ -32,9 +31,6 @@ export default new Vuex.Store({
         removeFromCart(state, index) {
             state.cart.splice(index, 1);
             window.localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
-        },
-        updateOrder(state, order) {
-            state.order = order;
         },
         updateCart(state, cart) {
             state.cart = cart;
