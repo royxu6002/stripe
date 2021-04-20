@@ -383,6 +383,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -426,6 +433,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         currency: 'USD'
       });
     },
+    updateCartItemQuantity: function updateCartItemQuantity(index, $e) {
+      var quantity = Number($e.target.value);
+      var data = {
+        index: index,
+        quantity: quantity
+      };
+      console.log(data);
+      this.$store.commit('updateQuantity', data);
+    },
     bankTransfer: function bankTransfer() {
       var _this = this;
 
@@ -439,10 +455,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           this.customer.amount = this.$store.state.cart.reduce(function (acc, item) {
             return acc + item.price * item.quantity;
           }, 0);
-          console.log(this.customer);
           axios.post('/api/user/' + this.$store.state.auth.userInfo.id + '/bank', this.customer).then(function (res) {
-            console.log(res.data);
-
             _this.$store.dispatch('clearCart');
 
             _this.$store.commit('auth/addUserOrderData', res.data);
@@ -630,7 +643,7 @@ var render = function() {
                   ? _c(
                       "div",
                       {
-                        key: "address.id",
+                        key: address.id,
                         staticClass: "card mb-3",
                         staticStyle: {
                           display: "block",
@@ -719,9 +732,17 @@ var render = function() {
                 return _c("tr", { key: index }, [
                   _c("td", { domProps: { textContent: _vm._s(item.name) } }),
                   _vm._v(" "),
-                  _c("td", {
-                    domProps: { textContent: _vm._s(item.quantity) }
-                  }),
+                  _c("td", [
+                    _c("input", {
+                      attrs: { type: "text", min: "1" },
+                      domProps: { value: item.quantity },
+                      on: {
+                        input: function($event) {
+                          return _vm.updateCartItemQuantity(index, $event)
+                        }
+                      }
+                    })
+                  ]),
                   _vm._v(" "),
                   _c("td", {
                     domProps: { textContent: _vm._s(_vm.cartLineTotal(item)) }

@@ -35,6 +35,10 @@ export default new Vuex.Store({
         updateCart(state, cart) {
             state.cart = cart;
             window.localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
+        },
+        updateQuantity(state, {index, quantity}) {
+            state.cart[index].quantity = quantity;
+            window.localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
         }
     },
     actions: {

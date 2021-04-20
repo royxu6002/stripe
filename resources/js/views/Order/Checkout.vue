@@ -36,7 +36,7 @@
              <div class="card mb-3"
                 v-if="userInfo.consigneeaddresses"
                 v-for="(address, index) in userInfo.consigneeaddresses" 
-                key="address.id"
+                :key="address.id"
                 style="display: block; border: 1px solid #ccc" 
                 @click="selectCav(address.id)">
                 <div
@@ -77,7 +77,13 @@
                         :key="index"
                     >
                         <td v-text="item.name"></td>
-                        <td v-text="item.quantity"></td>
+                        <td>
+                            <input 
+                                type="text" 
+                                :value="item.quantity" 
+                                min="1" 
+                                @input="updateCartItemQuantity(index,$event)">
+                        </td>
                         <td v-text="cartLineTotal(item)"></td>
                         <td>
                             <button @click="$store.commit('removeFromCart', index)">
@@ -87,7 +93,8 @@
                     </tr>
                     <tr style="font-weight:bold">
                         <td>Total</td>
-                        <td v-text="cartQuantity"></td>
+                        <td v-text="cartQuantity">
+                        </td>
                         <td v-text="cartTotal"></td>
                         <td></td>
                     </tr>
@@ -159,6 +166,12 @@ export default {
                 currency: 'USD',
             });
         },
+        updateCartItemQuantity(index, $e) {
+            const quantity = Number($e.target.value);
+            const data = {index, quantity};
+            console.log(data);
+            this.$store.commit('updateQuantity', data);
+        },
         bankTransfer() {
             if(!this.$store.state.auth.userInfo) {
                 alert('Please login before placing the order');
@@ -168,10 +181,8 @@ export default {
                 } else {
                     this.customer.cart = JSON.stringify(this.$store.state.cart);
                     this.customer.amount = this.$store.state.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-                    console.log(this.customer);
                     axios.post('/api/user/'+this.$store.state.auth.userInfo.id+'/bank', this.customer)
                         .then(res => { 
-                            console.log(res.data);
                             this.$store.dispatch('clearCart');
                             this.$store.commit('auth/addUserOrderData', res.data);
                             this.$router.push({name: 'UserOrder'});

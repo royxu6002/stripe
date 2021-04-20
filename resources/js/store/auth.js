@@ -4,7 +4,7 @@ const state = {
 }
 const getters = {
     userOrders(state) {
-        return state.userInfo.orders;
+        return state.userInfo.orders.sort((a, b) => b.id - a.id);
     }
 };
 const mutations = {
@@ -21,7 +21,7 @@ const mutations = {
         state.userInfo.invoiceaddresses.splice(index, 1);
     },
     addUserOrderData(state, order) {
-        state.userInfo.orders.push(order);
+        state.userInfo.orders.unshift(order);
     }
 };
 const actions = {

@@ -31,7 +31,6 @@
     "dependencies": {
         "@paypal/paypal-js": "^3.1.6",
         "@storefront-ui/vue": "^0.10.3",
-        "element-ui": "^2.15.1",
         "swiper": "4.*",
         "vue-router": "^3.5.1",
         "vuex": "^3.6.2",

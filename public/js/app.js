@@ -20520,7 +20520,9 @@ var state = {
 };
 var getters = {
   userOrders: function userOrders(state) {
-    return state.userInfo.orders;
+    return state.userInfo.orders.sort(function (a, b) {
+      return b.id - a.id;
+    });
   }
 };
 var mutations = {
@@ -20540,7 +20542,7 @@ var mutations = {
     state.userInfo.invoiceaddresses.splice(index, 1);
   },
   addUserOrderData: function addUserOrderData(state, order) {
-    state.userInfo.orders.push(order);
+    state.userInfo.orders.unshift(order);
   }
 };
 var actions = {
@@ -20613,19 +20615,25 @@ var shopcart = JSON.parse(window.localStorage.getItem('cle_takeout') || '[]');
     updateCart: function updateCart(state, cart) {
       state.cart = cart;
       window.localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
+    },
+    updateQuantity: function updateQuantity(state, _ref) {
+      var index = _ref.index,
+          quantity = _ref.quantity;
+      state.cart[index].quantity = quantity;
+      window.localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
     }
   },
   actions: {
-    getCategories: function getCategories(_ref) {
-      var commit = _ref.commit;
+    getCategories: function getCategories(_ref2) {
+      var commit = _ref2.commit;
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('/api/products').then(function (response) {
         commit('updateProducts', response.data);
       })["catch"](function (error) {
         return console.error(error);
       });
     },
-    clearCart: function clearCart(_ref2) {
-      var commit = _ref2.commit;
+    clearCart: function clearCart(_ref3) {
+      var commit = _ref3.commit;
       commit('updateCart', []);
     }
   },
