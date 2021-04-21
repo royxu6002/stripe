@@ -31494,7 +31494,8 @@ var mutations = {
     state.userInfo.invoiceaddresses.push(JSON.parse(JSON.stringify(address)));
   },
   updateUserInvoiceAddressData: function updateUserInvoiceAddressData(state, _ref) {
-    var index = _ref.index;
+    var index = _ref.index,
+        address = _ref.address;
     state.userInfo.invoiceaddresses.splice(index, 1, JSON.parse(JSON.stringify(address)));
   },
   addUserConsigneeAddressData: function addUserConsigneeAddressData(state, address) {

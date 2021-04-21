@@ -14,7 +14,7 @@ const mutations = {
     addUserInvoiceAddressData(state, address) {
         state.userInfo.invoiceaddresses.push(JSON.parse(JSON.stringify(address)));
     },
-    updateUserInvoiceAddressData(state, {index}) {
+    updateUserInvoiceAddressData(state, {index, address}) {
         state.userInfo.invoiceaddresses.splice(index, 1, JSON.parse(JSON.stringify(address)));
     },
     addUserConsigneeAddressData(state, address) {
