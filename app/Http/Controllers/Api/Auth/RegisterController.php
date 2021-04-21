@@ -30,7 +30,7 @@ class RegisterController extends Controller
 
         if(User::find($request->input('email'))) {
             return response()->json([
-                'errors' => collect(['email' => ['email has been occupied']])
+                'errors' => collect(['email' => ['email has been registered']])
             ]);
         }
 

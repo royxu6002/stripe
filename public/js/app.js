@@ -31491,14 +31491,14 @@ var mutations = {
     state.userInfo = JSON.parse(JSON.stringify(user));
   },
   addUserInvoiceAddressData: function addUserInvoiceAddressData(state, address) {
-    state.userInfo.invoiceaddresses.unshift(JSON.parse(JSON.stringify(address)));
+    state.userInfo.invoiceaddresses.push(JSON.parse(JSON.stringify(address)));
   },
   updateUserInvoiceAddressData: function updateUserInvoiceAddressData(state, _ref) {
     var index = _ref.index;
     state.userInfo.invoiceaddresses.splice(index, 1, JSON.parse(JSON.stringify(address)));
   },
   addUserConsigneeAddressData: function addUserConsigneeAddressData(state, address) {
-    state.userInfo.consigneeaddresses.unshift(JSON.parse(JSON.stringify(address)));
+    state.userInfo.consigneeaddresses.push(JSON.parse(JSON.stringify(address)));
   },
   updateUserConsigneeAddressData: function updateUserConsigneeAddressData(state, _ref2) {
     var index = _ref2.index,

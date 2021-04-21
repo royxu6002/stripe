@@ -24,8 +24,6 @@ Route::namespace('Api')->group(function() {
     Route::delete('/user/{user}/consigneeaddress/{address}/delete', 'ConsigneeaddController@destroy');
 });
 
-
-
 Route::group([
     'namespace' => 'Api\Auth',
 ], function() {
@@ -40,5 +38,4 @@ Route::group([
     Route::post('/password/reset', 'ResetPasswordController@reset');
     // 修改密码
     Route::post('/password/confirm', 'ConfirmPasswordController@confirm');
-
 });

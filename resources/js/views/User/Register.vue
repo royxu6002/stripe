@@ -88,7 +88,6 @@ import apiUser from "../../api/User";
               window.sessionStorage.setItem('cle_store_token', res.data.cle_store_token);
               this.$router.push('/login');
             }
-
           })
           .catch(err => {
             alert(err);
