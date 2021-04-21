@@ -16,7 +16,7 @@ class ConsigneeaddController extends Controller
         $this->middleware('auth:api');
     }
 
-    public function create(Request $request, User $user)
+    public function create(User $user, Request $request)
     {
     
         $validator = $this->validateAddress($request->all());
@@ -63,7 +63,7 @@ class ConsigneeaddController extends Controller
         return $address->toArray();
     }
 
-    public function update(Request $request, User $user, ConsigneeAddress $address)
+    public function update(User $user, ConsigneeAddress $address, Request $request)
     {
         $validator = $this->validateAddress($request->all());
 

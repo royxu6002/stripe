@@ -159,6 +159,7 @@
 <script>
 import apiUser from "../../api/User";
   export default {
+    name: 'AddressEdit',
     data() {
       return {
         customer: {

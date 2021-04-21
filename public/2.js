@@ -81,7 +81,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'UserAddress',
@@ -254,7 +253,7 @@ var render = function() {
                           to: {
                             name: "AddressEdit",
                             params: {
-                              user: address.user_id,
+                              user: _vm.userInfo.id,
                               address: address.id
                             }
                           }
@@ -335,7 +334,7 @@ var render = function() {
                           to: {
                             name: "CaddressEdit",
                             params: {
-                              user: address.user_id,
+                              user: _vm.userInfo.id,
                               address: address.id
                             }
                           }

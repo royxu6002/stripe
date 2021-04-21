@@ -63,7 +63,7 @@ class InvoiceaddController extends Controller
         return $address->toArray();
     }
 
-    public function update(Request $request, User $user, InvoiceAddress $address)
+    public function update(User $user, InvoiceAddress $address, Request $request)
     {
         $validator = $this->validateAddress($request->all());
 

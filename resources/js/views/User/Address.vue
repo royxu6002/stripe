@@ -21,11 +21,10 @@
                     <div>{{address.phone}}</div>
                     <div>{{address.address}},{{address.city}},{{address.state}},{{address.zip_code}},{{address.country}}</div>
                     <router-link 
-                        :to="{name: 'AddressEdit', params: {user: address.user_id, address: address.id}}" 
+                        :to="{name: 'AddressEdit', params: {user: userInfo.id, address: address.id}}" 
                         class="btn btn-primary">
                         Edit
                     </router-link>
-                    <!-- <button class="btn btn-danger" @click="deleteInvoiceAdd(address.id)">Delete</button> -->
                 </div>
             </div>
         </div>
@@ -51,7 +50,7 @@
                     <div>{{address.phone}}</div>
                     <div>{{address.address}},{{address.city}},{{address.state}},{{address.zip_code}},{{address.country}}</div>
                     <router-link 
-                        :to="{name: 'CaddressEdit', params: {user: address.user_id, address: address.id}}" 
+                        :to="{name: 'CaddressEdit', params: {user: userInfo.id, address: address.id}}" 
                         class="btn btn-primary">
                         Edit
                     </router-link>

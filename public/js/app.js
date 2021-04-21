@@ -31493,13 +31493,13 @@ var mutations = {
   addUserInvoiceAddressData: function addUserInvoiceAddressData(state, address) {
     state.userInfo.invoiceaddresses.push(JSON.parse(JSON.stringify(address)));
   },
+  addUserConsigneeAddressData: function addUserConsigneeAddressData(state, address) {
+    state.userInfo.consigneeaddresses.push(JSON.parse(JSON.stringify(address)));
+  },
   updateUserInvoiceAddressData: function updateUserInvoiceAddressData(state, _ref) {
     var index = _ref.index,
         address = _ref.address;
     state.userInfo.invoiceaddresses.splice(index, 1, JSON.parse(JSON.stringify(address)));
-  },
-  addUserConsigneeAddressData: function addUserConsigneeAddressData(state, address) {
-    state.userInfo.consigneeaddresses.push(JSON.parse(JSON.stringify(address)));
   },
   updateUserConsigneeAddressData: function updateUserConsigneeAddressData(state, _ref2) {
     var index = _ref2.index,

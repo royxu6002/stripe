@@ -168,6 +168,7 @@
 import apiUser from "../../api/User";
 
   export default {
+    name: 'AddressCreate',
     data() {
       return {
         customer: {
