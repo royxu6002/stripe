@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\InvoiceAddress;
+use App\Models\ConsigneeAddress;
 use Validator;
 use Exception;
 
-class InvoiceaddController extends Controller
+class ConsigneeaddController extends Controller
 {
     public function __construct()
     {
@@ -27,7 +27,7 @@ class InvoiceaddController extends Controller
             ]);
         }
 
-        $invoice_add = $user->invoiceaddresses()->create([
+        $add = $user->consigneeaddresses()->create([
             'name' => $request->input('first_name'). ' '.$request->input('last_name'),
             'company_name' => $request->input('company_name') ?? null,
             'phone' =>  $request->input('phone'),
@@ -39,8 +39,8 @@ class InvoiceaddController extends Controller
         ]);
 
         return response()->json([
-            'msg' => 'address for invoice has been created',
-            'address' =>  $invoice_add
+            'msg' => 'address for consignee has been created',
+            'address' =>  $add
         ]);
     }
 
@@ -58,12 +58,12 @@ class InvoiceaddController extends Controller
         ]);
     }
 
-    public function show(User $user, InvoiceAddress $address)
+    public function show(User $user, ConsigneeAddress $address)
     {
         return $address->toArray();
     }
 
-    public function update(Request $request, User $user, InvoiceAddress $address)
+    public function update(Request $request, User $user, ConsigneeAddress $address)
     {
         $validator = $this->validateAddress($request->all());
 
@@ -73,7 +73,7 @@ class InvoiceaddController extends Controller
             ]);
         }
 
-        $invoice_add = $user->invoiceaddresses()->update([
+        $add = $user->consigneeaddresses()->update([
             'name' => $request->input('first_name'). ' '.$request->input('last_name'),
             'company_name' => $request->input('company_name') ?? null,
             'phone' =>  $request->input('phone'),
@@ -84,18 +84,17 @@ class InvoiceaddController extends Controller
             'country' => $request->input('country')
         ]);
 
-        $updated_address = InvoiceAddress::find($address);
+        $updated_address = ConsigneeAddress::find($address);
 
         return response()->json([
-            'msg' => 'address for invoice has been updated',
+            'msg' => 'address for consignee has been updated',
             'address' => $updated_address[0],
-            // 'address' => InvoiceAddress::where('id', $address->id)->get()s
         ]);
     }
 
-    public function destroy(User $user, InvoiceAddress $invoiceadd)
+    public function destroy(User $user, ConsigneeAddress $add)
     {
-        $result =  $user->invoiceaddresses()->delete($invoiceadd);
+        $result =  $user->consigneeaddresses()->delete($add);
 
         if($result) {
             return response()->json([

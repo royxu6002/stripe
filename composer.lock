@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db73e8f832b22e893fa6571cd6f99f1b",
+    "content-hash": "3e8532a7cae18c12084bc26b280d3c57",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2103,17 +2103,17 @@
             "time": "2018-07-02T15:55:56+00:00"
         },
         {
-            "name": "paypal/paypal-checkout-sdk",
-            "version": "1.0.1",
+            "name": "paypal/rest-api-sdk-php",
+            "version": "v1.5.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/paypal/Checkout-PHP-SDK.git",
-                "reference": "ed6a55075448308b87a8b59dcb7fedf04a048cb1"
+                "url": "https://github.com/paypal/PayPal-PHP-SDK.git",
+                "reference": "70b03c51879fa3d2392d89052b96e92f6e6f6512"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paypal/Checkout-PHP-SDK/zipball/ed6a55075448308b87a8b59dcb7fedf04a048cb1",
-                "reference": "ed6a55075448308b87a8b59dcb7fedf04a048cb1",
+                "url": "https://api.github.com/repos/paypal/PayPal-PHP-SDK/zipball/70b03c51879fa3d2392d89052b96e92f6e6f6512",
+                "reference": "70b03c51879fa3d2392d89052b96e92f6e6f6512",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -2123,93 +2123,43 @@
                 ]
             },
             "require": {
-                "paypal/paypalhttp": "1.0.0"
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.7"
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "PayPalCheckoutSdk\\": "lib/PayPalCheckoutSdk",
-                    "Sample\\": "samples/"
+                "psr-0": {
+                    "PayPal": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "https://github.com/paypal/Checkout-PHP-SDK/blob/master/LICENSE"
+                "Apache2"
             ],
             "authors": [
                 {
                     "name": "PayPal",
-                    "homepage": "https://github.com/paypal/Checkout-PHP-SDK/contributors"
+                    "homepage": "https://github.com/paypal/rest-api-sdk-php/contributors"
                 }
             ],
-            "description": "PayPal's PHP SDK for Checkout REST APIs",
-            "homepage": "http://github.com/paypal/Checkout-PHP-SDK/",
+            "description": "PayPal's PHP SDK for REST APIs",
+            "homepage": "http://paypal.github.io/PayPal-PHP-SDK/",
             "keywords": [
-                "checkout",
-                "orders",
                 "payments",
                 "paypal",
                 "rest",
                 "sdk"
             ],
             "support": {
-                "issues": "https://github.com/paypal/Checkout-PHP-SDK/issues",
-                "source": "https://github.com/paypal/Checkout-PHP-SDK/tree/1.0.1"
-            },
-            "time": "2019-11-07T23:16:44+00:00"
-        },
-        {
-            "name": "paypal/paypalhttp",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/paypal/paypalhttp_php.git",
-                "reference": "1ad9b846a046f09d6135cbf2cbaa7701bbc630a3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/paypal/paypalhttp_php/zipball/1ad9b846a046f09d6135cbf2cbaa7701bbc630a3",
-                "reference": "1ad9b846a046f09d6135cbf2cbaa7701bbc630a3",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "ext-curl": "*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.7",
-                "wiremock-php/wiremock-php": "1.43.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "PayPalHttp\\": "lib/PayPalHttp"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PayPal",
-                    "homepage": "https://github.com/paypal/paypalhttp_php/contributors"
-                }
-            ],
-            "support": {
-                "issues": "https://github.com/paypal/paypalhttp_php/issues",
-                "source": "https://github.com/paypal/paypalhttp_php/tree/1.0.0"
+                "issues": "https://github.com/paypal/PayPal-PHP-SDK/issues",
+                "source": "https://github.com/paypal/PayPal-PHP-SDK/tree/v1.5.1"
             },
             "abandoned": true,
-            "time": "2019-11-06T21:27:12+00:00"
+            "time": "2015-08-17T19:32:59+00:00"
         },
         {
             "name": "phenx/php-font-lib",

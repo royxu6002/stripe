@@ -1,8 +1,10 @@
 require('./bootstrap');
+require('./css/iconfont');
 
 import Vue from "vue";
 import router from "./route/routes";
 import store from "./store/index";
+
 
 import baseUrl from "./api/baseUrl";
 Vue.prototype.GLOBAL = baseUrl;
@@ -24,6 +26,7 @@ const app = new Vue({
         store.dispatch('getCategories')
             .then(_ => {})
             .catch((error) => console.error(error));
+        store.dispatch('getCart');
     }
 }).$mount("#app");
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-    <Header />
+    <Header/>
     <router-view></router-view>
     <Footer />
     </div>
@@ -8,6 +8,7 @@
 <script>
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+
 
 export default {
     name: "App",
@@ -17,3 +18,7 @@ export default {
     }
 }
 </script>
+<style scoped>
+
+
+</style>

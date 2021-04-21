@@ -4,8 +4,13 @@
        <div class="billing-details-wrap">
                 <div class="form-group col-12">
                     <label>First Name <span class="text-danger">*</span></label>
-                    <div v-if="errors.first_mame">
-                      <!-- later -->
+                    <div v-if="errors">
+                        <p 
+                          v-for="(err, index) in errors.first_name"
+                          :key="index"
+                          class="alert alert-warning">
+                          {{ err }}
+                        </p>
                     </div>
                     <input 
                         type="text" 
@@ -16,6 +21,14 @@
                 </div>
                 <div class="form-group col-12">
                     <label for="last_name">Last name <span class="text-danger">*</span></label>
+                    <div v-if="errors">
+                        <p 
+                          v-for="(err, index) in errors.last_name"
+                          :key="index"
+                          class="alert alert-warning">
+                          {{ err }}
+                        </p>
+                      </div>
                     <input 
                         type="text"
                         class="form-control"
@@ -37,6 +50,14 @@
 
                 <div class="form-group col-12">
                     <label for="phone">Phone <span class="text-danger">*</span></label>
+                    <div v-if="errors">
+                        <p 
+                          v-for="(err, index) in errors.phone"
+                          :key="index"
+                          class="alert alert-warning">
+                          {{ err }}
+                        </p>
+                      </div>
                     <input type="text"
                         class="form-control"
                         id="phone"
@@ -47,6 +68,14 @@
         
                 <div class="form-group col-12">
                     <label for="address">Address <span class="text-danger">*</span></label>
+                    <div v-if="errors">
+                        <p 
+                          v-for="(err, index) in errors.address"
+                          :key="index"
+                          class="alert alert-warning">
+                          {{ err }}
+                        </p>
+                      </div>
                     <input type="text"
                         class="form-control"
                         id="address"
@@ -56,6 +85,14 @@
 
                 <div class="form-group col-12">
                     <label for="city">City <span class="text-danger">*</span></label>
+                    <div v-if="errors">
+                        <p 
+                          v-for="(err, index) in errors.city"
+                          :key="index"
+                          class="alert alert-warning">
+                          {{ err }}
+                        </p>
+                      </div>
                     <input type="text"
                         class="form-control"
                         id="city"
@@ -65,6 +102,14 @@
 
                 <div class="form-group col-12">
                     <label for="state">State <span class="text-danger">*</span></label>
+                    <div v-if="errors">
+                        <p 
+                          v-for="(err, index) in errors.state"
+                          :key="index"
+                          class="alert alert-warning">
+                          {{ err }}
+                        </p>
+                      </div>
                     <input type="text"
                         class="form-control"
                         id="state"
@@ -74,6 +119,14 @@
 
                 <div class="form-group col-12">
                     <label for="zip_code">Zip Code <span class="text-danger">*</span></label>
+                    <div v-if="errors">
+                        <p 
+                          v-for="(err, index) in errors.zip_code"
+                          :key="index"
+                          class="alert alert-warning">
+                          {{ err }}
+                        </p>
+                      </div>
                     <input type="text"
                         class="form-control"
                         id="zip_code"
@@ -83,6 +136,14 @@
 
                 <div class="form-group col-12">
                     <label for="country">Country <span class="text-danger">*</span></label>
+                    <div v-if="errors">
+                        <p 
+                          v-for="(err, index) in errors.country"
+                          :key="index"
+                          class="alert alert-warning">
+                          {{ err }}
+                        </p>
+                      </div>
                     <input type="text"
                         class="form-control"
                         id="country"
@@ -113,7 +174,6 @@ import apiUser from "../../api/User";
             const nameGroup = this.customer.name.split(' ');
             this.customer.first_name = nameGroup[0]?? null;
             this.customer.last_name = nameGroup[1]?? null;
-
           })
           .catch(err => console.error(err))
     },
@@ -121,17 +181,14 @@ import apiUser from "../../api/User";
       submit() {
         axios.put('/api/user/'+ this.$route.params.user+'/invoiceaddress/' +this.$route.params.address + '/update', this.customer)
           .then(res => {
-            console.log('hello');
             if(res.data.errors) this.errors = res.data.errors;
             // 改变 state中的数据 只能通过 commit
             if(res.data.address) {
               const index = this.$store.state.auth.userInfo.invoiceaddresses.findIndex(value => value.id == this.$route.params.address);
               const address = res.data.address;
               this.$store.commit('auth/updateUserInvoiceAddressData', {index, address});
-              console.log(index);
-              console.log(res.data.address);
+              this.$router.push({name: 'UserAddress', params: {user: this.$route.params.user}});
             }
-            this.$router.push({name: 'UserAddress', params: {user: this.$route.params.user}});
           })
           .catch(err => {
             console.log(err);

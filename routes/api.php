@@ -18,7 +18,10 @@ Route::namespace('Api')->group(function() {
     Route::put('/user/{user}/invoiceaddress/{address}/update', 'InvoiceaddController@update');
     Route::delete('/user/{user}/invoiceaddress/{address}/delete', 'InvoiceaddController@destroy');
     // consignedAddress
-    
+    Route::post('/user/{user}/consigneeaddress/create', 'ConsigneeaddController@create');
+    Route::get('/user/{user}/consigneeaddress/{address}/show', 'ConsigneeaddController@show');
+    Route::put('/user/{user}/consigneeaddress/{address}/update', 'ConsigneeaddController@update');
+    Route::delete('/user/{user}/consigneeaddress/{address}/delete', 'ConsigneeaddController@destroy');
 });
 
 

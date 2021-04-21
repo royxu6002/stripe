@@ -9,16 +9,27 @@ const getters = {
 };
 const mutations = {
     setUserData(state, user) {
-        state.userInfo = user;
+        state.userInfo = JSON.parse(JSON.stringify(user));
     },
     addUserInvoiceAddressData(state, address) {
-        state.userInfo.invoiceaddresses.push(address);
+        state.userInfo.invoiceaddresses.unshift(JSON.parse(JSON.stringify(address)));
     },
-    updateUserInvoiceAddressData(state, {index, address}) {
-        state.userInfo.invoiceaddresses.splice(index, 1, address);
+    updateUserInvoiceAddressData(state, {index}) {
+        state.userInfo.invoiceaddresses.splice(index, 1, JSON.parse(JSON.stringify(address)));
     },
-    deleteUserInvoiceAddressData(state, {index}) {
+    addUserConsigneeAddressData(state, address) {
+        state.userInfo.consigneeaddresses.unshift(JSON.parse(JSON.stringify(address)));
+    },
+    updateUserConsigneeAddressData(state, {index, address}) {
+        state.userInfo.consigneeaddresses.splice(index, 1, JSON.parse(JSON.stringify(address)));
+    },
+    deleteInvoiceAddressData(state, {id}) {
+        let index = state.userInfo.invoiceaddresses.findIndex(add => add.id == id);
         state.userInfo.invoiceaddresses.splice(index, 1);
+    },
+    deleteConsigneeAddressData(state, {id}) {
+        let index = state.userInfo.consigneeaddresses.findIndex(add => add.id == id);
+        state.userInfo.consigneeaddresses.splice(index, 1);
     },
     addUserOrderData(state, order) {
         state.userInfo.orders.unshift(order);
@@ -27,7 +38,15 @@ const mutations = {
 const actions = {
     getUserData({commit}, data) {
         commit('setUserData', data);
+    },
+    deleteUserInvoiceAddressData({commit}, payload) {
+        commit('deleteInvoiceAddressData', payload);
+    },
+    deleteUserConsigneeAddressData({commit}, payload) {
+        commit('deleteConsigneeAddressData', payload);
     }
+
+
 };
 
 

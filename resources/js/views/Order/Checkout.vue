@@ -9,6 +9,7 @@
             </div>
             <p v-if="userInfo.invoiceaddresses">
                 <b>Please select whom to be Billed To</b>
+                <router-link :to="{name: 'AddressCreate', params: {user: userInfo.id}}">Create a new Invoice address</router-link>
             </p>
             <div class="card mb-3"
                 v-if="userInfo.invoiceaddresses" 
@@ -16,7 +17,7 @@
                 :key="index"
                 style="display: block; border: 1px solid #ccc" 
                 @click="selectIav(address.id)">
-                <div
+                <div class="p-3"
                     :class="{active: customer.iav === address.id}" >
                     <!-- <input type="radio" v-model="customer.iav" :value="address.id"> -->
                     <div v-if="address.company_name">{{ address.company_name }}
@@ -31,6 +32,7 @@
 
             <p v-if="userInfo.consigneeaddresses">
                 <b>Please select whom to be consignee</b>
+                <router-link :to="{name: 'CaddressCreate', params: {user: userInfo.id}}">Create a new consignee</router-link>
             </p>
 
              <div class="card mb-3"
@@ -40,6 +42,7 @@
                 style="display: block; border: 1px solid #ccc" 
                 @click="selectCav(address.id)">
                 <div
+                    class="p-3"
                     :class="{active: customer.cav === address.id}" >
                     <div v-if="address.company_name">
                         {{ address.company_name }}
@@ -82,9 +85,9 @@
                                 type="text" 
                                 :value="item.quantity" 
                                 min="1" 
-                                @input="updateCartItemQuantity(index,$event)">
+                                @blur="updateCartItemQuantity(index,$event)">
                         </td>
-                        <td v-text="cartLineTotal(item)"></td>
+                        <td>{{ cartLineTotal(item) }}</td>
                         <td>
                             <button @click="$store.commit('removeFromCart', index)">
                                 Remove
@@ -93,9 +96,10 @@
                     </tr>
                     <tr style="font-weight:bold">
                         <td>Total</td>
-                        <td v-text="cartQuantity">
+                        <td>
+                            {{cartQuantity}}
                         </td>
-                        <td v-text="cartTotal"></td>
+                        <td>{{cartTotal}}</td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -141,21 +145,22 @@ export default {
         }
     },
     computed: {
-        cart() {
-            return this.$store.state.cart;
-        },
         cartQuantity() {
-            return this.$store.state.cart.reduce((acc, item) => acc + item.quantity, 0);
+            return this.cart.reduce((acc, item) => acc + item.quantity, 0);
         },
         cartTotal() {
-            let amount = this.$store.state.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            let amount = this.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
             amount = (amount /100);
             return amount.toLocaleString('en-US', {
                 style: "currency",
                 currency: "USD",
             });
         },
-        ...mapState('auth', ['userInfo'])
+        ...mapState({
+            cart: (state) => state.cart,
+            userInfo: (state) => state.auth.userInfo,
+        }),
+
     },
     methods: {
         cartLineTotal(item) {
@@ -170,7 +175,7 @@ export default {
             const quantity = Number($e.target.value);
             const data = {index, quantity};
             console.log(data);
-            this.$store.commit('updateQuantity', data);
+            this.$store.dispatch('setQuantity', data);
         },
         bankTransfer() {
             if(!this.$store.state.auth.userInfo) {
@@ -179,15 +184,20 @@ export default {
                 if(!this.$store.state.cart.length) {
                     alert('The cart is empty');
                 } else {
-                    this.customer.cart = JSON.stringify(this.$store.state.cart);
-                    this.customer.amount = this.$store.state.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-                    axios.post('/api/user/'+this.$store.state.auth.userInfo.id+'/bank', this.customer)
-                        .then(res => { 
-                            this.$store.dispatch('clearCart');
-                            this.$store.commit('auth/addUserOrderData', res.data);
-                            this.$router.push({name: 'UserOrder'});
-                        })
-                        .catch(err => console.log(err))
+                    if(!this.customer.iav) {
+                        alert('please select or create an address for invoice&goods collection');
+                        return;
+                    }  else {
+                         this.customer.cart = JSON.stringify(this.$store.state.cart);
+                        this.customer.amount = this.$store.state.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+                        axios.post('/api/user/'+this.$store.state.auth.userInfo.id+'/bank', this.customer)
+                            .then(res => { 
+                                this.$store.dispatch('clearCart');
+                                this.$store.commit('auth/addUserOrderData', res.data);
+                                this.$router.push({name: 'UserOrder'});
+                            })
+                            .catch(err => console.log(err))
+                    }
                 }
                 
             }
@@ -198,7 +208,7 @@ export default {
         selectCav(id) {
             this.customer.cav = id;
         },
-    }
+    },
 }
 </script>
 <style scoped>

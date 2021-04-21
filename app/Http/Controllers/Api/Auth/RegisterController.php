@@ -21,13 +21,16 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $validator = $this->validator($request->all());
-
-        return $request->all();
-
         
         if($validator->fails()) {
             return response()->json([
-                'errors' => $validator->getMessageBag()->toArray()
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        if(User::find($request->input('email'))) {
+            return response()->json([
+                'errors' => collect(['email' => ['email has been occupied']])
             ]);
         }
 
@@ -37,7 +40,6 @@ class RegisterController extends Controller
         $user->update([
             'api_token' => hash('sha256', $token)
         ]);
-        // $this->guard()->login($user);
 
         return response()->json([
             'cle_store_token' => $token,

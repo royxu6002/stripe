@@ -1,65 +1,87 @@
 <template>
     <div>
-        <h4>Dear  {{userInfo.name}} </h4>
-        Your purchase order ID is  {{order[0].id}},
-        total invoice value of {{order[0].total/100 | myCurrency}}, Dated on {{order[0].created_at}}
-       
-       <div>
-           <h5>Our Bank Details:</h5>
-            <h3 class="wc-bacs-bank-details-account-name">EPOS Uhren AG, 2543 Lengnau, Schweiz:</h3>
-            <ul class="wc-bacs-bank-details order_details bacs_details">
-                <li class="bank_name">Bank: <strong>Berner Kantonalbank</strong></li>
-                <li class="account_number">Account number: <strong>30-106-9</strong></li>
-                <li class="sort_code">Sort code: <strong>790</strong></li>
-                <li class="iban">IBAN: <strong>CH88 0079 0016 9323 3378 7</strong></li>
-                <li class="bic">BIC: <strong>KBBECH22</strong></li>
-            </ul>
-       </div>
         <div class="container row">
+           
             <div v-if="order[0].invoice_address_id" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                
                 <h4 class="mt-3">Bill To:</h4>
-                <div v-if="invoiceAddress(order[0].invoice_address_id)[0].company_name">{{ invoiceAddress(order[0].invoice_address_id)[0].company_name }}</div>
-                {{ invoiceAddress(order[0].invoice_address_id)[0].address }}, {{ invoiceAddress(order[0].invoice_address_id)[0].city }}, {{ invoiceAddress(order[0].invoice_address_id)[0].state }}, {{ invoiceAddress(order[0].invoice_address_id)[0].zip_code }}, {{ invoiceAddress(order[0].invoice_address_id)[0].country }}
-                <div>{{ invoiceAddress(order[0].invoice_address_id)[0].name }}</div>
-                <div>{{ invoiceAddress(order[0].invoice_address_id)[0].phone }}</div> 
+                <div v-if="invoiceAddress(order[0].invoice_address_id)[0]">
+                     <div v-if="invoiceAddress(order[0].invoice_address_id)[0].company_name">
+                        {{ invoiceAddress(order[0].invoice_address_id)[0].company_name }}
+                    </div>
+                    {{ invoiceAddress(order[0].invoice_address_id)[0].address }}, {{ invoiceAddress(order[0].invoice_address_id)[0].city }}, {{ invoiceAddress(order[0].invoice_address_id)[0].state }}, {{ invoiceAddress(order[0].invoice_address_id)[0].zip_code }}, {{ invoiceAddress(order[0].invoice_address_id)[0].country }}
+                    <div>{{ invoiceAddress(order[0].invoice_address_id)[0].name }}</div>
+                    <div>{{ invoiceAddress(order[0].invoice_address_id)[0].phone }}</div> 
+                </div>
             </div>
 
             <div v-if="order[0].consignee_address_id" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <h4 class="mt-3">Ship to:</h4>
-                <div v-if="consigneeAddress(order[0].consignee_address_id)[0].company_name">{{ consigneeAddress(order[0].consignee_address_id)[0].company_name }}</div>
-                {{ consigneeAddress(order[0].consignee_address_id)[0].address }}, {{ consigneeAddress(order[0].consignee_address_id)[0].city }}, {{ consigneeAddress(order[0].consignee_address_id)[0].state }}, {{ consigneeAddress(order[0].consignee_address_id)[0].zip_code }}, {{ consigneeAddress(order[0].consignee_address_id)[0].country }}
-                <div>{{ consigneeAddress(order[0].consignee_address_id)[0].name }}</div>
-                <div>{{ consigneeAddress(order[0].consignee_address_id)[0].phone }}</div> 
+               <div v-if="consigneeAddress(order[0].consignee_address_id)[0]">
+                    <div v-if="consigneeAddress(order[0].consignee_address_id)[0].company_name">
+                        {{ consigneeAddress(order[0].consignee_address_id)[0].company_name }}
+                    </div>
+                    {{ consigneeAddress(order[0].consignee_address_id)[0].address }}, {{ consigneeAddress(order[0].consignee_address_id)[0].city }}, {{ consigneeAddress(order[0].consignee_address_id)[0].state }}, {{ consigneeAddress(order[0].consignee_address_id)[0].zip_code }}, {{ consigneeAddress(order[0].consignee_address_id)[0].country }}
+                    <div>{{ consigneeAddress(order[0].consignee_address_id)[0].name }}</div>
+                    <div>{{ consigneeAddress(order[0].consignee_address_id)[0].phone }}</div> 
+               </div>
             </div>
         </div>
+
         <div class="container mt-4">
-            <h4>Order details:</h4>
-            <small>Reference id: {{order[0].transaction_id}},</small>
+            <strong>Order Reference ID: </strong> <small>{{order[0].transaction_id}}</small>
             <table class="table">
-                <tr>
-                    <th>Item</td>
-                    <th>Qty</td>
-                    <th>Price</th>
+                <tr style="font-weight: bold">
+                    <td>Item</td>
+                    <td>Qty</td>
+                    <td align="right">Price</td>
                 </tr>
                 <tr v-for="(product, index) in order[0].products"
                     :key="index">
                     <td>{{ product.name }}</td>
                     <td>{{ product.pivot.quantity }}</td>
-                    <td>{{ lineTotal(product) | myCurrency }}</td>
+                    <td align="right">{{ lineTotal(product) | myCurrency }}</td>
                 </tr>
-                <tr class="font-weight-bold">
+                <tr class="font-weight-bold" >
                     <td>
                         Total
                     </td>
                     <td>
                         {{ orderQuantity(order[0].products) }}
                     </td>
-                    <td>
+                    <td align="right">
                         {{ orderTotal(order[0].products) | myCurrency }}
                     </td>
                 </tr>
         </table>
 
+        </div>
+
+        <div class="container row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h5>Dear  {{userInfo.name}}, Thanks for your order.</h5>
+                <div>purchase order ID:  {{order[0].id}}</div>
+                <div>total invoice value of {{order[0].total/100 | myCurrency}},</div>
+                <div> Dated on {{order[0].created_at}}</div>
+            </div>
+        
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h5>Our Bank Details:</h5><span>
+                   <small><strong> Please refer Order ID as a payment note.
+                       </strong></small>
+                </span>
+                <ul class="wc-bacs-bank-details order_details bacs_details">
+                    <li class="bank_name">BENEFICIARY NAME: <strong>COMLIBRA ELECTRONIC CO., LTD.</strong></li>
+                    <li class="account_number">Account number: <strong>NRA1-5623-1420-1050-0000-153</strong></li>
+                    <li class="sort_code"> BENEFICIARY BANK: <strong>ZHEJIANG CHOUZHOU COMMERCIAL BANK</strong></li>
+                    <li class="bank_address">ADDRESS: <strong>YIWULEYUAN EAST, JIANGBIN RD, YIWU, ZHEJIANG, CHINA</strong></li>
+                    <li class="bank_swift_bank">
+                        SWIFT BIC: <strong>CZCBCN2X</strong> 
+                    </li>
+                    <li class="corresponding_bank">CORRESPONDENT BANK: <strong>BANK OF AMERICA N.A.NEW YORK BRANCH</strong></li>
+                    <li class="bic">SWIFT BIC: <strong>BOFAUS3N</strong></li>
+                </ul>
+            </div>
         </div>
         
     </div>

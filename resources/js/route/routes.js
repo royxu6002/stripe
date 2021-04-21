@@ -16,53 +16,53 @@ const routes =  [
     {
         path: '/',
         name: 'products.index',
-        component: () => import('../views/Products/Index.vue')
+        component: () => import('../views/Products/Index.vue'),
     },
     {
         path: '/products',
-        redirect: '/'
+        redirect: '/',
     },
     {
         path: '/products/:slug',
         name: 'products.show',
-        component: () => import('../views/Products/Show.vue')
+        component: () => import('../views/Products/Show.vue'),
     },
     {
         path: '/checkout',
         name: 'order.checkout',
-        component: () => import('../views/Order/Checkout.vue')
+        component: () => import('../views/Order/Checkout.vue'),
     },
     {
         path: '/summary',
         name: 'order.summary',
-        component: () => import('../views/Order/Summary.vue')
+        component: () => import('../views/Order/Summary.vue'),
     },
     {
         path: '/about',
         name: 'About',
-        component: () => import('../views/About.vue')
+        component: () => import('../views/About.vue'),
     },
     {
         path: '/login',
         name: 'Login',
         component: () => import('../views/User/Login.vue'),
-        beforeEnter: guest
+        beforeEnter: guest,
     },
     {
         path: '/register',
         name: 'Register',
         component: () => import('../views/User/Register.vue'),
-        beforeEnter: guest
+        beforeEnter: guest,
     },
     {
         path: '/password/reset/:token/:email',
         name: 'Token',
-        component: () => import('../views/User/Token.vue')
+        component: () => import('../views/User/Token.vue'),
     },
     {
         path: '/forgotpassword',
         name: 'Forgot',
-        component: () => import('../views/User/Forgot.vue')
+        component: () => import('../views/User/Forgot.vue'),
     },
     {
         path: '/resetpassword',
@@ -82,7 +82,7 @@ const routes =  [
             {
                 path: '/user/:user/profile',
                 name: 'UserProfile',
-                component: () => import('../views/User/Profile.vue')
+                component: () => import('../views/User/Profile.vue'),
             },
             {
                 path: '/user/:user/address',
@@ -92,7 +92,7 @@ const routes =  [
             {
                 path: '/user/:user/order',
                 name: 'UserOrder',
-                component: () => import('../views/User/Order.vue')
+                component: () => import('../views/User/Order.vue'),
             },
             {
                 path: '/',
@@ -103,12 +103,22 @@ const routes =  [
     {
         path: '/user/:user/address/:address/edit',
         name: 'AddressEdit',
-        component: () => import('../views/Address/Edit.vue')
+        component: () => import('../views/Invoiceaddress/Edit.vue'),
     },
     {
         path: '/user/:user/address/create',
         name: 'AddressCreate',
-        component: () => import('../views/Address/Create.vue')
+        component: () => import('../views/Invoiceaddress/Create.vue'),
+    },
+    {
+        path: '/user/:user/caddress/:address/edit',
+        name: 'CaddressEdit',
+        component: () => import('../views/Consigneeaddress/Edit.vue'),
+    },
+    {
+        path: '/user/:user/caddress/create',
+        name: 'CaddressCreate',
+        component: () => import('../views/Consigneeaddress/Create.vue'),
     },
     {
         path: '/user/:user/order/:order',
@@ -123,6 +133,7 @@ const routes =  [
 
 const router = new VueRouter({
     mode: 'history',
+    linkActiveClass: 'active',
     routes: routes
 });
 

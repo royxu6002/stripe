@@ -5,7 +5,7 @@
             <h3>Invoice address
             </h3>
             <router-link 
-                class="btn btn-primary"
+                class="btn btn-primary mb-3"
                 :to="{name: 'AddressCreate', params: {
                     user: userInfo.id,
                 }}">
@@ -13,7 +13,7 @@
             </router-link>
             <div 
                 class="card mb-2" 
-                v-for="(address, index) in userInfo.invoiceaddresses"
+                v-for="(address, index) in invoiceaddresses"
                 :key="index"> 
                 <div class="card-body">
                     <div v-if="address.company_name">{{address.company_name}}</div>
@@ -25,7 +25,7 @@
                         class="btn btn-primary">
                         Edit
                     </router-link>
-                    <button class="btn btn-danger" @click="deleteInvoiceAdd(address.id)">Delete</button>
+                    <!-- <button class="btn btn-danger" @click="deleteInvoiceAdd(address.id)">Delete</button> -->
                 </div>
             </div>
         </div>
@@ -33,44 +33,32 @@
         <div v-if="userInfo.consigneeaddresses" class="mt-3">
             <h3>Consignee address
             </h3>
-            <span>: required if you would like to ship a different place not conform to your address in a formal invoice</span>
+             <router-link 
+                class="btn btn-primary mb-3"
+                :to="{name: 'CaddressCreate', params: {
+                    user: userInfo.id,
+                }}">
+                Create an new consignee address
+            </router-link>
+
             <div 
                 class="card mb-2" 
-                v-for="(address, index) in userInfo.consigneeaddresses"
+                v-for="(address, index) in consigneeaddresses"
                 :key="index"> 
                 <div class="card-body">
                     <div v-if="address.company_name">{{address.company_name}}</div>
                     <div>{{address.name}}</div>
                     <div>{{address.phone}}</div>
                     <div>{{address.address}},{{address.city}},{{address.state}},{{address.zip_code}},{{address.country}}</div>
-                    <button class="btn btn-danger">Delete</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" :data-target="'address'+address.id">
+                    <router-link 
+                        :to="{name: 'CaddressEdit', params: {user: address.user_id, address: address.id}}" 
+                        class="btn btn-primary">
                         Edit
-                    </button>
-                    
-                    <div class="modal" 
-                        :id="'address'+ address.id" 
-                        tabindex="-1" 
-                        :aria-labelledby="'address'+address.id+'Label'" 
-                        aria-hidden="false">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" :id="'address'+address.id+'Label'">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
+                    </router-link>
+                    <!-- <button 
+                        class="btn btn-danger"  
+                        @click="deleteConsigneeAdd(address.id)">Delete
+                    </button> -->
                 </div>
             </div>
         </div>
@@ -87,17 +75,29 @@ export default {
         }
     },
     computed: {
-        ...mapState('auth', ['userInfo'])
+        ...mapState('auth', ['userInfo']),
+        consigneeaddresses() {
+            return this.userInfo.consigneeaddresses;
+        },
+        invoiceaddresses() {
+            return this.userInfo.invoiceaddresses;
+        }
     },
     methods: {
        deleteInvoiceAdd(id) {
            axios.delete('/api/user/'+this.$route.params.user+'/invoiceaddress/'+id+'/delete')
             .then(res => {
-                console.log(res.data);
                 if(res.data.msg) {
-                    let index = this.$store.state.auth.userInfo.invoiceaddresses.findIndex(add => add.id == id);
-                    console.log(index);
-                    this.$store.commit('auth/deleteUserInvoiceAddressData', {index});
+                    this.$store.dispatch('auth/deleteUserInvoiceAddressData', {id});
+                }
+            })
+            .catch(err => console.log(err))
+       },
+       deleteConsigneeAdd(id) {
+           axios.delete('/api/user/'+this.$route.params.user+'/consigneeaddress/'+id+'/delete')
+            .then(res => {
+                if(res.data.msg) {
+                    this.$store.dispatch('auth/deleteUserConsigneeAddressData', {id});
                 }
             })
             .catch(err => console.log(err))
