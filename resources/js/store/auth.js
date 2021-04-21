@@ -12,13 +12,13 @@ const mutations = {
         state.userInfo = JSON.parse(JSON.stringify(user));
     },
     addUserInvoiceAddressData(state, address) {
-        state.userInfo.invoiceaddresses.unshift(JSON.parse(JSON.stringify(address)));
+        state.userInfo.invoiceaddresses.push(JSON.parse(JSON.stringify(address)));
     },
     updateUserInvoiceAddressData(state, {index}) {
         state.userInfo.invoiceaddresses.splice(index, 1, JSON.parse(JSON.stringify(address)));
     },
     addUserConsigneeAddressData(state, address) {
-        state.userInfo.consigneeaddresses.unshift(JSON.parse(JSON.stringify(address)));
+        state.userInfo.consigneeaddresses.push(JSON.parse(JSON.stringify(address)));
     },
     updateUserConsigneeAddressData(state, {index, address}) {
         state.userInfo.consigneeaddresses.splice(index, 1, JSON.parse(JSON.stringify(address)));
