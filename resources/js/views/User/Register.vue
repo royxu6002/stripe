@@ -84,9 +84,9 @@ import apiUser from "../../api/User";
           .then(res => {
             if(res.data.errors) this.errors = res.data.errors;
             this.messages = res.data.msg;
-            if(res.data.cle_store_token) {
-              window.sessionStorage.setItem('cle_store_token', res.data.cle_store_token);
-              this.$router.push('/login');
+            if(res.data.msg) {
+              alert(res.data.msg);
+              this.$router.push({name: 'Login'});
             }
           })
           .catch(err => {

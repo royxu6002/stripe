@@ -42,7 +42,6 @@ class RegisterController extends Controller
         ]);
 
         return response()->json([
-            'cle_store_token' => $token,
             'msg' =>  'registered successfully!'
         ]);
     }

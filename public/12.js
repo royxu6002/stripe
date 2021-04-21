@@ -96,10 +96,12 @@ __webpack_require__.r(__webpack_exports__);
         if (res.data.errors) _this.errors = res.data.errors;
         _this.messages = res.data.msg;
 
-        if (res.data.cle_store_token) {
-          window.sessionStorage.setItem('cle_store_token', res.data.cle_store_token);
+        if (res.data.msg) {
+          alert(res.data.msg);
 
-          _this.$router.push('/login');
+          _this.$router.push({
+            name: 'Login'
+          });
         }
       })["catch"](function (err) {
         alert(err);

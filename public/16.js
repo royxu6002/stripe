@@ -131,7 +131,17 @@ var render = function() {
             { key: product.id, staticClass: "col-lg-4 col-sm-6 mb-4" },
             [
               _c("div", { staticClass: "card h-100" }, [
-                _vm._m(1, true),
+                product.images
+                  ? _c("a", { attrs: { href: "#" } }, [
+                      _c("img", {
+                        staticClass: "card-img-top",
+                        attrs: {
+                          src: _vm.GLOBAL.baseUrl + product.images[0],
+                          alt: ""
+                        }
+                      })
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -178,7 +188,7 @@ var render = function() {
         0
       ),
       _vm._v(" "),
-      _vm._m(2)
+      _vm._m(1)
     ])
   ])
 }
@@ -190,17 +200,6 @@ var staticRenderFns = [
     return _c("h1", { staticClass: "my-4" }, [
       _vm._v("Product index pages\n    "),
       _c("small", [_vm._v("List all products in cart!")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#" } }, [
-      _c("img", {
-        staticClass: "card-img-top",
-        attrs: { src: "http://placehold.it/700x400", alt: "" }
-      })
     ])
   },
   function() {

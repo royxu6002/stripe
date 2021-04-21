@@ -13,8 +13,8 @@
       :key="product.id"
     >
       <div class="card h-100">
-        <a href="#">
-          <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+        <a href="#" v-if="product.images">
+          <img class="card-img-top" :src="GLOBAL.baseUrl+product.images[0]" alt="">
         </a>
 
         <div class="card-body">
