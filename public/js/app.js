@@ -31020,8 +31020,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var baseUrl;
-var devUrl = 'http://online.comlibra.com/';
-var prodUrl = 'http://online.comlibra.com/';
+var devUrl = 'http://shop.comlibra.com/';
+var prodUrl = 'http://shop.comlibra.com/';
  true ? baseUrl = devUrl : undefined;
 /* harmony default export */ __webpack_exports__["default"] = ({
   baseUrl: baseUrl
