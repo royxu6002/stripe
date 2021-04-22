@@ -82,6 +82,7 @@
                         <td v-text="item.name"></td>
                         <td>
                             <input 
+                                style="width: 100%; height: 100%"
                                 type="text" 
                                 :value="item.quantity" 
                                 min="1" 
@@ -89,8 +90,10 @@
                         </td>
                         <td>{{ cartLineTotal(item) }}</td>
                         <td>
-                            <button @click="$store.commit('removeFromCart', index)">
-                                Remove
+                            <button 
+                                class="btn btn-sm"
+                                @click="$store.commit('removeFromCart', index)">
+                                X
                             </button>
                         </td>
                     </tr>

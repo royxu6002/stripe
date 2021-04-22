@@ -394,6 +394,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -789,6 +792,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [
                       _c("input", {
+                        staticStyle: { width: "100%", height: "100%" },
                         attrs: { type: "text", min: "1" },
                         domProps: { value: item.quantity },
                         on: {
@@ -805,6 +809,7 @@ var render = function() {
                       _c(
                         "button",
                         {
+                          staticClass: "btn btn-sm",
                           on: {
                             click: function($event) {
                               return _vm.$store.commit("removeFromCart", index)
@@ -813,7 +818,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Remove\n                            "
+                            "\n                                X\n                            "
                           )
                         ]
                       )
