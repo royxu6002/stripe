@@ -15,12 +15,13 @@ const auth = (to, from, next) => {
 const routes =  [
     {
         path: '/',
-        name: 'products.index',
-        component: () => import('../views/Products/Index.vue'),
+        name: 'Home',
+        components: () => import('../views/Home.vue'),
     },
     {
         path: '/products',
-        redirect: '/',
+        name: 'products.index',
+        component: () => import('../views/Products/Index.vue'),
     },
     {
         path: '/products/:slug',
