@@ -21,6 +21,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home'
 });
@@ -50,32 +53,44 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container" }, [
-      _c("h2", { staticClass: "mt-3" }, [_vm._v("基于 Bootstrap 构建的网站")]),
+      _c("h2", { staticClass: "mt-3" }, [
+        _vm._v("This is a price system from Comlibra.")
+      ]),
       _vm._v(" "),
       _c("p", { staticClass: "lead" }, [
         _vm._v(
-          "全球数以百万计的网站都是基于 Bootstrap 构建的。你可以先参观一下我们提供的"
-        ),
-        _c("a", { attrs: { href: "../getting-started/#examples" } }, [
-          _vm._v("实例精选")
-        ]),
-        _vm._v("或者看一看我们粉丝的网站吧。")
+          "In order to help improve our service to our trustworthy clients. We have launched this application to help our partners to instantly capture price and begin the purchase plan. Most of batch orders shall be fulfilled in a couple of days and then ready to ship to your warehouse. "
+        )
       ]),
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
       _c("p", { staticClass: "lead" }, [
-        _vm._v("我们在“优站精选”里展示了许多精美的 Bootstrap 网站。")
+        _vm._v(
+          'In the wide-spread e-commerce era, the savage way of Amazon is a big shock to traditional commerce ecosystem, destroying small household retailer, traditional distributor. The trend is unstoppable. "Stock and Sell" is the core for ecommerce. \n\t\t'
+        )
       ]),
       _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-outline btn-lg",
-          attrs: { href: "https://www.youzhan.org" }
-        },
-        [_vm._v("逛一逛“优站精选”")]
-      )
+      _c("p", { staticClass: "lead" }, [
+        _vm._v(
+          "Speedy and simplify the whole purchase process is a necessary evolution for us."
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "leader" }, [
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-outline btn-lg",
+            attrs: { href: "https://www.comlibra.com" }
+          },
+          [
+            _vm._v(
+              "\n\t\t\tYou can visit comlibra.com if you want to know more about us.\n\t\t\t"
+            )
+          ]
+        )
+      ])
     ])
   }
 ]

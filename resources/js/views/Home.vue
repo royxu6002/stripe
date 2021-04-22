@@ -1,13 +1,16 @@
 <template>
 	<div class="container">
-		<h2 class="mt-3">基于 Bootstrap 构建的网站</h2>
-		<p class="lead">全球数以百万计的网站都是基于 Bootstrap 构建的。你可以先参观一下我们提供的<a href="../getting-started/#examples">实例精选</a>或者看一看我们粉丝的网站吧。</p>
-
+		<h2 class="mt-3">This is a price system from Comlibra.</h2>
+		<p class="lead">In order to help improve our service to our trustworthy clients. We have launched this application to help our partners to instantly capture price and begin the purchase plan. Most of batch orders shall be fulfilled in a couple of days and then ready to ship to your warehouse. </p>
 		<hr>
-		
-
-		<p class="lead">我们在“优站精选”里展示了许多精美的 Bootstrap 网站。</p>
-		<a href="https://www.youzhan.org" class="btn btn-outline btn-lg">逛一逛“优站精选”</a>
+		<p class="lead">In the wide-spread e-commerce era, the savage way of Amazon is a big shock to traditional commerce ecosystem, destroying small household retailer, traditional distributor. The trend is unstoppable. "Stock and Sell" is the core for ecommerce. 
+		</p>
+		<p class="lead">Speedy and simplify the whole purchase process is a necessary evolution for us.</p>
+		<p class="leader">
+			<a href="https://www.comlibra.com" class="btn btn-outline btn-lg">
+			You can visit comlibra.com if you want to know more about us.
+			</a>
+		</p>
   </div>
 </template>
 <script>
