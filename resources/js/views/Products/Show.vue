@@ -5,8 +5,9 @@
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="(image, index) in product[0].images" :key=index>
-                            <img :src="GLOBAL.baseUrl +image " alt="" style="width:100%">
+                            <img :src="'http://shop.comlibra.com/' + image" alt="" style="width:100%">
                         </div>
+                        
                     </div>
                     <!-- 如果需要分页器 -->
                     <div class="swiper-pagination"></div>

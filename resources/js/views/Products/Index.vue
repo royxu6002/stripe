@@ -14,7 +14,7 @@
     >
       <div class="card h-100">
         <a href="#" v-if="product.images">
-          <img class="card-img-top" :src="GLOBAL.baseUrl+product.images[0]" alt="">
+          <img class="card-img-top" :src="'http://shop.comlibra.com/'+product.images[0]" alt="">
         </a>
 
         <div class="card-body">
@@ -88,6 +88,6 @@ export default {
         products() {
             return this.$store.state.products;
         }
-    }
+    },
 }
 </script>

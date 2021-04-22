@@ -56,6 +56,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -141,7 +142,7 @@ var render = function() {
               return _c("div", { key: index, staticClass: "swiper-slide" }, [
                 _c("img", {
                   staticStyle: { width: "100%" },
-                  attrs: { src: _vm.GLOBAL.baseUrl + image, alt: "" }
+                  attrs: { src: "http://shop.comlibra.com/" + image, alt: "" }
                 })
               ])
             }),

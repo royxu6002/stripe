@@ -136,7 +136,7 @@ var render = function() {
                       _c("img", {
                         staticClass: "card-img-top",
                         attrs: {
-                          src: _vm.GLOBAL.baseUrl + product.images[0],
+                          src: "http://shop.comlibra.com/" + product.images[0],
                           alt: ""
                         }
                       })
