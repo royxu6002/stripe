@@ -11,7 +11,7 @@ use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Passwords\PasswordBroker;
 
-class ForgotpasswordController extends Controller
+class ForgotPasswordController extends Controller
 {
     use SendsPasswordResetEmails;
 
