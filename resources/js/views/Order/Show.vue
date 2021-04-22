@@ -105,13 +105,13 @@ export default {
     },
     methods: {
         lineTotal(item) {
-            return item.price * item.pivot.quantity/100;
+            return item.pivot.price * item.pivot.quantity/100;
         },
         orderQuantity(p) {
             return p.reduce((acc,item) => acc + item.pivot.quantity, 0);
         },
         orderTotal(p) {
-            return p.reduce((acc, item) => acc + (item.pivot.quantity * item.price)/100, 0);
+            return p.reduce((acc, item) => acc + (item.pivot.quantity * item.pivot.price)/100, 0);
         },
         invoiceAddress(id) {
             return this.userInfo.invoiceaddresses.filter(add => add.id == id);

@@ -210,7 +210,9 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("span", [
-                          _vm._v(_vm._s(_vm._f("myCurrency")(product.price)))
+                          _vm._v(
+                            _vm._s(_vm._f("myCurrency")(product.pivot.price))
+                          )
                         ]),
                         _vm._v(" "),
                         _c("span", [_vm._v("x")]),

@@ -121,7 +121,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   methods: {
     lineTotal: function lineTotal(item) {
-      return item.price * item.pivot.quantity / 100;
+      return item.pivot.price * item.pivot.quantity / 100;
     },
     orderQuantity: function orderQuantity(p) {
       return p.reduce(function (acc, item) {
@@ -130,7 +130,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     orderTotal: function orderTotal(p) {
       return p.reduce(function (acc, item) {
-        return acc + item.pivot.quantity * item.price / 100;
+        return acc + item.pivot.quantity * item.pivot.price / 100;
       }, 0);
     },
     invoiceAddress: function invoiceAddress(id) {

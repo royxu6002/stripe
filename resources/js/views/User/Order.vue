@@ -21,7 +21,7 @@
                     <div class="col-9 col-sm-8 col-md-9 col-lg-10">
                         <h6 v-text="product.name">
                         </h6>
-                        <span>{{  product.price | myCurrency }}</span>
+                        <span>{{  product.pivot.price | myCurrency }}</span>
                         <span>x</span>
                         <span>{{ product.pivot.quantity}}</span>
                     </div>

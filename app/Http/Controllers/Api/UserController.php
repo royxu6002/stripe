@@ -93,7 +93,10 @@ class UserController extends Controller
                 ]);
 
             foreach(json_decode($request->input('cart'), true) as $item) {
-                $order->products()->attach($item['id'], ['quantity' => $item['quantity']]);
+                $order->products()->attach($item['id'], [
+                    'quantity' => $item['quantity'],
+                    'price' => $item['price'],
+                ]);
             }
             
             DB::commit();

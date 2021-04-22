@@ -59,7 +59,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("p", { staticClass: "lead" }, [
         _vm._v(
-          "In order to help improve our service to our trustworthy clients. We have launched this application to help our partners to instantly capture price and begin the purchase plan. Most of batch orders shall be fulfilled in a couple of days and then ready to ship to your warehouse. "
+          "In order to help improve our service to our trustworthy clients. We have launched this application to help our partners to instantly capture price and initiate the purchase plan. Most of batch orders shall be fulfilled in a couple of days and then ready to ship to your warehouse. "
         )
       ]),
       _vm._v(" "),
