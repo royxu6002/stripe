@@ -2,8 +2,8 @@
 <section data-name="portfolio-three-column">    
 <div class="container">
   <!-- Page Heading -->
-  <h1 class="my-4">Product index pages
-    <small>List all products in cart!</small>
+  <h1 class="my-4">
+    View all products
   </h1>
 
   <div class="row">

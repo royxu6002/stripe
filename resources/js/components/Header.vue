@@ -1,30 +1,33 @@
 <template>
   <nav class="nav-container container">
-    <ul class="nav nav-pills">
-      <li class="nav-item">
-        <router-link to="/" class="nav-link" data-toggle="dropdown">Home</router-link>
-      </li>
-      <li class="nav-item dropdown">
-        <router-link to="/products" class="nav-link" data-toggle="dropdown">Products</router-link>
-      </li>
-    </ul>
+      <router-link to="/home" class="nav-link">
+        <img src="https://comlibra.com/images/logo.svg" width="66">
+      </router-link>
+      
     
     <div class="nav-container-right">
-        <router-link :to="{name: 'UserProfile', params: {user: $store.state.auth.userInfo.id}}" class="nav-link" v-if="$store.state.auth.userInfo">
+         <router-link to="/products" class="nav-link" >
+          <svg class="icon svg-icon" aria-hidden="true">
+            <use xlink:href="#icon-chanpin"></use>
+          </svg>
+          <span>Products</span>
+         </router-link>
+
+        <router-link class="nav-link" :to="{name: 'UserProfile', params: {user: $store.state.auth.userInfo.id}}" v-if="$store.state.auth.userInfo">
           <svg class="icon svg-icon" aria-hidden="true">
             <use xlink:href="#icon-login"></use>
           </svg>
           <span>Profile</span>
         </router-link>
         
-        <router-link to="/login" class="nav-link" v-else>
+        <router-link  class="nav-link" to="/login" v-else>
           <svg class="icon svg-icon" aria-hidden="true">
             <use xlink:href="#icon-md-log-in"></use>
           </svg>Sign In/Up
         </router-link>
 
         <router-link 
-          class="py-2 d-md-inline-block"
+          class="nav-link" 
           :to="{name: 'order.checkout'}">
           <svg class="icon svg-icon" aria-hidden="true">
           <use xlink:href="#icon-gouwuche"></use>

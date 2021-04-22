@@ -120,7 +120,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("section", { attrs: { "data-name": "portfolio-three-column" } }, [
     _c("div", { staticClass: "container" }, [
-      _vm._m(0),
+      _c("h1", { staticClass: "my-4" }, [
+        _vm._v("\n    View all products\n  ")
+      ]),
       _vm._v(" "),
       _c(
         "div",
@@ -190,17 +192,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h1", { staticClass: "my-4" }, [
-      _vm._v("Product index pages\n    "),
-      _c("small", [_vm._v("List all products in cart!")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

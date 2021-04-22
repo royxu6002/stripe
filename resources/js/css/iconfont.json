@@ -48,6 +48,13 @@
       "unicode_decimal": 58900
     },
     {
+      "icon_id": "6267304",
+      "name": "产品",
+      "font_class": "chanpin",
+      "unicode": "e6dc",
+      "unicode_decimal": 59100
+    },
+    {
       "icon_id": "9457099",
       "name": "md-log-in",
       "font_class": "md-log-in",
