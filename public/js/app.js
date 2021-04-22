@@ -31021,7 +31021,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 var baseUrl;
 var devUrl = 'http://stripe.test/';
-var prodUrl = 'https://online.comlibra.com/';
+var prodUrl = 'http://online.comlibra.com/';
  true ? baseUrl = devUrl : undefined;
 /* harmony default export */ __webpack_exports__["default"] = ({
   baseUrl: baseUrl

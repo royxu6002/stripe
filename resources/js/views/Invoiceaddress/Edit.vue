@@ -184,7 +184,9 @@ import apiUser from "../../api/User";
           .then(res => {
             if(res.data.errors) this.errors = res.data.errors;
             // 改变 state中的数据 只能通过 commit
-            if(res.data.address) {
+            if(res.data.status === 'succ') {
+              console.log('test');
+              console.log(res.data.address);
               const index = this.$store.state.auth.userInfo.invoiceaddresses.findIndex(value => value.id == this.$route.params.address);
               const address = res.data.address;
               this.$store.commit('auth/updateUserInvoiceAddressData', {index, address});

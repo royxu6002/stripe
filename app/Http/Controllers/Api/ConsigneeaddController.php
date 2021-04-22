@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\ConsigneeAddress;
 use Validator;
 use Exception;
+use Auth;
 
 class ConsigneeaddController extends Controller
 {
@@ -27,7 +28,7 @@ class ConsigneeaddController extends Controller
             ]);
         }
 
-        $add = $user->consigneeaddresses()->create([
+        $add = $this->guard()->user()->consigneeaddresses()->create([
             'name' => $request->input('first_name'). ' '.$request->input('last_name'),
             'company_name' => $request->input('company_name') ?? null,
             'phone' =>  $request->input('phone'),
@@ -60,7 +61,10 @@ class ConsigneeaddController extends Controller
 
     public function show(User $user, ConsigneeAddress $address)
     {
-        return $address->toArray();
+
+        if($address->user_id === $this->guard()->user()->id) {
+            return $address;
+        }
     }
 
     public function update(User $user, ConsigneeAddress $address, Request $request)
@@ -73,33 +77,46 @@ class ConsigneeaddController extends Controller
             ]);
         }
 
-        $add = $user->consigneeaddresses()->update([
-            'name' => $request->input('first_name'). ' '.$request->input('last_name'),
-            'company_name' => $request->input('company_name') ?? null,
-            'phone' =>  $request->input('phone'),
-            'address' => $request->input('address'),
-            'city' => $request->input('city'),
-            'state' => $request->input('state'),
-            'zip_code' => $request->input('zip_code'),
-            'country' => $request->input('country')
-        ]);
+        if($address->user_id == $this->guard()->user()->id) {
 
-        $updated_address = ConsigneeAddress::find($address);
-
-        return response()->json([
-            'msg' => 'address for consignee has been updated',
-            'address' => $updated_address[0],
-        ]);
+            $result = ConsigneeAddress::where('id', $address->id)->update([
+                'name' => $request->input('first_name'). ' '.$request->input('last_name'),
+                'company_name' => $request->input('company_name') ?? null,
+                'phone' =>  $request->input('phone'),
+                'address' => $request->input('address'),
+                'city' => $request->input('city'),
+                'state' => $request->input('state'),
+                'zip_code' => $request->input('zip_code'),
+                'country' => $request->input('country')
+            ]);
+            
+            $address = ConsigneeAddress::where('id', $address->id)->get();
+            
+            if($result) {
+                return response()->json([
+                    'msg' => 'address for consignee has been updated',
+                    'address' => $address[0],
+                    'status' => 'succ'
+                ]);
+            }
+            
+        }
     }
 
-    public function destroy(User $user, ConsigneeAddress $add)
+    public function destroy(User $user, ConsigneeAddress $address)
     {
-        $result =  $user->consigneeaddresses()->delete($add);
-
-        if($result) {
-            return response()->json([
-                'msg' => 'address has been deleted'
-            ]);
+        if($address->user_id == $this->guard()->user()->id ) {
+            $result = $address->delete();
+            if($result) {
+                return response()->json([
+                    'msg' => 'address has been deleted'
+                ]);
+            }
         }
+    }
+
+    public function guard()
+    {
+        return Auth::guard('api');
     }
 }

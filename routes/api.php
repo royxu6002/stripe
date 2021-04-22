@@ -19,7 +19,7 @@ Route::namespace('Api')->group(function() {
     Route::delete('/user/{user}/invoiceaddress/{address}/delete', 'InvoiceaddController@destroy');
     // consignedAddress
     Route::post('/user/{user}/consigneeaddress/create', 'ConsigneeaddController@create');
-    Route::get('/user/{user}/consigneeaddress/{address}/show', 'ConsigneeaddController@show');
+    Route::get('/user/{user}/consigneeaddress/{address}/show', 'ConsigneeaddController@show')->middleware('auth:api');
     Route::put('/user/{user}/consigneeaddress/{address}/update', 'ConsigneeaddController@update');
     Route::delete('/user/{user}/consigneeaddress/{address}/delete', 'ConsigneeaddController@destroy');
 });

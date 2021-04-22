@@ -199,7 +199,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.put('/api/user/' + this.$route.params.user + '/consigneeaddress/' + this.$route.params.address + '/update', this.customer).then(function (res) {
         if (res.data.errors) _this2.errors = res.data.errors; // 改变 state中的数据 只能通过 commit
 
-        if (res.data.address) {
+        if (res.data.status === 'succ') {
           var index = _this2.$store.state.auth.userInfo.consigneeaddresses.findIndex(function (value) {
             return value.id == _this2.$route.params.address;
           });
