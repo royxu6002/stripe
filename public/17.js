@@ -60,31 +60,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      category: ''
+    };
+  },
   methods: {
     formatCurrency: function formatCurrency(amount) {
       amount = amount / 100;
@@ -92,11 +73,18 @@ __webpack_require__.r(__webpack_exports__);
         style: 'currency',
         currency: 'USD'
       });
+    },
+    setCategory: function setCategory(name) {
+      this.category = name;
     }
   },
   computed: {
-    products: function products() {
-      return this.$store.state.products;
+    productsFilteredBy: function productsFilteredBy() {
+      var _this = this;
+
+      return this.$store.state.products.filter(function (product) {
+        return JSON.stringify(product.categories).indexOf(_this.category) > -1;
+      });
     }
   }
 });
@@ -127,7 +115,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "row" },
-        _vm._l(_vm.$store.state.products, function(product) {
+        _vm._l(_vm.productsFilteredBy, function(product) {
           return _c(
             "div",
             { key: product.id, staticClass: "col-lg-4 col-sm-6 mb-4" },
@@ -145,44 +133,51 @@ var render = function() {
                     ])
                   : _vm._e(),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "card-body" },
-                  [
-                    _c(
-                      "h4",
-                      { staticClass: "card-title" },
-                      _vm._l(product.categories, function(category) {
-                        return _c("a", {
-                          key: category.id,
-                          attrs: { href: "#" },
-                          domProps: { textContent: _vm._s(category.name) }
-                        })
-                      }),
-                      0
-                    ),
-                    _vm._v(" "),
-                    _c("router-link", {
-                      staticClass: "card-text",
-                      attrs: {
-                        to: {
-                          name: "products.show",
-                          params: {
-                            slug: product.slug
+                _c("div", { staticClass: "card-body" }, [
+                  _c(
+                    "h5",
+                    { staticClass: "card-title" },
+                    _vm._l(product.categories, function(category) {
+                      return _c("a", {
+                        key: category.id,
+                        staticClass: "mr-2",
+                        attrs: { href: "#" },
+                        domProps: { textContent: _vm._s(category.name) },
+                        on: {
+                          click: function($event) {
+                            return _vm.setCategory(category.name)
                           }
                         }
-                      },
-                      domProps: { textContent: _vm._s(product.name) }
+                      })
                     }),
-                    _vm._v(" "),
-                    _c("h3", {
-                      domProps: {
-                        textContent: _vm._s(_vm.formatCurrency(product.price))
-                      }
-                    })
-                  ],
-                  1
-                )
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    [
+                      _c("router-link", {
+                        staticClass: "card-text",
+                        attrs: {
+                          to: {
+                            name: "products.show",
+                            params: {
+                              slug: product.slug
+                            }
+                          }
+                        },
+                        domProps: { textContent: _vm._s(product.name) }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("h5", {
+                    domProps: {
+                      textContent: _vm._s(_vm.formatCurrency(product.price))
+                    }
+                  })
+                ])
               ])
             ]
           )

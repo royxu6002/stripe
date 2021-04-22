@@ -771,69 +771,76 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12 col-xs-12" }, [
-        _c("table", { staticClass: "table table-striped" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            [
-              _vm._l(_vm.cart, function(item, index) {
-                return _c("tr", { key: index }, [
-                  _c("td", { domProps: { textContent: _vm._s(item.name) } }),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("input", {
-                      attrs: { type: "text", min: "1" },
-                      domProps: { value: item.quantity },
-                      on: {
-                        blur: function($event) {
-                          return _vm.updateCartItemQuantity(index, $event)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(_vm.cartLineTotal(item)))]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "button",
-                      {
+        _c(
+          "table",
+          {
+            staticClass: "table table-striped",
+            staticStyle: { width: "100%" }
+          },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              [
+                _vm._l(_vm.cart, function(item, index) {
+                  return _c("tr", { key: index }, [
+                    _c("td", { domProps: { textContent: _vm._s(item.name) } }),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        attrs: { type: "text", min: "1" },
+                        domProps: { value: item.quantity },
                         on: {
-                          click: function($event) {
-                            return _vm.$store.commit("removeFromCart", index)
+                          blur: function($event) {
+                            return _vm.updateCartItemQuantity(index, $event)
                           }
                         }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                Remove\n                            "
-                        )
-                      ]
-                    )
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.cartLineTotal(item)))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.$store.commit("removeFromCart", index)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Remove\n                            "
+                          )
+                        ]
+                      )
+                    ])
                   ])
+                }),
+                _vm._v(" "),
+                _c("tr", { staticStyle: { "font-weight": "bold" } }, [
+                  _c("td", [_vm._v("Total")]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.cartQuantity) +
+                        "\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.cartTotal))]),
+                  _vm._v(" "),
+                  _c("td")
                 ])
-              }),
-              _vm._v(" "),
-              _c("tr", { staticStyle: { "font-weight": "bold" } }, [
-                _c("td", [_vm._v("Total")]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    "\n                            " +
-                      _vm._s(_vm.cartQuantity) +
-                      "\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.cartTotal))]),
-                _vm._v(" "),
-                _c("td")
-              ])
-            ],
-            2
-          )
-        ]),
+              ],
+              2
+            )
+          ]
+        ),
         _vm._v(" "),
         _c("hr"),
         _vm._v(" "),
