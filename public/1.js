@@ -450,7 +450,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         index: index,
         quantity: quantity
       };
-      console.log(data);
       this.$store.dispatch('setQuantity', data);
     },
     bankTransfer: function bankTransfer() {

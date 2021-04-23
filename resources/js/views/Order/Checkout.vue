@@ -177,7 +177,6 @@ export default {
         updateCartItemQuantity(index, $e) {
             const quantity = Number($e.target.value);
             const data = {index, quantity};
-            console.log(data);
             this.$store.dispatch('setQuantity', data);
         },
         bankTransfer() {
