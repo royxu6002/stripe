@@ -1,5 +1,5 @@
 <template>
-<section data-name="portfolio-three-column">    
+<section class="product-index-page">    
 <div class="container">
   <!-- Page Heading -->
   <h1 class="my-4">
@@ -64,3 +64,10 @@ export default {
     }
 }
 </script>
+<style scoped>
+@media only screen and (max-width: 576px) {
+  .product-index-page{
+    margin-right: 21%;
+  }
+}
+</style>
