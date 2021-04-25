@@ -108,10 +108,11 @@ class UserController extends Controller
         }
     }
 
-    public function index()
-    {
-        return UserResource::collection(User::paginate(2));
-    }
+    // public function index()
+    // {
+    //     return User::paginate(1);
+    //     // return UserResource::collection(User::paginate(2));
+    // }
 
     public function paypal(Request $request)
     {

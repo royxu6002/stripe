@@ -27,6 +27,12 @@ const routes =  [
         name: 'products.index',
         component: () => import('../views/Products/Index.vue'),
     },
+    {   
+        path: '/product/:category',
+        name: 'category',
+        component: () => import('../views/Category/Index.vue'),
+
+    },
     {
         path: '/products/:slug',
         name: 'products.show',

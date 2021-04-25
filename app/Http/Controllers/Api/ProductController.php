@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return Product::with('categories:id,name')->get();
+        return Product::with('categories:id,name,slug')->get();
     }
 
     public function show(Product $product)

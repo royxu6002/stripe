@@ -5,12 +5,13 @@
   <h1 class="my-4">
     View all products
   </h1>
+  {{$route.params.category}}
 
   <div class="row">
     <!-- begin the loop v-for; -->
     <div class="col-lg-4 col-sm-6 mb-4"
-      v-for="product in productsFilteredBy"
-      :key="product.id"
+      v-for="(product, index) in productsFilteredBy"
+      :key="index"
     >
       <div class="card h-100">
         <a href="#" v-if="product.images">
@@ -18,16 +19,6 @@
         </a>
 
         <div class="card-body">
-          <h5 class="card-title">
-            <a href="#"
-              class="mr-2"
-              v-for="category in product.categories"
-              v-text="category.name"
-              :key="category.id"
-              @click="SET_CATEGORY(category.name)"
-            >
-            </a>
-          </h5>
           <p>
             <router-link
               class="card-text"
@@ -50,9 +41,8 @@
 </section>
 </template>
 <script>
-import { mapGetters, mapMutations } from "vuex";
-
 export default {
+    name: 'category',
     data() {
       return {
         category: ''
@@ -66,10 +56,11 @@ export default {
                 currency: 'USD'
             });
         },
-        ...mapMutations(['SET_CATEGORY']),
     }, 
     computed: {
-        ...mapGetters(['productsFilteredBy']),
+        productsFilteredBy() {
+          return this.$store.state.products.filter((product) => JSON.stringify(product.categories).indexOf(this.$route.params.category) > -1);
+        }
     }
 }
 </script>

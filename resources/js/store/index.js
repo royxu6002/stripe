@@ -9,14 +9,27 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         products: [],
+        category: '',
+        categories: [],
         cart: [],
+    },
+    getters: {
+        productsFilteredBy(state) {
+            return state.products.filter(product => JSON.stringify(product.categories).indexOf(state.category) > -1);
+        }
     },
     mutations: {
         updateProducts(state, products) {
             state.products = products;
         },
-        GET_CART(state, cart) {
-            state.cart = cart;
+        SET_CATEGORY(state, category) {
+            state.category = category;
+        },
+        SET_CATEGORIES(state, categories) {
+            state.categories = categories;
+        },
+        SET_CART(state, cart) {
+            state.cart = cart
         },
         addToCart(state, product) {
             let productInCartIndex = state.cart.findIndex(item => item.slug === product.slug);
@@ -45,23 +58,28 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        getCategories({commit}) {
+        getProducts({commit}) {
             axios.get('/api/products')
             .then((response) => {
                 commit('updateProducts', response.data);
             })
             .catch((error) => console.error(error));
         },
+        getCategories({commit}) {
+            axios.get('/api/categories')
+                .then(res => commit('SET_CATEGORIES', res.data))
+                .catch(err => alert(err))
+        },
         getCart({commit}) {
             let cart =  JSON.parse(localStorage.getItem('cle_takeout')||'[]');
-            commit('GET_CART', cart)
+            commit('SET_CART', cart)
         },
         clearCart({commit}){
             commit('updateCart', []);
         },
         setQuantity({commit}, payload) {
             commit('updateQuantity', payload);
-        }
+        },
     },
     modules: {
         auth,

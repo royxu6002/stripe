@@ -23,10 +23,11 @@ const app = new Vue({
     store,
     render: h => h(App),
     created() {
-        store.dispatch('getCategories')
+        store.dispatch('getProducts')
             .then(_ => {})
             .catch((error) => console.error(error));
         store.dispatch('getCart');
+        store.dispatch('getCategories');
     }
 }).$mount("#app");
 
