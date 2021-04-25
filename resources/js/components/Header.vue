@@ -37,7 +37,7 @@
               </svg>
               <span>Products</span>
             </router-link> -->
-            <a class="nav-link">
+            <a class="nav-link" href="#">
               <svg class="icon svg-icon" aria-hidden="true">
                 <use xlink:href="#icon-chanpin"></use>
               </svg>

@@ -14397,7 +14397,7 @@ var render = function() {
                 ),
             _vm._v(" "),
             _c("li", [
-              _c("a", { staticClass: "nav-link" }, [
+              _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
                 _c(
                   "svg",
                   {
