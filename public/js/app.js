@@ -2185,6 +2185,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Header",
@@ -2206,7 +2213,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.nav-container[data-v-1f42fb90]{\n  display: flex;\n  justify-content: space-between;\n}\n.nav-container-right[data-v-1f42fb90]{\n  display: flex;\n  justify-content: space-between;\n}\n.icon[data-v-1f42fb90] {\n  width: 2em;\n  height: 2em;\n  vertical-align: center;\n  fill: rgba(138, 114, 245, 0.68);\n  overflow: hidden;\n}\n.nav-container-right ul[data-v-1f42fb90] {\n  list-style: none;\n}\n.nav-container-right ul li[data-v-1f42fb90] {\n  float: right;\n  position: relative;\n}\n.nav-container-right ul li:hover a[data-v-1f42fb90]{\n  background-color: #3490dc;\n  color: #fff;\n}\n.nav-container-right ul li:hover .icon[data-v-1f42fb90] {\n  fill: rgb(254, 254, 255);\n}\n.submenu[data-v-1f42fb90] {\n  position: absolute;\n  width: 100%;\n  height: 0;\n  overflow: hidden;\n  z-index: 100;\n}\n.nav-container-right>ul>li:hover .submenu[data-v-1f42fb90]{\n  height: auto;\n}\n.submenu>ul[data-v-1f42fb90] {\n  list-style: none;\n  margin: 0 !important;\n  transform: translateY(-100%);\n  transition: all 1s ease;\n  padding: 0;\n  height: 0;\n}\n.nav-container-right>ul>li:hover .submenu>ul[data-v-1f42fb90] {\n  transform: translateY(0);\n}\n.submenu>ul>li[data-v-1f42fb90] {\n  float: left !important;\n  border-top: 1px solid rgb(255, 255, 255);\n  width: 100%;\n}\n.submenu>ul>li>a[data-v-1f42fb90] {\n  display: block;\n  background-color: #3490dc;\n  color: #fff;\n  padding: 10px 20px;\n  text-decoration: none;\n  transition: all 1s ease-in-out;\n}\n.submenu>ul>li>a[data-v-1f42fb90]:hover {\n  background-color: rgba(138, 114, 245, 0.68);\n}\n\n\n", ""]);
+exports.push([module.i, "\n.nav-container[data-v-1f42fb90]{\n  display: flex;\n  justify-content: space-between;\n}\n.nav-container-right[data-v-1f42fb90]{\n  display: flex;\n  justify-content: space-between;\n}\n.icon[data-v-1f42fb90] {\n  width: 2em;\n  height: 2em;\n  vertical-align: center;\n  fill: rgba(138, 114, 245, 0.68);\n  overflow: hidden;\n}\n.nav-container-right ul[data-v-1f42fb90] {\n  list-style: none;\n}\n.nav-container-right ul li[data-v-1f42fb90] {\n  position: relative;\n}\n.nav-container-right ul li:hover a[data-v-1f42fb90]{\n  background-color: #3490dc;\n  color: #fff;\n}\n.nav-container-right ul li:hover .icon[data-v-1f42fb90] {\n  fill: rgb(254, 254, 255);\n}\n.submenu[data-v-1f42fb90] {\n  position: absolute;\n  width: 100%;\n  height: 0;\n  overflow: hidden;\n  z-index: 100;\n}\n.nav-container-right>ul>li:hover .submenu[data-v-1f42fb90]{\n  height: auto;\n}\n.submenu>ul[data-v-1f42fb90] {\n  list-style: none;\n  margin: 0 !important;\n  transform: translateY(-100%);\n  transition: all 1s ease;\n  padding: 0;\n  height: 0;\n}\n.nav-container-right>ul>li:hover .submenu>ul[data-v-1f42fb90] {\n  transform: translateY(0);\n}\n.submenu>ul>li[data-v-1f42fb90] {\n  float: left !important;\n  border-top: 1px solid rgb(255, 255, 255);\n  width: 100%;\n}\n.submenu>ul>li>a[data-v-1f42fb90] {\n  display: block;\n  background-color: #3490dc;\n  color: #fff;\n  padding: 10px 20px;\n  text-decoration: none;\n  transition: all 1s ease-in-out;\n}\n.submenu>ul>li>a[data-v-1f42fb90]:hover {\n  background-color: rgba(138, 114, 245, 0.68);\n}\n\n\n", ""]);
 
 // exports
 
@@ -14293,112 +14300,115 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "nav-container-right" }, [
-        _c("ul", [
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                {
-                  staticClass: "nav-link",
-                  attrs: { to: { name: "order.checkout" } }
-                },
-                [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "icon svg-icon",
-                      attrs: { "aria-hidden": "true" }
-                    },
-                    [_c("use", { attrs: { "xlink:href": "#icon-gouwuche" } })]
-                  ),
-                  _vm._v(
-                    " ( " +
-                      _vm._s(_vm.$store.state.cart.length) +
-                      " ) Items \n          "
-                  )
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _vm.$store.state.auth.userInfo
-            ? _c(
-                "li",
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-link",
-                      attrs: {
-                        to: {
-                          name: "UserProfile",
-                          params: { user: _vm.$store.state.auth.userInfo.id }
+        _c(
+          "ul",
+          {
+            staticStyle: { display: "flex", "justify-content": "space-between" }
+          },
+          [
+            _c(
+              "li",
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "nav-link",
+                    attrs: { to: { name: "order.checkout" } }
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "icon svg-icon",
+                        attrs: { "aria-hidden": "true" }
+                      },
+                      [_c("use", { attrs: { "xlink:href": "#icon-gouwuche" } })]
+                    ),
+                    _vm._v(
+                      " ( " +
+                        _vm._s(_vm.$store.state.cart.length) +
+                        " ) Items \n          "
+                    )
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm.$store.state.auth.userInfo
+              ? _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link",
+                        attrs: {
+                          to: {
+                            name: "UserProfile",
+                            params: { user: _vm.$store.state.auth.userInfo.id }
+                          }
                         }
-                      }
-                    },
-                    [
-                      _c(
-                        "svg",
-                        {
-                          staticClass: "icon svg-icon",
-                          attrs: { "aria-hidden": "true" }
-                        },
-                        [_c("use", { attrs: { "xlink:href": "#icon-login" } })]
-                      ),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Profile")])
-                    ]
-                  )
-                ],
-                1
-              )
-            : _c(
-                "li",
-                [
-                  _c(
-                    "router-link",
-                    { staticClass: "nav-link", attrs: { to: "/login" } },
-                    [
-                      _c(
-                        "svg",
-                        {
-                          staticClass: "icon svg-icon",
-                          attrs: { "aria-hidden": "true" }
-                        },
-                        [
-                          _c("use", {
-                            attrs: { "xlink:href": "#icon-md-log-in" }
-                          })
-                        ]
-                      ),
-                      _vm._v("Sign In/Up\n          ")
-                    ]
-                  )
-                ],
-                1
-              ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                { staticClass: "nav-link", attrs: { to: "/products" } },
-                [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "icon svg-icon",
-                      attrs: { "aria-hidden": "true" }
-                    },
-                    [_c("use", { attrs: { "xlink:href": "#icon-chanpin" } })]
-                  ),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Products")])
-                ]
-              ),
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "icon svg-icon",
+                            attrs: { "aria-hidden": "true" }
+                          },
+                          [
+                            _c("use", {
+                              attrs: { "xlink:href": "#icon-login" }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Profile")])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              : _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      { staticClass: "nav-link", attrs: { to: "/login" } },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "icon svg-icon",
+                            attrs: { "aria-hidden": "true" }
+                          },
+                          [
+                            _c("use", {
+                              attrs: { "xlink:href": "#icon-md-log-in" }
+                            })
+                          ]
+                        ),
+                        _vm._v("Sign In/Up\n          ")
+                      ]
+                    )
+                  ],
+                  1
+                ),
+            _vm._v(" "),
+            _c("li", [
+              _c("a", { staticClass: "nav-link" }, [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "icon svg-icon",
+                    attrs: { "aria-hidden": "true" }
+                  },
+                  [_c("use", { attrs: { "xlink:href": "#icon-chanpin" } })]
+                ),
+                _vm._v(" "),
+                _c("span", [_vm._v("Products")])
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "submenu" }, [
                 _c(
@@ -14433,10 +14443,9 @@ var render = function() {
                   0
                 )
               ])
-            ],
-            1
-          )
-        ])
+            ])
+          ]
+        )
       ])
     ],
     1

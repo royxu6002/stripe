@@ -5,7 +5,7 @@
       </router-link>
       
     <div class="nav-container-right">
-        <ul>
+        <ul style="display: flex; justify-content: space-between;">
          <li>
             <router-link 
               class="nav-link" 
@@ -31,12 +31,19 @@
             </router-link>
           </li>
            <li>
-            <router-link to="/products" class="nav-link" >
+            <!-- <router-link to="/products" class="nav-link" >
               <svg class="icon svg-icon" aria-hidden="true">
                 <use xlink:href="#icon-chanpin"></use>
               </svg>
               <span>Products</span>
-            </router-link>
+            </router-link> -->
+            <a class="nav-link">
+              <svg class="icon svg-icon" aria-hidden="true">
+                <use xlink:href="#icon-chanpin"></use>
+              </svg>
+              <span>Products</span>
+            </a>
+            
             <div class="submenu">
               <ul>
                 <!-- 动态从数据库里面那产品分类, 或者考虑用数组排重来拿到数据 -->
@@ -87,7 +94,6 @@ export default {
   list-style: none;
 }
 .nav-container-right ul li {
-  float: right;
   position: relative;
 }
 .nav-container-right ul li:hover a{
