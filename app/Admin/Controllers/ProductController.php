@@ -72,7 +72,7 @@ class ProductController extends AdminController
         $form->multipleSelect('categories', 'Category')->options(Category::all()->pluck('name', 'id'));
         $form->text('slug', __('Slug'));
         $form->ckeditor('description', __('Description'));
-        $form->multipleImage('images')->sortable();
+        $form->multipleImage('images')->removable();
         $form->number('price', __('Price'));
 
         return $form;
