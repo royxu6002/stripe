@@ -31,29 +31,25 @@
             </router-link>
           </li>
            <li>
-            <!-- <router-link to="/products" class="nav-link" >
-              <svg class="icon svg-icon" aria-hidden="true">
-                <use xlink:href="#icon-chanpin"></use>
-              </svg>
-              <span>Products</span>
-            </router-link> -->
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#" @click="submenus = !submenus">
               <svg class="icon svg-icon" aria-hidden="true">
                 <use xlink:href="#icon-chanpin"></use>
               </svg>
               <span>Products</span>
             </a>
-            
-            <div class="submenu">
-              <ul>
-                <!-- 动态从数据库里面那产品分类, 或者考虑用数组排重来拿到数据 -->
-                <li v-for="(cat, index) in categories" :key=index>
-                  <router-link :to="{name: 'category', params: {category: cat.slug}}">
-                    {{ cat.name }}
-                  </router-link>
-                </li>
-              </ul>
-            </div>
+            <!-- 添加动画效果 -->
+            <transition name="fade">
+              <div class="submenu" v-if="submenus">
+                <ul>
+                  <!-- 动态从数据库里面那产品分类, 或者考虑用数组排重来拿到数据 -->
+                  <li v-for="(cat, index) in categories" :key=index>
+                    <router-link :to="{name: 'category', params: {category: cat.slug}}">
+                      {{ cat.name }}
+                    </router-link>
+                  </li>
+                </ul>
+              </div>
+            </transition>
           </li>
         </ul>
     </div> 
@@ -64,11 +60,23 @@ import { mapMutations, mapState } from "vuex";
 
 export default {
   name: "Header",
+  data() {
+    return {
+      submenus: false,
+    }
+  },
   methods : {
     ...mapMutations(['SET_CATEGORY']),
   },
   computed: {
     ...mapState(['categories'])
+  },
+  watch: {
+    $route(value) {
+      if(value) {
+        this.submenus = false;
+      }
+    }
   }
 };
 </script>

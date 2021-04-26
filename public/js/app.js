@@ -2188,15 +2188,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Header",
+  data: function data() {
+    return {
+      submenus: false
+    };
+  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(['SET_CATEGORY'])),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categories']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categories'])),
+  watch: {
+    $route: function $route(value) {
+      if (value) {
+        this.submenus = false;
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -14396,54 +14404,74 @@ var render = function() {
                   1
                 ),
             _vm._v(" "),
-            _c("li", [
-              _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+            _c(
+              "li",
+              [
                 _c(
-                  "svg",
+                  "a",
                   {
-                    staticClass: "icon svg-icon",
-                    attrs: { "aria-hidden": "true" }
+                    staticClass: "nav-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        _vm.submenus = !_vm.submenus
+                      }
+                    }
                   },
-                  [_c("use", { attrs: { "xlink:href": "#icon-chanpin" } })]
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "icon svg-icon",
+                        attrs: { "aria-hidden": "true" }
+                      },
+                      [_c("use", { attrs: { "xlink:href": "#icon-chanpin" } })]
+                    ),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("Products")])
+                  ]
                 ),
                 _vm._v(" "),
-                _c("span", [_vm._v("Products")])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "submenu" }, [
-                _c(
-                  "ul",
-                  _vm._l(_vm.categories, function(cat, index) {
-                    return _c(
-                      "li",
-                      { key: index },
-                      [
+                _c("transition", { attrs: { name: "fade" } }, [
+                  _vm.submenus
+                    ? _c("div", { staticClass: "submenu" }, [
                         _c(
-                          "router-link",
-                          {
-                            attrs: {
-                              to: {
-                                name: "category",
-                                params: { category: cat.slug }
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                  " +
-                                _vm._s(cat.name) +
-                                "\n                "
+                          "ul",
+                          _vm._l(_vm.categories, function(cat, index) {
+                            return _c(
+                              "li",
+                              { key: index },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    attrs: {
+                                      to: {
+                                        name: "category",
+                                        params: { category: cat.slug }
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(cat.name) +
+                                        "\n                  "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
                             )
-                          ]
+                          }),
+                          0
                         )
-                      ],
-                      1
-                    )
-                  }),
-                  0
-                )
-              ])
-            ])
+                      ])
+                    : _vm._e()
+                ])
+              ],
+              1
+            )
           ]
         )
       ])
@@ -31422,13 +31450,13 @@ var routes = [{
   path: '/product/:category',
   name: 'category',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../views/Category/Index.vue */ "./resources/js/views/Category/Index.vue"));
+    return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../views/Category/Index.vue */ "./resources/js/views/Category/Index.vue"));
   }
 }, {
   path: '/products/:slug',
   name: 'products.show',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(14), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! ../views/Products/Show.vue */ "./resources/js/views/Products/Show.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(15), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! ../views/Products/Show.vue */ "./resources/js/views/Products/Show.vue"));
   }
 }, {
   path: '/checkout',
@@ -31440,7 +31468,7 @@ var routes = [{
   path: '/summary',
   name: 'order.summary',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../views/Order/Summary.vue */ "./resources/js/views/Order/Summary.vue"));
+    return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../views/Order/Summary.vue */ "./resources/js/views/Order/Summary.vue"));
   }
 }, {
   path: '/about',
@@ -31452,27 +31480,27 @@ var routes = [{
   path: '/login',
   name: 'Login',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ../views/User/Login.vue */ "./resources/js/views/User/Login.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ../views/User/Login.vue */ "./resources/js/views/User/Login.vue"));
   },
   beforeEnter: guest
 }, {
   path: '/register',
   name: 'Register',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ../views/User/Register.vue */ "./resources/js/views/User/Register.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! ../views/User/Register.vue */ "./resources/js/views/User/Register.vue"));
   },
   beforeEnter: guest
 }, {
   path: '/password/reset/:token/:email',
   name: 'Token',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! ../views/User/Token.vue */ "./resources/js/views/User/Token.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! ../views/User/Token.vue */ "./resources/js/views/User/Token.vue"));
   }
 }, {
   path: '/forgotpassword',
   name: 'Forgot',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, /*! ../views/User/Forgot.vue */ "./resources/js/views/User/Forgot.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ../views/User/Forgot.vue */ "./resources/js/views/User/Forgot.vue"));
   }
 }, {
   path: '/resetpassword',
@@ -31490,7 +31518,7 @@ var routes = [{
 }, {
   path: '/user/:user',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../views/User/Show.vue */ "./resources/js/views/User/Show.vue"));
+    return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../views/User/Show.vue */ "./resources/js/views/User/Show.vue"));
   },
   children: [{
     path: '/user/:user/profile',
@@ -31502,13 +31530,13 @@ var routes = [{
     path: '/user/:user/address',
     name: 'UserAddress',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../views/User/Address.vue */ "./resources/js/views/User/Address.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/User/Address.vue */ "./resources/js/views/User/Address.vue"));
     }
   }, {
     path: '/user/:user/order',
     name: 'UserOrder',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/User/Order.vue */ "./resources/js/views/User/Order.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../views/User/Order.vue */ "./resources/js/views/User/Order.vue"));
     }
   }, {
     path: '/',
@@ -31518,25 +31546,25 @@ var routes = [{
   path: '/user/:user/address/:address/edit',
   name: 'AddressEdit',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, /*! ../views/Invoiceaddress/Edit.vue */ "./resources/js/views/Invoiceaddress/Edit.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, /*! ../views/Invoiceaddress/Edit.vue */ "./resources/js/views/Invoiceaddress/Edit.vue"));
   }
 }, {
   path: '/user/:user/address/create',
   name: 'AddressCreate',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ../views/Invoiceaddress/Create.vue */ "./resources/js/views/Invoiceaddress/Create.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, /*! ../views/Invoiceaddress/Create.vue */ "./resources/js/views/Invoiceaddress/Create.vue"));
   }
 }, {
   path: '/user/:user/caddress/:address/edit',
   name: 'CaddressEdit',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ../views/Consigneeaddress/Edit.vue */ "./resources/js/views/Consigneeaddress/Edit.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ../views/Consigneeaddress/Edit.vue */ "./resources/js/views/Consigneeaddress/Edit.vue"));
   }
 }, {
   path: '/user/:user/caddress/create',
   name: 'CaddressCreate',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ../views/Consigneeaddress/Create.vue */ "./resources/js/views/Consigneeaddress/Create.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ../views/Consigneeaddress/Create.vue */ "./resources/js/views/Consigneeaddress/Create.vue"));
   }
 }, {
   path: '/user/:user/order/:order',

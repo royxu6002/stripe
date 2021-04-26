@@ -64,10 +64,3 @@ export default {
     }
 }
 </script>
-<style scoped>
-@media only screen and (max-width: 576px) {
-  .product-index-page{
-    margin-right: 21%;
-  }
-}
-</style>
