@@ -52,9 +52,7 @@ class OrderController extends AdminController
         $show->field('total', __('Total'));
         $show->products('Products', function ($products) {
             $products->resource('/admin/product');
-
-            $products->pivot('order_product.quantity');
-
+            $products->pivot('quantity');
             $products->id();
             $products->name();
             $products->description()->limit(20);
@@ -76,6 +74,7 @@ class OrderController extends AdminController
 
         $form->number('user_id', __('User id'));
         $form->text('transaction_id', __('Transaction id'));
+        $form->text('status', __('Order Status'));
         $form->number('total', __('Total'));
 
         return $form;
