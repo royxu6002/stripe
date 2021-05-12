@@ -50,13 +50,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'UserOrder',
   data: function data() {
     return {};
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('auth', ['userOrders'])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    userOrders: 'auth/userOrders',
+    productsFilteredBySku: 'productsFilteredBySku'
+  })), {}, {
     orderTotal: function orderTotal() {
       return this.userOrders.reduce(function (acc, order) {
         return acc + order.total;
@@ -180,7 +186,7 @@ var render = function() {
               _vm._v(" "),
               _c("hr"),
               _vm._v(" "),
-              _vm._l(order.products, function(product, index) {
+              _vm._l(order.skus, function(sku, index) {
                 return _c(
                   "div",
                   { key: index, staticClass: "card-body-order-detail" },
@@ -189,10 +195,10 @@ var render = function() {
                       "div",
                       { staticClass: "col-3 col-sm-4 col-md-3 col-lg-2" },
                       [
-                        product.images
+                        sku.image
                           ? _c("img", {
                               attrs: {
-                                src: _vm.GLOBAL.baseUrl + product.images[0],
+                                src: _vm.GLOBAL.baseUrl + sku.image[0],
                                 alt: "",
                                 width: "100%"
                               }
@@ -206,18 +212,21 @@ var render = function() {
                       { staticClass: "col-9 col-sm-8 col-md-9 col-lg-10" },
                       [
                         _c("h6", {
-                          domProps: { textContent: _vm._s(product.name) }
+                          domProps: {
+                            textContent: _vm._s(
+                              _vm.productsFilteredBySku(sku.product_id)[0]
+                                .name + sku.title
+                            )
+                          }
                         }),
                         _vm._v(" "),
                         _c("span", [
-                          _vm._v(
-                            _vm._s(_vm._f("myCurrency")(product.pivot.price))
-                          )
+                          _vm._v(_vm._s(_vm._f("myCurrency")(sku.pivot.price)))
                         ]),
                         _vm._v(" "),
                         _c("span", [_vm._v("x")]),
                         _vm._v(" "),
-                        _c("span", [_vm._v(_vm._s(product.pivot.quantity))])
+                        _c("span", [_vm._v(_vm._s(sku.pivot.quantity))])
                       ]
                     )
                   ]

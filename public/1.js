@@ -787,7 +787,9 @@ var render = function() {
               [
                 _vm._l(_vm.cart, function(item, index) {
                   return _c("tr", { key: index }, [
-                    _c("td", { domProps: { textContent: _vm._s(item.name) } }),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(item.name + item.title) }
+                    }),
                     _vm._v(" "),
                     _c("td", [
                       _c("input", {

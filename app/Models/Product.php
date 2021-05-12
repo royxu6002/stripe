@@ -17,13 +17,13 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class);
     }
-
-    public function orders()
-    {
-        return $this->belongsToMany(Order::class);
-    }
     
     protected $casts = [
         'images' => 'array'
     ];
+
+    public function skus()
+    {
+        return $this->hasMany(Sku::class);
+    }
 }

@@ -74,6 +74,11 @@ class ProductController extends AdminController
         $form->ckeditor('description', __('Description'));
         $form->multipleImage('images')->removable();
         $form->number('price', __('Price'));
+        $form->hasMany('skus', function (Form\NestedForm $form) {
+            $form->text('title', __('Title'));
+            $form->number('price', __('Price'));
+            $form->multipleImage('image', __('Image'))->removable();
+        });
 
         return $form;
     }

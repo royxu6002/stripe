@@ -79,7 +79,7 @@
                         v-for="(item, index) in cart"
                         :key="index"
                     >
-                        <td v-text="item.name"></td>
+                        <td v-text="item.name+ item.title"></td>
                         <td>
                             <input 
                                 style="width: 100%; height: 100%"
@@ -190,7 +190,7 @@ export default {
                         alert('please select or create an address for invoice&goods collection');
                         return;
                     }  else {
-                         this.customer.cart = JSON.stringify(this.$store.state.cart);
+                        this.customer.cart = JSON.stringify(this.$store.state.cart);
                         this.customer.amount = this.$store.state.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
                         axios.post('/api/user/'+this.$store.state.auth.userInfo.id+'/bank', this.customer)
                             .then(res => { 

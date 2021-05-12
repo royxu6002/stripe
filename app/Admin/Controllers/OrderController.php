@@ -27,7 +27,7 @@ class OrderController extends AdminController
         $grid = new Grid(new Order());
 
         $grid->column('id', __('Id'));
-        $grid->column('user_id', __('User id'));
+        $grid->column('user.email', __('User Email'));
         $grid->column('transaction_id', __('Transaction id'));
         $grid->column('total', __('Total'));
         $grid->column('created_at', __('Created at'));
@@ -50,12 +50,10 @@ class OrderController extends AdminController
         $show->field('user_id', __('User id'));
         $show->field('transaction_id', __('Transaction id'));
         $show->field('total', __('Total'));
-        $show->products('Products', function ($products) {
-            $products->resource('/admin/product');
-            $products->pivot('quantity');
-            $products->id();
-            $products->name();
-            $products->description()->limit(20);
+        $show->skus('skus', function ($skus) {
+            $skus->resource('/admin/sku');
+            $skus->pivot();
+            $skus->title();
         });
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));

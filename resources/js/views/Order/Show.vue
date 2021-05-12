@@ -36,21 +36,21 @@
                     <td>Qty</td>
                     <td align="right">Price</td>
                 </tr>
-                <tr v-for="(product, index) in order[0].products"
+                <tr v-for="(sku, index) in order[0].skus"
                     :key="index">
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.pivot.quantity }}</td>
-                    <td align="right">{{ lineTotal(product) | myCurrency }}</td>
+                    <td>{{ productsFilteredBySku(sku.product_id)[0].name+sku.title }}</td>
+                    <td>{{ sku.pivot.quantity }}</td>
+                    <td align="right">{{ lineTotal(sku) | myCurrency }}</td>
                 </tr>
                 <tr class="font-weight-bold" >
                     <td>
                         Total
                     </td>
                     <td>
-                        {{ orderQuantity(order[0].products) }}
+                        {{ orderQuantity(order[0].skus) }}
                     </td>
                     <td align="right">
-                        {{ orderTotal(order[0].products) | myCurrency }}
+                        {{ orderTotal(order[0].skus) | myCurrency }}
                     </td>
                 </tr>
         </table>
@@ -97,7 +97,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('auth', ['userOrders']),
+        ...mapGetters({
+            userOrders: 'auth/userOrders',
+            productsFilteredBySku: 'productsFilteredBySku'
+        }),
         ...mapState('auth', ['userInfo']),
         order() {
             return this.userOrders.filter(order => order.id == this.$route.params.order);

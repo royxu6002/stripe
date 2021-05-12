@@ -11,6 +11,7 @@ Route::namespace('Api')->group(function() {
 
     Route::post('/paypal', 'UserController@paypal');
     Route::post('/stripe', 'UserController@stripe');
+    //用户创建订单
     Route::post('/user/{user}/bank', 'UserController@bank');
     // invoiceAddress 
     Route::post('/user/{user}/invoiceaddress/create', 'InvoiceaddController@create');

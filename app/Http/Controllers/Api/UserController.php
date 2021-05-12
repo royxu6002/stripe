@@ -25,7 +25,8 @@ use DB;
 
 class UserController extends Controller
 {
-    // stripe 付款
+    // stripe 付款, // 修改了 关联关系, 新的多对多关联关系 $order->skus, 不再关联 $order->products()
+    // 代码未更改
     public function stripe(Request $request)
     {
         $user = User::firstOrCreate(
@@ -93,7 +94,7 @@ class UserController extends Controller
                 ]);
 
             foreach(json_decode($request->input('cart'), true) as $item) {
-                $order->products()->attach($item['id'], [
+                $order->skus()->attach($item['id'], [
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
                 ]);
@@ -101,19 +102,16 @@ class UserController extends Controller
             
             DB::commit();
             
-            return $order->load('products');
+            return $order->load('skus');
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(['message' => $e->getMessage()], 500);
         }
     }
 
-    // public function index()
-    // {
-    //     return User::paginate(1);
-    //     // return UserResource::collection(User::paginate(2));
-    // }
 
+    // 修改了 关联关系, 新的多对多关联关系 $order->skus, 不再关联 $order->products()
+     // 代码未更改
     public function paypal(Request $request)
     {
 

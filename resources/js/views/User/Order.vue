@@ -12,18 +12,21 @@
                 </router-link>
                 <hr>
                 <div 
-                    v-for="(product, index) in order.products"
+                    v-for="(sku, index) in order.skus"
                     :key="index" 
                     class="card-body-order-detail">
                     <div class="col-3 col-sm-4 col-md-3 col-lg-2">
-                        <img v-if="product.images" :src="GLOBAL.baseUrl+product.images[0]" alt="" width="100%">
+                        <img v-if="sku.image" :src="GLOBAL.baseUrl+sku.image[0]" alt="" width="100%">
                     </div>
                     <div class="col-9 col-sm-8 col-md-9 col-lg-10">
-                        <h6 v-text="product.name">
+                        <!-- must get product name -->
+                       
+                        <h6 v-text="productsFilteredBySku(sku.product_id)[0].name+sku.title">
                         </h6>
-                        <span>{{  product.pivot.price | myCurrency }}</span>
+                        
+                        <span>{{  sku.pivot.price | myCurrency }}</span>
                         <span>x</span>
-                        <span>{{ product.pivot.quantity}}</span>
+                        <span>{{ sku.pivot.quantity}}</span>
                     </div>
                 </div>
                 <hr>
@@ -43,7 +46,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('auth', ['userOrders']),
+        ...mapGetters({
+            userOrders: 'auth/userOrders',
+            productsFilteredBySku: 'productsFilteredBySku'
+        }),
         orderTotal() {
             return this.userOrders.reduce((acc, order) => acc + (order.total), 0);
         },

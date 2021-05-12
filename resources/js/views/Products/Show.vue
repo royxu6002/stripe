@@ -2,7 +2,21 @@
     <div class="container mx-auto mt-5">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <div class="swiper-container">
+                <div class="swiper-container" v-if="skuIndex">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" v-for="(image, index) in product[0].skus[skuIndex].image" :key=index>
+                            <img :src="GLOBAL.baseUrl + image" alt="" style="width:100%">
+                        </div>
+                        
+                    </div>
+                    <!-- 如果需要分页器 -->
+                    <div class="swiper-pagination"></div>
+                    <!-- 如果需要导航按钮 -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+
+                <div class="swiper-container" v-else>
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="(image, index) in product[0].images" :key=index>
                             <img :src="GLOBAL.baseUrl + image" alt="" style="width:100%">
@@ -15,30 +29,56 @@
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
                 </div>
+
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <h4
+                <div
                     v-for="category in product[0].categories"
-                    
-                    :key="category.id"
-                >
-                <h2 v-text="category.name"></h2>
-                </h4>
+                    :key="category.id">
+                    <h2 v-text="category.name"></h2>
+                </div>
 
                 <h1
                     v-text="product[0].name"
                 >
                 </h1>
-                <p v-html="product[0].description"></p>
                 <div>
                     <span
+                        v-if="skuPrice"
+                        v-text="formatCurrency(skuPrice)"
+                    ></span>
+                    <span
+                        v-if="!skuPrice"
                         v-text="formatCurrency(product[0].price)"
                     ></span>
                 </div>
-                 <button @click="$store.commit('addToCart', product[0])">
+
+               
+
+                <p  class="mt-3"
+                    v-html="product[0].description"></p>
+
+                <div>
+                    <strong>
+                        Please select below SKU option, price may vary a little bit.
+                    </strong>
+                    </div>
+                <div>
+                    <div 
+                        class="mr-2 btn mt-2 price-wrap"
+                        :class="{active: skuId === sku.id}"
+                        v-for="(sku, ind) in product[0].skus"
+                        :key="ind"
+                        @click="selectSku(sku, ind)">{{sku.title}}
+                    </div>
+                </div>
+                
+                <button 
+                    class="mt-3"
+                    @click="addToCart(product[0].skus[skuIndex], product[0].name)">
                         Add To Cart
-                    </button>
+                </button>
             </div>
         </div>
     </div>
@@ -48,6 +88,13 @@ import Swiper from 'swiper';
 import 'swiper/dist/css/swiper.min.css';
 
 export default {
+    data() {
+        return {
+            skuId: null,
+            skuIndex: null,
+            skuPrice: null
+        }
+    },
     computed: {
         product() {
             return this.$store.state.products.filter(p => p.slug == this.$route.params.slug );
@@ -61,11 +108,17 @@ export default {
                 currency: 'USD'
             });
         },
-        onSwiper(swiper) {
-            console.log(swiper);
+        selectSku(sku, index) {
+            this.skuId = sku.id;
+            this.skuPrice = sku.price;
+            this.skuIndex = index;
         },
-        onSlideChange() {
-            console.log('slide change');
+        addToCart(sku, name) {
+            if(!this.skuId) {
+                alert('Please select a SKU to add to cart');
+                return;
+            }
+            this.$store.commit('addToCart', {'sku': sku, 'name': name})
         }
     },
     mounted() {
@@ -100,5 +153,13 @@ export default {
 }
 </script>
 <style scoped>
-
+.active {
+    background-color: #3490dc !important;
+    border-color: #3490dc !important;
+}
+.price-wrap {
+    border: 1px solid #ccc;
+    /* background-color: #3490dc;;
+    color: white; */
+}
 </style>

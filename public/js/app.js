@@ -31435,7 +31435,7 @@ var routes = [{
   path: '/home',
   name: 'Home',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../views/Home.vue */ "./resources/js/views/Home.vue"));
+    return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../views/Home.vue */ "./resources/js/views/Home.vue"));
   }
 }, {
   path: '/',
@@ -31444,19 +31444,19 @@ var routes = [{
   path: '/products',
   name: 'products.index',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../views/Products/Index.vue */ "./resources/js/views/Products/Index.vue"));
+    return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ../views/Products/Index.vue */ "./resources/js/views/Products/Index.vue"));
   }
 }, {
   path: '/product/:category',
   name: 'category',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../views/Category/Index.vue */ "./resources/js/views/Category/Index.vue"));
+    return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../views/Category/Index.vue */ "./resources/js/views/Category/Index.vue"));
   }
 }, {
   path: '/products/:slug',
   name: 'products.show',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(15), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! ../views/Products/Show.vue */ "./resources/js/views/Products/Show.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(15), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ../views/Products/Show.vue */ "./resources/js/views/Products/Show.vue"));
   }
 }, {
   path: '/checkout',
@@ -31570,7 +31570,7 @@ var routes = [{
   path: '/user/:user/order/:order',
   name: 'OrderReview',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../views/Order/Show.vue */ "./resources/js/views/Order/Show.vue"));
+    return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../views/Order/Show.vue */ "./resources/js/views/Order/Show.vue"));
   }
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
@@ -31700,6 +31700,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       return state.products.filter(function (product) {
         return JSON.stringify(product.categories).indexOf(state.category) > -1;
       });
+    },
+    productsFilteredBySku: function productsFilteredBySku(state) {
+      return function (id) {
+        return state.products.filter(function (p) {
+          return p.id === id;
+        });
+      };
     }
   },
   mutations: {
@@ -31715,66 +31722,77 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     SET_CART: function SET_CART(state, cart) {
       state.cart = cart;
     },
-    addToCart: function addToCart(state, product) {
-      var productInCartIndex = state.cart.findIndex(function (item) {
-        return item.slug === product.slug;
+    addToCart: function addToCart(state, _ref) {
+      var sku = _ref.sku,
+          name = _ref.name;
+      sku.name = name;
+      var skuInCartIndex = state.cart.findIndex(function (item) {
+        return item.id === sku.id;
       });
 
-      if (productInCartIndex !== -1) {
-        state.cart[productInCartIndex].quantity++;
-        localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
+      if (skuInCartIndex !== -1) {
+        state.cart[skuInCartIndex].quantity++;
+        localStorage.setItem('cle_shop', JSON.stringify(state.cart));
         return;
       }
 
-      product.quantity = 1; // 如果直接存储 product 对象, computed 不能侦测到 cart 的改变, 通过 JSON.stringify转字符串, 在转 json 对象, 就可以被侦测的;
-      // state.cart.unshift(product); 
-
-      state.cart.unshift(JSON.parse(JSON.stringify(product)));
-      localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
+      sku.quantity = 1;
+      state.cart.unshift(JSON.parse(JSON.stringify(sku)));
+      localStorage.setItem('cle_shop', JSON.stringify(state.cart)); // let productInCartIndex = state.cart.findIndex(item => item.slug === product.slug);
+      // if(productInCartIndex !== -1) {
+      //     state.cart[productInCartIndex].quantity++;
+      //     localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
+      //     return;
+      // }
+      // product.quantity = 1;
+      // // 如果直接存储 product 对象, computed 不能侦测到 cart 的改变, 通过 JSON.stringify转字符串, 在转 json 对象, 就可以被侦测的;
+      // // state.cart.unshift(product); 
+      // state.cart.unshift(JSON.parse(JSON.stringify(product)));
+      // localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
     },
     removeFromCart: function removeFromCart(state, index) {
       state.cart.splice(index, 1);
-      localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
+      localStorage.setItem('cle_shop', JSON.stringify(state.cart));
     },
     updateCart: function updateCart(state, cart) {
       state.cart = cart;
-      localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
+      localStorage.setItem('cle_shop', JSON.stringify(state.cart));
     },
-    updateQuantity: function updateQuantity(state, _ref) {
-      var index = _ref.index,
-          quantity = _ref.quantity;
+    updateQuantity: function updateQuantity(state, _ref2) {
+      var index = _ref2.index,
+          quantity = _ref2.quantity;
       state.cart[index].quantity = quantity;
-      localStorage.setItem('cle_takeout', JSON.stringify(state.cart));
+      localStorage.setItem('cle_shop', JSON.stringify(state.cart));
     }
   },
   actions: {
-    getProducts: function getProducts(_ref2) {
-      var commit = _ref2.commit;
+    getProducts: function getProducts(_ref3) {
+      var commit = _ref3.commit;
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('/api/products').then(function (response) {
         commit('updateProducts', response.data);
       })["catch"](function (error) {
         return console.error(error);
       });
     },
-    getCategories: function getCategories(_ref3) {
-      var commit = _ref3.commit;
+    getCategories: function getCategories(_ref4) {
+      var commit = _ref4.commit;
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('/api/categories').then(function (res) {
         return commit('SET_CATEGORIES', res.data);
       })["catch"](function (err) {
         return alert(err);
       });
     },
-    getCart: function getCart(_ref4) {
-      var commit = _ref4.commit;
-      var cart = JSON.parse(localStorage.getItem('cle_takeout') || '[]');
+    getCart: function getCart(_ref5) {
+      var commit = _ref5.commit;
+      var cart = JSON.parse(localStorage.getItem('cle_shop') || '[]');
       commit('SET_CART', cart);
     },
-    clearCart: function clearCart(_ref5) {
-      var commit = _ref5.commit;
+    clearCart: function clearCart(_ref6) {
+      var commit = _ref6.commit;
       commit('updateCart', []);
     },
-    setQuantity: function setQuantity(_ref6, payload) {
-      var commit = _ref6.commit;
+    setQuantity: function setQuantity(_ref7, payload) {
+      var commit = _ref7.commit;
       commit('updateQuantity', payload);
     }
   },

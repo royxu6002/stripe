@@ -10,12 +10,12 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return Product::with('categories:id,name,slug')->get();
+        return Product::with('categories:id,name,slug', 'skus')->get();
     }
 
     public function show(Product $product)
     {
-        $product->load('categories:id,name');
+        $product->load('categories:id,name', 'skus');
 
         return $product;
     }
