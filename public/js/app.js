@@ -31165,6 +31165,7 @@ axios.interceptors.request.use(function (config) {
   return Promise.reject(err);
 });
 
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   router: _route_routes__WEBPACK_IMPORTED_MODULE_1__["default"],
   store: _store_index__WEBPACK_IMPORTED_MODULE_2__["default"],

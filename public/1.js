@@ -398,6 +398,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -427,6 +439,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         style: "currency",
         currency: "USD"
       });
+    },
+    cartTotalBoxQuantity: function cartTotalBoxQuantity() {
+      var amount = this.cart.reduce(function (acc, item) {
+        return acc + item.quantity / item.pcs_in_carton;
+      }, 0);
+      return Math.round(amount * 100) / 100;
+    },
+    cartSpace: function cartSpace() {
+      var amount = this.cart.reduce(function (acc, item) {
+        return acc + item.length * item.width * item.height * (item.quantity / item.pcs_in_carton);
+      }, 0);
+      return Math.round(amount / 1000000000 * 100) / 100;
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
     cart: function cart(state) {
@@ -452,6 +476,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         quantity: quantity
       };
       this.$store.dispatch('setQuantity', data);
+    },
+    cartLineBoxQuantity: function cartLineBoxQuantity(index) {
+      return this.cart[index].quantity / this.cart[index].pcs_in_carton;
     },
     bankTransfer: function bankTransfer() {
       var _this = this;
@@ -789,7 +816,16 @@ var render = function() {
                 _vm._l(_vm.cart, function(item, index) {
                   return _c("tr", { key: index }, [
                     _c("td", {
-                      domProps: { textContent: _vm._s(item.name + item.title) }
+                      domProps: {
+                        textContent: _vm._s(
+                          item.name +
+                            ", " +
+                            item.title +
+                            ", " +
+                            item.pcs_in_carton +
+                            "pcs/carton"
+                        )
+                      }
                     }),
                     _vm._v(" "),
                     _c("td", [
@@ -801,6 +837,14 @@ var render = function() {
                           blur: function($event) {
                             return _vm.updateCartItemQuantity(index, $event)
                           }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", {
+                        domProps: {
+                          textContent: _vm._s(
+                            _vm.cartLineBoxQuantity(index) + " cartons"
+                          )
                         }
                       })
                     ]),
@@ -829,13 +873,29 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _c("tr", { staticStyle: { "font-weight": "bold" } }, [
-                  _c("td", [_vm._v("Total")]),
+                  _c("td", [_vm._v("TOTAL")]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.cartTotalBoxQuantity) +
+                        "CARTONS\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v("  " + _vm._s(_vm.cartSpace) + "M³")]),
+                  _vm._v(" "),
+                  _c("td")
+                ]),
+                _vm._v(" "),
+                _c("tr", { staticStyle: { "font-weight": "bold" } }, [
+                  _c("td"),
                   _vm._v(" "),
                   _c("td", [
                     _vm._v(
                       "\n                            " +
                         _vm._s(_vm.cartQuantity) +
-                        "\n                        "
+                        "PCS\n                        "
                     )
                   ]),
                   _vm._v(" "),

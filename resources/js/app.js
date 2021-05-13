@@ -17,6 +17,7 @@ axios.interceptors.request.use((config) => {
 });
 
 import App from "./App.vue";
+Vue.config.productionTip = false;
 
 const app = new Vue({
     router,

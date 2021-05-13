@@ -79,7 +79,7 @@
                         v-for="(item, index) in cart"
                         :key="index"
                     >
-                        <td v-text="item.name+ item.title"></td>
+                        <td v-text="item.name+', '+ item.title+', '+item.pcs_in_carton+'pcs/carton'"></td>
                         <td>
                             <input 
                                 style="width: 100%; height: 100%"
@@ -87,6 +87,7 @@
                                 :value="item.quantity" 
                                 min="1" 
                                 @blur="updateCartItemQuantity(index,$event)">
+                                <span v-text="cartLineBoxQuantity(index)+' cartons'"></span>
                         </td>
                         <td>{{ cartLineTotal(item) }}</td>
                         <td>
@@ -98,13 +99,24 @@
                         </td>
                     </tr>
                     <tr style="font-weight:bold">
-                        <td>Total</td>
+                        <td>TOTAL</td>
                         <td>
-                            {{cartQuantity}}
+                            {{cartTotalBoxQuantity}}CARTONS
+                        </td>
+                        <td>  {{cartSpace}}M³</td>
+                        <td></td>
+                    </tr>
+                    <tr style="font-weight:bold">
+                        <td>  
+                          
+                        </td>
+                        <td>
+                            {{cartQuantity}}PCS
                         </td>
                         <td>{{cartTotal}}</td>
                         <td></td>
                     </tr>
+                    
                 </tbody>
             </table>
             <hr>
@@ -160,6 +172,14 @@ export default {
                 currency: "USD",
             });
         },
+        cartTotalBoxQuantity() {
+            let amount = this.cart.reduce((acc, item) => acc+item.quantity/item.pcs_in_carton, 0);
+            return Math.round(amount*100)/100;
+        },
+        cartSpace() {
+            let amount = this.cart.reduce((acc, item) => acc+(item.length *item.width *item.height)*(item.quantity/item.pcs_in_carton), 0);
+            return Math.round(amount /1000000000 *100)/100;
+        },
         ...mapState({
             cart: (state) => state.cart,
             userInfo: (state) => state.auth.userInfo,
@@ -179,6 +199,9 @@ export default {
             const quantity = Number($e.target.value);
             const data = {index, quantity};
             this.$store.dispatch('setQuantity', data);
+        },
+        cartLineBoxQuantity(index) {
+            return this.cart[index].quantity/this.cart[index].pcs_in_carton;
         },
         bankTransfer() {
             if(!this.$store.state.auth.userInfo) {
