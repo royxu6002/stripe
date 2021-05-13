@@ -2,21 +2,7 @@
     <div class="container mx-auto mt-5">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <div class="swiper-container" v-if="skuIndex">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide" v-for="(image, index) in product[0].skus[skuIndex].image" :key=index>
-                            <img :src="GLOBAL.baseUrl + image" alt="" style="width:100%">
-                        </div>
-                        
-                    </div>
-                    <!-- 如果需要分页器 -->
-                    <div class="swiper-pagination"></div>
-                    <!-- 如果需要导航按钮 -->
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                </div>
-
-                <div class="swiper-container" v-else>
+                <div class="swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="(image, index) in product[0].images" :key=index>
                             <img :src="GLOBAL.baseUrl + image" alt="" style="width:100%">
@@ -43,19 +29,7 @@
                     v-text="product[0].name"
                 >
                 </h1>
-                <div>
-                    <span
-                        v-if="skuPrice"
-                        v-text="formatCurrency(skuPrice)"
-                    ></span>
-                    <span
-                        v-if="!skuPrice"
-                        v-text="formatCurrency(product[0].price)"
-                    ></span>
-                </div>
-
-               
-
+                
                 <p  class="mt-3"
                     v-html="product[0].description"></p>
 
@@ -72,6 +46,25 @@
                         :key="ind"
                         @click="selectSku(sku, ind)">{{sku.title}}
                     </div>
+                </div>
+
+                <div class="mt-3">
+                    <div v-if="skuPrice">
+                        <img 
+                            :src="GLOBAL.baseUrl+skuImage" 
+                            alt="" 
+                            width="180px">
+                        
+                    </div>
+                    <span
+                        v-if="skuPrice"
+                        v-text="formatCurrency(skuPrice)"
+                    ></span>
+                    
+                    <span
+                        v-if="!skuPrice"
+                        v-text="formatCurrency(product[0].price)"
+                    ></span>
                 </div>
                 
                 <button 
@@ -92,7 +85,8 @@ export default {
         return {
             skuId: null,
             skuIndex: null,
-            skuPrice: null
+            skuPrice: null,
+            skuImage: null,
         }
     },
     computed: {
@@ -112,6 +106,7 @@ export default {
             this.skuId = sku.id;
             this.skuPrice = sku.price;
             this.skuIndex = index;
+            this.skuImage = sku.image[0];
         },
         addToCart(sku, name) {
             if(!this.skuId) {

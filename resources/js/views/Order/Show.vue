@@ -64,12 +64,14 @@
                 <div>total invoice value of {{order[0].total/100 | myCurrency}},</div>
                 <div> Dated on {{order[0].created_at}}</div>
             </div>
-        
+
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <h5>Our Bank Details:</h5><span>
-                   <small><strong> Please refer Order ID as a payment note.
+                <small><strong> Please refer Order ID as a payment note.
                        </strong></small>
+                <h5>Our Bank Details:</h5><span>
+                   
                 </span>
+                
                 <ul class="wc-bacs-bank-details order_details bacs_details">
                     <li class="bank_name">BENEFICIARY NAME: <strong>COMLIBRA ELECTRONIC CO., LTD.</strong></li>
                     <li class="account_number">Account number: <strong>NRA1-5623-1420-1050-0000-153</strong></li>
@@ -81,6 +83,18 @@
                     <li class="corresponding_bank">CORRESPONDENT BANK: <strong>BANK OF AMERICA N.A.NEW YORK BRANCH</strong></li>
                     <li class="bic">SWIFT BIC: <strong>BOFAUS3N</strong></li>
                 </ul>
+                <div v-if="Number(order[0].total/100)<=1000">
+                    <h5 >
+                    PayPal
+                </h5>
+                <ul>
+                        <li>Paypal Account: 
+                            <strong>
+                                export@comlibra.com
+                            </strong>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         

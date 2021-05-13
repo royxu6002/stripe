@@ -109,7 +109,7 @@
             </table>
             <hr>
             <div class="form-group col-12 payment_method">
-                 <h4 class="mt-3 mb-3">Currently we offer only below options to pay </h4>
+                 <h4 class="mt-3 mb-3">Currently we only below options to pay </h4>
                 <div>
                     <input type="radio" v-model="customer.paymentMethod" value="bank" checked>
                     <label for="banktransfer" class="payment_method_name ml-3">
@@ -118,6 +118,7 @@
                     <p>
                          <span>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</span>
                     </p>
+                     <p>For small batch orders, total Invoice value less than US$1,000, You can pay through Paypal.</p>
                 </div>
                 <div class="form-group col-12 tabpaymentcontent"> 
                     <button

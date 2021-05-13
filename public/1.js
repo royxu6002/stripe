@@ -397,6 +397,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -852,7 +853,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-12 payment_method" }, [
           _c("h4", { staticClass: "mt-3 mb-3" }, [
-            _vm._v("Currently we offer only below options to pay ")
+            _vm._v("Currently we only below options to pay ")
           ]),
           _vm._v(" "),
           _c("div", [
@@ -887,7 +888,13 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(1)
+            _vm._m(1),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(
+                "For small batch orders, total Invoice value less than US$1,000, You can pay through Paypal."
+              )
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group col-12 tabpaymentcontent" }, [

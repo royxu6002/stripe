@@ -104,6 +104,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'OrderReview',
@@ -401,7 +415,22 @@ var render = function() {
         _c("div", [_vm._v(" Dated on " + _vm._s(_vm.order[0].created_at))])
       ]),
       _vm._v(" "),
-      _vm._m(1)
+      _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12 col-xs-12" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("h5", [_vm._v("Our Bank Details:")]),
+        _c("span"),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        Number(_vm.order[0].total / 100) <= 1000
+          ? _c("div", [
+              _c("h5", [_vm._v("\n                PayPal\n            ")]),
+              _vm._v(" "),
+              _vm._m(3)
+            ])
+          : _vm._e()
+      ])
     ])
   ])
 }
@@ -422,60 +451,72 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12 col-xs-12" }, [
-      _c("h5", [_vm._v("Our Bank Details:")]),
-      _c("span", [
-        _c("small", [
+    return _c("small", [
+      _c("strong", [
+        _vm._v(" Please refer Order ID as a payment note.\n                   ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "ul",
+      { staticClass: "wc-bacs-bank-details order_details bacs_details" },
+      [
+        _c("li", { staticClass: "bank_name" }, [
+          _vm._v("BENEFICIARY NAME: "),
+          _c("strong", [_vm._v("COMLIBRA ELECTRONIC CO., LTD.")])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "account_number" }, [
+          _vm._v("Account number: "),
+          _c("strong", [_vm._v("NRA1-5623-1420-1050-0000-153")])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "sort_code" }, [
+          _vm._v(" BENEFICIARY BANK: "),
+          _c("strong", [_vm._v("ZHEJIANG CHOUZHOU COMMERCIAL BANK")])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "bank_address" }, [
+          _vm._v("ADDRESS: "),
           _c("strong", [
-            _vm._v(
-              " Please refer Order ID as a payment note.\n                   "
-            )
+            _vm._v("YIWULEYUAN EAST, JIANGBIN RD, YIWU, ZHEJIANG, CHINA")
           ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "bank_swift_bank" }, [
+          _vm._v("\n                    SWIFT BIC: "),
+          _c("strong", [_vm._v("CZCBCN2X")])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "corresponding_bank" }, [
+          _vm._v("CORRESPONDENT BANK: "),
+          _c("strong", [_vm._v("BANK OF AMERICA N.A.NEW YORK BRANCH")])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "bic" }, [
+          _vm._v("SWIFT BIC: "),
+          _c("strong", [_vm._v("BOFAUS3N")])
         ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "ul",
-        { staticClass: "wc-bacs-bank-details order_details bacs_details" },
-        [
-          _c("li", { staticClass: "bank_name" }, [
-            _vm._v("BENEFICIARY NAME: "),
-            _c("strong", [_vm._v("COMLIBRA ELECTRONIC CO., LTD.")])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "account_number" }, [
-            _vm._v("Account number: "),
-            _c("strong", [_vm._v("NRA1-5623-1420-1050-0000-153")])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "sort_code" }, [
-            _vm._v(" BENEFICIARY BANK: "),
-            _c("strong", [_vm._v("ZHEJIANG CHOUZHOU COMMERCIAL BANK")])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "bank_address" }, [
-            _vm._v("ADDRESS: "),
-            _c("strong", [
-              _vm._v("YIWULEYUAN EAST, JIANGBIN RD, YIWU, ZHEJIANG, CHINA")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "bank_swift_bank" }, [
-            _vm._v("\n                    SWIFT BIC: "),
-            _c("strong", [_vm._v("CZCBCN2X")])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "corresponding_bank" }, [
-            _vm._v("CORRESPONDENT BANK: "),
-            _c("strong", [_vm._v("BANK OF AMERICA N.A.NEW YORK BRANCH")])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "bic" }, [
-            _vm._v("SWIFT BIC: "),
-            _c("strong", [_vm._v("BOFAUS3N")])
-          ])
-        ]
-      )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", [
+      _c("li", [
+        _vm._v("Paypal Account: \n                        "),
+        _c("strong", [
+          _vm._v(
+            "\n                            export@comlibra.com\n                        "
+          )
+        ])
+      ])
     ])
   }
 ]

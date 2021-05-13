@@ -90,13 +90,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -104,7 +97,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       skuId: null,
       skuIndex: null,
-      skuPrice: null
+      skuPrice: null,
+      skuImage: null
     };
   },
   computed: {
@@ -128,6 +122,7 @@ __webpack_require__.r(__webpack_exports__);
       this.skuId = sku.id;
       this.skuPrice = sku.price;
       this.skuIndex = index;
+      this.skuImage = sku.image[0];
     },
     addToCart: function addToCart(sku, name) {
       if (!this.skuId) {
@@ -240,60 +235,27 @@ var render = function() {
   return _c("div", { staticClass: "container mx-auto mt-5" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-xs-12 col-sm-12 col-md-6 col-lg-6" }, [
-        _vm.skuIndex
-          ? _c("div", { staticClass: "swiper-container" }, [
-              _c(
-                "div",
-                { staticClass: "swiper-wrapper" },
-                _vm._l(_vm.product[0].skus[_vm.skuIndex].image, function(
-                  image,
-                  index
-                ) {
-                  return _c(
-                    "div",
-                    { key: index, staticClass: "swiper-slide" },
-                    [
-                      _c("img", {
-                        staticStyle: { width: "100%" },
-                        attrs: { src: _vm.GLOBAL.baseUrl + image, alt: "" }
-                      })
-                    ]
-                  )
-                }),
-                0
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "swiper-pagination" }),
-              _vm._v(" "),
-              _c("div", { staticClass: "swiper-button-prev" }),
-              _vm._v(" "),
-              _c("div", { staticClass: "swiper-button-next" })
-            ])
-          : _c("div", { staticClass: "swiper-container" }, [
-              _c(
-                "div",
-                { staticClass: "swiper-wrapper" },
-                _vm._l(_vm.product[0].images, function(image, index) {
-                  return _c(
-                    "div",
-                    { key: index, staticClass: "swiper-slide" },
-                    [
-                      _c("img", {
-                        staticStyle: { width: "100%" },
-                        attrs: { src: _vm.GLOBAL.baseUrl + image, alt: "" }
-                      })
-                    ]
-                  )
-                }),
-                0
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "swiper-pagination" }),
-              _vm._v(" "),
-              _c("div", { staticClass: "swiper-button-prev" }),
-              _vm._v(" "),
-              _c("div", { staticClass: "swiper-button-next" })
-            ])
+        _c("div", { staticClass: "swiper-container" }, [
+          _c(
+            "div",
+            { staticClass: "swiper-wrapper" },
+            _vm._l(_vm.product[0].images, function(image, index) {
+              return _c("div", { key: index, staticClass: "swiper-slide" }, [
+                _c("img", {
+                  staticStyle: { width: "100%" },
+                  attrs: { src: _vm.GLOBAL.baseUrl + image, alt: "" }
+                })
+              ])
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "swiper-pagination" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "swiper-button-prev" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "swiper-button-next" })
+        ])
       ]),
       _vm._v(" "),
       _c(
@@ -307,26 +269,6 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("h1", { domProps: { textContent: _vm._s(_vm.product[0].name) } }),
-          _vm._v(" "),
-          _c("div", [
-            _vm.skuPrice
-              ? _c("span", {
-                  domProps: {
-                    textContent: _vm._s(_vm.formatCurrency(_vm.skuPrice))
-                  }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            !_vm.skuPrice
-              ? _c("span", {
-                  domProps: {
-                    textContent: _vm._s(
-                      _vm.formatCurrency(_vm.product[0].price)
-                    )
-                  }
-                })
-              : _vm._e()
-          ]),
           _vm._v(" "),
           _c("p", {
             staticClass: "mt-3",
@@ -355,6 +297,38 @@ var render = function() {
             }),
             0
           ),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-3" }, [
+            _vm.skuPrice
+              ? _c("div", [
+                  _c("img", {
+                    attrs: {
+                      src: _vm.GLOBAL.baseUrl + _vm.skuImage,
+                      alt: "",
+                      width: "180px"
+                    }
+                  })
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.skuPrice
+              ? _c("span", {
+                  domProps: {
+                    textContent: _vm._s(_vm.formatCurrency(_vm.skuPrice))
+                  }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.skuPrice
+              ? _c("span", {
+                  domProps: {
+                    textContent: _vm._s(
+                      _vm.formatCurrency(_vm.product[0].price)
+                    )
+                  }
+                })
+              : _vm._e()
+          ]),
           _vm._v(" "),
           _c(
             "button",
