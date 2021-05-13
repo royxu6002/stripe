@@ -78,6 +78,12 @@ class ProductController extends AdminController
             $form->text('title', __('Title'));
             $form->number('price', __('Price'));
             $form->multipleImage('image', __('Image'))->removable();
+            $form->number('pcs_in_carton', __('PCS per Carton'));
+            $form->number('length', __('Length'));
+            $form->number('width', __('Width'));
+            $form->number('height', __('Height'));
+            $form->number('net_weight', __('Net weight'));
+            $form->number('gross_weight', __('Gross weight'));
         });
 
         return $form;
