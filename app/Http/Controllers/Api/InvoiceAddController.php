@@ -39,6 +39,26 @@ class InvoiceaddController extends Controller
             'country' => $request->input('country')
         ]);
 
+        if($request->input('consignee') == 'true') {
+            $consignee_add = $this->guard()->user()->consigneeaddresses()->create([
+                'name' => $request->input('first_name'). ' '.$request->input('last_name'),
+                'company_name' => $request->input('company_name') ?? null,
+                'phone' =>  $request->input('phone'),
+                'address' => $request->input('address'),
+                'city' => $request->input('city'),
+                'state' => $request->input('state'),
+                'zip_code' => $request->input('zip_code'),
+                'country' => $request->input('country')
+            ]);
+
+            return response()->json([
+                'msg' => 'addresses has been created',
+                'address' =>  $invoice_add,
+                'consignee_address' => $consignee_add
+            ]);
+        }
+
+
         return response()->json([
             'msg' => 'address for invoice has been created',
             'address' =>  $invoice_add

@@ -158,6 +158,14 @@
                         placeholder="USA">
                 </div>
 
+                 <div class="form-group col-12">
+                    <input 
+                      type="checkbox" 
+                      v-model="customer.consignee"
+                      name="consignee">
+                    <label for="consignee" class="ml-2">Consignee is the same</label>
+                  </div>
+
                 <div class="form-group col-12">
                   <button class="form-control btn btn-primary" @click="submit">Submit</button>
                 </div>
@@ -180,7 +188,8 @@ import apiUser from "../../api/User";
           city: '',
           state: '',
           zip_code: '',
-          country: ''
+          country: '',
+          consignee: '',
         },
         errors: ''
       }
@@ -193,6 +202,9 @@ import apiUser from "../../api/User";
             // 改变 state中的数据 只能通过 commit;
             if(res.data.address) {  
               this.$store.commit('auth/addUserInvoiceAddressData', res.data.address);
+              if(res.data.consignee_address) {
+                this.$store.commit('auth/addUserConsigneeAddressData', res.data.consignee_address);
+              }
               this.$router.push({name: 'UserAddress', params: {user: this.$route.params.user}});
             }
           })
