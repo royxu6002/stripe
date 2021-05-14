@@ -115,6 +115,7 @@ class OrderController extends AdminController
         } else {
             $address = [
                 'billto' => InvoiceAddress::find($order->invoice_address_id),
+                'consignee' => null,
                 'order' => $order,
                 'goods' => $goods,
                 'cbm' => $cbm,
