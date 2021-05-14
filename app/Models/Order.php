@@ -19,4 +19,8 @@ class Order extends Model
             ->withPivot('quantity', 'price');
     }
 
+    public function address()
+    {
+        return $this->belongsTo(InvoiceAddress::class);
+    }
 }
