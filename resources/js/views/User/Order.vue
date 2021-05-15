@@ -8,8 +8,13 @@
             :key="index">
             <div class="card-body">
                 <router-link :to="{name: 'OrderReview', params: {order: order.id, user: order.user_id}}">
-                    {{ order.transaction_id }}
+                    Order NO.{{ order.id }}
                 </router-link>
+                <div class="float-right">
+                    <router-link :to="{name: 'OrderPacking', params: {order: order.id, user: order.user_id}}">
+                        Packing
+                    </router-link>
+                </div>
                 <hr>
                 <div 
                     v-for="(sku, index) in order.skus"
