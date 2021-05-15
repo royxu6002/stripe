@@ -32,7 +32,7 @@
                 <tr 
                     v-for="(sku, index) in order[0].skus"
                     :key="index">
-                    <td v-text="productsFilteredBySku(sku.id)[0].name+sku.title"></td>
+                    <td v-text="productsFilteredBySku(sku.product_id)[0].name+sku.title"></td>
                     <td v-text="sku.length+'x'+sku.width+'x'+sku.height+'mm'"></td>
                     <td v-text="sku.pcs_in_carton"></td>
                     <td v-text="sku.pivot.quantity"></td>

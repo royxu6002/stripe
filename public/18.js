@@ -235,7 +235,8 @@ var render = function() {
               _c("td", {
                 domProps: {
                   textContent: _vm._s(
-                    _vm.productsFilteredBySku(sku.id)[0].name + sku.title
+                    _vm.productsFilteredBySku(sku.product_id)[0].name +
+                      sku.title
                   )
                 }
               }),
