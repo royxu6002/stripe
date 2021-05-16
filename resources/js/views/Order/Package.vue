@@ -57,7 +57,7 @@
                     <td>CARTONS</td>
                     <td>KGS</td>
                     <td>KGS</td>
-                    <td>M3</td>
+                    <td>M³</td>
                 </tr>
             </table>
         </div>

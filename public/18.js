@@ -368,7 +368,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("td", [_vm._v("KGS")]),
       _vm._v(" "),
-      _c("td", [_vm._v("M3")])
+      _c("td", [_vm._v("M³")])
     ])
   }
 ]
