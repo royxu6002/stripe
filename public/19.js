@@ -118,6 +118,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'OrderReview',
@@ -360,6 +362,12 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
+              _c("td", [
+                _vm._v(
+                  _vm._s(_vm.productsFilteredBySku(sku.product_id)[0].hs_code)
+                )
+              ]),
+              _vm._v(" "),
               _c("td", [_vm._v(_vm._s(sku.pivot.quantity))]),
               _vm._v(" "),
               _c("td", { attrs: { align: "right" } }, [
@@ -369,7 +377,9 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("tr", { staticClass: "font-weight-bold" }, [
-            _c("td", [_vm._v("\n                    Total\n                ")]),
+            _c("td", { attrs: { colspan: "2" } }, [
+              _vm._v("\n                    Total\n                ")
+            ]),
             _vm._v(" "),
             _c("td", [
               _vm._v(
@@ -441,6 +451,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("tr", { staticStyle: { "font-weight": "bold" } }, [
       _c("td", [_vm._v("Item")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("HS Code")]),
       _vm._v(" "),
       _c("td", [_vm._v("Qty")]),
       _vm._v(" "),

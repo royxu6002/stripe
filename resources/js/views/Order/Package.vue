@@ -21,8 +21,6 @@
                     <th>
                         Item
                     </th>
-                    <th>Carton Size</th>
-                    <th>PCS In Carton</th>
                     <th>Quantity</th>
                     <th>Carton Amount</th>
                     <th>GW</th>
@@ -33,8 +31,6 @@
                     v-for="(sku, index) in order[0].skus"
                     :key="index">
                     <td v-text="productsFilteredBySku(sku.product_id)[0].name+sku.title"></td>
-                    <td v-text="sku.length+'x'+sku.width+'x'+sku.height+'mm'"></td>
-                    <td v-text="sku.pcs_in_carton"></td>
                     <td v-text="sku.pivot.quantity"></td>
                     <td v-text="sku.pivot.quantity / sku.pcs_in_carton"></td>
                     <td v-text="sku.pivot.quantity / sku.pcs_in_carton * sku.gross_weight/100"></td>
@@ -42,7 +38,7 @@
                     <td v-text="lineSpace(sku)"></td>
                 </tr>
                 <tr class="font-weight-bold">
-                    <td colspan="3" rowspan="2">
+                    <td rowspan="2">
                         Total
                     </td>
                     <td v-text="totalQuantity(order[0].skus)">
