@@ -69,6 +69,7 @@ class ProductController extends AdminController
         $form = new Form(new Product());
 
         $form->text('name', __('Name'));
+        $form->text('hs_code', 'HS Code');
         $form->multipleSelect('categories', 'Category')->options(Category::all()->pluck('name', 'id'));
         $form->text('slug', __('Slug'));
         $form->ckeditor('description', __('Description'));

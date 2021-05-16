@@ -92,7 +92,7 @@ class OrderController extends AdminController
     public function show($id, Content $content)
     {
         $order = Order::with('user:email,id')->find($id);
-        $goods = $order->skus()->with('product:name,id')->get();
+        $goods = $order->skus()->with('product:name,id,hs_code')->get();
         $cbm = 0;
         $weight = 0;
         $value = 0;

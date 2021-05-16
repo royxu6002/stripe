@@ -46,6 +46,7 @@
             <table class="table">
                 <tr style="font-weight: bold">
                     <td>Item</td>
+                    <td>HS Code</td>
                     <td>Qty</td>
                     <td align="right">
                         Price
@@ -54,6 +55,7 @@
                 @foreach($goods as $good)
                 <tr>
                     <td>{{$good->product->name}}{{ $good->title }}</td>
+                    <td>{{$good->product->hs_code}}</td>
                     <td>{{ $good->pivot->quantity }}</td>
                     <td align="right">
                        US$ {{$good->pivot->price * $good->pivot->quantity/100}} 
