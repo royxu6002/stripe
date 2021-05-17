@@ -58,6 +58,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'UserOrder',
@@ -98,7 +102,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.card-body-order-detail[data-v-15c7bd49] {\n    display: flex;\n    align-content: space-between;\n}\n", ""]);
+exports.push([module.i, "\n.card-body-order-detail[data-v-15c7bd49] {\n    display: flex;\n    align-content: space-between;\n}\n.card-body-header[data-v-15c7bd49] {\n    display: flex;\n    justify-content: space-between;\n}\n", ""]);
 
 // exports
 
@@ -171,28 +175,28 @@ var render = function() {
             { staticClass: "card-body" },
             [
               _c(
-                "router-link",
-                {
-                  attrs: {
-                    to: {
-                      name: "OrderReview",
-                      params: { order: order.id, user: order.user_id }
-                    }
-                  }
-                },
-                [
-                  _vm._v(
-                    "\n                Order NO." +
-                      _vm._s(order.id) +
-                      "\n            "
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
                 "div",
-                { staticClass: "float-right" },
+                { staticClass: "card-body-header" },
                 [
+                  _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to: {
+                          name: "OrderReview",
+                          params: { order: order.id, user: order.user_id }
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    Order NO." +
+                          _vm._s(order.id) +
+                          "\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
                   _c(
                     "router-link",
                     {

@@ -29,7 +29,7 @@
         </div>
 
         <div class="container mt-4">
-            <strong>Reference: </strong> <small>{{order[0].transaction_id}}</small>
+            <strong>Order Reference ID: </strong> <small>{{order[0].transaction_id}}</small>
             <table class="table">
                 <tr style="font-weight: bold">
                     <td>Item</td>
@@ -44,33 +44,16 @@
                     <td>{{ sku.pivot.quantity }}</td>
                     <td align="right">{{ lineTotal(sku) | myCurrency }}</td>
                 </tr>
-                <tr>
+                <tr class="font-weight-bold" >
                     <td colspan="2">
-                        Sub Total
+                        Total
                     </td>
                     <td>
+                        {{ orderQuantity(order[0].skus) }}
                     </td>
                     <td align="right">
                         {{ orderTotal(order[0].skus) | myCurrency }}
                     </td>
-                </tr>
-                <tr 
-                    v-if="order[0].plus_charges.length>0" 
-                    v-for="(charge, inx) in order[0].plus_charges" 
-                    :key="inx">
-                    <td v-text="charge.name"></td>
-                    <td colspan=2></td>
-                    <td align='right'>
-                        {{ charge.value/100| myCurrency }}
-                    </td>
-                </tr>
-                <tr class="font-weight-bold">
-                    <td>Grand Total</td>
-                    <td ></td>
-                    <td>
-                         {{ orderQuantity(order[0].skus) }}
-                    </td>
-                    <td align="right">{{grandTotal(order[0]) | myCurrency}}</td>
                 </tr>
         </table>
 
@@ -79,17 +62,16 @@
         <div class="container row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <h5>Dear  {{userInfo.name}}, Thanks for your order.</h5>
-                <div>Purchase order ID:  {{order[0].id}}</div>
-                <div>Total invoice value of {{order[0].total/100 | myCurrency}},</div>
+                <div>purchase order ID:  {{order[0].id}}</div>
+                <div>total invoice value of {{order[0].total/100 | myCurrency}},</div>
                 <div> Dated on {{order[0].created_at}}</div>
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                
-                <h5>Our Bank Details:</h5>
-                <span>
-                   <small><strong> Please refer Order ID as a payment note.
+                <small><strong> Please refer Order ID as a payment note.
                        </strong></small>
+                <h5>Our Bank Details:</h5><span>
+                   
                 </span>
                 
                 <ul class="wc-bacs-bank-details order_details bacs_details">
@@ -124,7 +106,7 @@
 import { mapGetters, mapState } from 'vuex';
 
 export default {
-    name: 'OrderReview',
+    name: 'OrderInvoice',
     data() {
         return {
             
@@ -155,11 +137,6 @@ export default {
         },
         consigneeAddress (id) {
             return this.userInfo.consigneeaddresses.filter(add => add.id == id);
-        },
-        grandTotal (p) {
-            let total = p.total;
-            total += p.plus_charges.reduce((acc, charge) => acc+ Number(charge.value), 0);
-            return total/100;
         }
     },
     filters: {

@@ -7,14 +7,18 @@
             v-for="(order, index) in userOrders"
             :key="index">
             <div class="card-body">
-                <router-link :to="{name: 'OrderReview', params: {order: order.id, user: order.user_id}}">
-                    Order NO.{{ order.id }}
-                </router-link>
-                <div class="float-right">
+                <div class="card-body-header">
+                    <router-link :to="{name: 'OrderReview', params: {order: order.id, user: order.user_id}}">
+                        Order NO.{{ order.id }}
+                    </router-link>
+                    <!-- <router-link :to="{name: 'OrderInvoice', params: {order: order.id, user: order.user_id}}">
+                        Invoice
+                    </router-link>   -->
                     <router-link :to="{name: 'OrderPacking', params: {order: order.id, user: order.user_id}}">
                         Packing
                     </router-link>
                 </div>
+
                 <hr>
                 <div 
                     v-for="(sku, index) in order.skus"
@@ -74,5 +78,9 @@ export default {
 .card-body-order-detail {
     display: flex;
     align-content: space-between;
+}
+.card-body-header {
+    display: flex;
+    justify-content: space-between;
 }
 </style>

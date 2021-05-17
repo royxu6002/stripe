@@ -91,6 +91,7 @@ class UserController extends Controller
                     'status' => 'unpaid',
                     'invoice_address_id' => $request->input('iav')??null,
                     'consignee_address_id' => $request->input('cav')??null,
+                    'plus_charges' => [],
                 ]);
 
             foreach(json_decode($request->input('cart'), true) as $item) {

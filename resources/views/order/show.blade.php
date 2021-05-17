@@ -2,10 +2,11 @@
         <div class="box-header with-border">
             <i class="fa fa-text-width"></i>
             <h3 class="box-title">
-                Total Order Value of US${{$order->total/100}},
+                Total Order Value of US${{$grand_total}},
                 Order No. {{$order->id}}
                 From {{$order->user->email}}
             </h3>
+           
         </div>
         <br>
 
@@ -65,17 +66,40 @@
 
                 <tr class="font-weight-bold" >
                     <td>
-                        Total
+                        Sub Total
                     </td>
                     <td>
-                    {{$cbm}}m3,
-                    {{$weight}}kgs
+                        {{$cbm}}m3,
+                        {{$weight}}kgs
+                    </td>
+                    <td>
+                        {{$quantity}}pcs
                     </td>
                     <td align="right">
-                    US$ {{$value}}
+                        US$ {{$value}}
                     </td>
                 </tr>
 
+                @foreach($order->plus_charges as $charge)
+                <tr>
+                    <td colspan=2></td>
+                    <td>
+                    {{$charge['name']}}
+                    </td>
+                    <td align=right>
+                        US${{$charge['value']/100}}
+                    </td>
+                </tr>
+                @endforeach
+                <tr style="font-weight: bold">
+                    <td colspan=2></td>
+                    <td>GRAND TOTAL</td>
+                    <td align=right>
+                        US${{$grand_total}}
+                    </td>
+                </tr>
+
+            
                 
             </table>
         </div>

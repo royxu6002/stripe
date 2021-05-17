@@ -23,4 +23,18 @@ class Order extends Model
     {
         return $this->belongsTo(InvoiceAddress::class);
     }
+
+    protected $casts = [
+        'plus_charges' => 'array',
+    ];
+
+    public function getPlusChargesAttribute($value)
+    {
+        return array_values(json_decode($value, true) ?: []);
+    }
+
+    public function setPlusChargesAttribute($value)
+    {
+        $this->attributes['plus_charges'] = json_encode(array_values($value));
+    }
 }

@@ -1,8 +1,8 @@
 <template>
     <div>
-    <Header/>
+    <Header v-if="!$route.meta.header" />
     <router-view></router-view>
-    <Footer />
+    <Footer v-if="!$route.meta.footer" />
     </div>
 </template>
 <script>

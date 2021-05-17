@@ -140,6 +140,19 @@ const routes =  [
         path: '/user/:user/order/:order/packinglist',
         name: 'OrderPacking',
         component: () => import('../views/Order/Package.vue'),
+        meta: {
+            header: 'Packing List',
+            footer: 'Footer',
+        },
+    },
+    {
+        path: '/user/:user/order/:order/invoice',
+        name: 'OrderInvoice',
+        component: () => import('../views/Order/Invoice.vue'),
+        meta: {
+            header: 'Commercial Invoice',
+            footer: 'Footer',
+        },
     }
     
 

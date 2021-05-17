@@ -46,30 +46,30 @@ class OrderController extends AdminController
      * @param mixed $id
      * @return Show
      */
-    protected function detail($id)
-    {
-        $show = new Show(Order::findOrFail($id));
+    // protected function detail($id)
+    // {
+    //     $show = new Show(Order::findOrFail($id));
         
-        $show->field('id', __('Purchase Order Id'));
-        $show->field('user.email');
-        $show->field('invoice_address_id', 'Bill To');
-        $show->field('transaction_id', __('Transaction id'));
-        $show->field('total', __('Total'));
-        $show->field('consignee_address_id', 'Ship To');
-        $show->skus('skus', function ($skus) {
-            $skus->resource('/admin/sku');
-            $skus->product()->name();
-            $skus->title();
-            $skus->pivot('Quantity* Price')->display(function($pivot) {
-                return $pivot['quantity'].'* '.$pivot['price'];
-            });
-        });
+    //     $show->field('id', __('Purchase Order Id'));
+    //     $show->field('user.email');
+    //     $show->field('invoice_address_id', 'Bill To');
+    //     $show->field('transaction_id', __('Transaction id'));
+    //     $show->field('total', __('Total'));
+    //     $show->field('consignee_address_id', 'Ship To');
+    //     $show->skus('skus', function ($skus) {
+    //         $skus->resource('/admin/sku');
+    //         $skus->product()->name();
+    //         $skus->title();
+    //         $skus->pivot('Quantity* Price')->display(function($pivot) {
+    //             return $pivot['quantity'].'* '.$pivot['price'];
+    //         });
+    //     });
     
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+    //     $show->field('created_at', __('Created at'));
+    //     $show->field('updated_at', __('Updated at'));
 
-        return $show;
-    }
+    //     return $show;
+    // }
 
     /**
      * Make a form builder.
@@ -84,6 +84,10 @@ class OrderController extends AdminController
         $form->text('transaction_id', __('Transaction id'));
         $form->text('status', __('Order Status'));
         $form->number('total', __('Total'));
+        $form->table('plus_charges', __('Plus Charges'), function ($form) {
+                $form->text('name');
+                $form->text('value');
+        });
 
         return $form;
     }
@@ -96,10 +100,18 @@ class OrderController extends AdminController
         $cbm = 0;
         $weight = 0;
         $value = 0;
+        $quantity = 0;
+        $grand_total = $order->total/100;
+
+        foreach($order->plus_charges as $charge) {
+            $grand_total += $charge['value']/100;
+        }
+      
         foreach($order->skus()->get() as $sku) {
             $cbm += ($sku->pivot->quantity/$sku->pcs_in_carton)*($sku->length *$sku->width *$sku->height)/1000000000;
             $weight += $sku->gross_weight/100*($sku->pivot->quantity/$sku->pcs_in_carton);
             $value += $sku->pivot->price* $sku->pivot->quantity/100;
+            $quantity += $sku->pivot->quantity;
         }
 
         if($order->consignee_address_id) {
@@ -111,6 +123,8 @@ class OrderController extends AdminController
                 'cbm' => $cbm,
                 'weight' => $weight,
                 'value' => $value,
+                'quantity' => $quantity,
+                'grand_total' => $grand_total,
             ];
         } else {
             $address = [
@@ -121,10 +135,12 @@ class OrderController extends AdminController
                 'cbm' => $cbm,
                 'weight' => $weight,
                 'value' => $value,
+                'quantity' => $quantity,
+                'grand_total' => $grand_total,
             ];
         }
 
-        return $content->title('Order Dertails')
+        return $content->title('Order Details')
                     ->description('Order')
                     ->view('order.show', $address);
     }
