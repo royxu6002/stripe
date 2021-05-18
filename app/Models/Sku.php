@@ -23,4 +23,19 @@ class Sku extends Model
     {
         return $this->belongsToMany(Order::class);
     }
+
+    // public function getImageAttribute($pictures)
+    // {
+    //     return json_decode($pictures, true);
+    //     // return array_values(json_decode($value, true) ?: []);
+    // }
+
+    // public function setImageAttribute($pictures)
+    // {
+    //     if(is_array($pictures)) {
+    //         $this->attributes['image'] = json_encode($pictures);
+    //     }
+
+    //     // $this->attributes['image'] = json_encode(array_values($value));
+    // }
 }

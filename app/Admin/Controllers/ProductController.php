@@ -8,6 +8,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends AdminController
 {
@@ -33,6 +34,18 @@ class ProductController extends AdminController
         $grid->column('price', __('Price'));
         $grid->column('hs_code', __('HS Code'));
         $grid->column('updated_at', __('Updated at'));
+
+        if (!Auth::guard('admin')->user()->can('products.management')) {
+            $grid->tools(function (Grid\Tools $tools) {
+                $tools->batch(function (Grid\Tools\BatchActions $actions) {
+                    $actions->disableDelete();
+                });
+            });
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->disableDelete();
+            });
+        }
+       
 
         return $grid;
     }

@@ -17,4 +17,5 @@ Route::group([
     $router->resource('category', CategoryController::class);
     $router->resource('order', OrderController::class);
     $router->resource('user', UserController::class);
+    $router->resource('skus', SkuController::class);
 });

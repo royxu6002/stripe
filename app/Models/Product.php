@@ -26,4 +26,15 @@ class Product extends Model
     {
         return $this->hasMany(Sku::class);
     }
+
+    public function getImagesAttribute($value)
+    {
+        return array_values(json_decode($value, true) ?: []);
+    }
+
+    public function setImagesAttribute($value)
+    {
+        $this->attributes['images'] = json_encode(array_values($value));
+    }
+
 }
