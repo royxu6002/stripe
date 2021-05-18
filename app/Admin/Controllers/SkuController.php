@@ -30,7 +30,10 @@ class SkuController extends AdminController
         $grid->column('product_id', __('Product id'));
         $grid->column('title', __('Title'));
         $grid->column('price', __('Price'));
-        $grid->column('image', __('Image'));
+        $grid->column('image')->display(function ($pictures) {
+            return $pictures;
+        })->image('', 100, 100);
+        
         $grid->column('pcs_in_carton', __('Pcs in carton'));
         $grid->column('length', __('Length'));
         $grid->column('width', __('Width'));
