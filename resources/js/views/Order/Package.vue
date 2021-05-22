@@ -84,13 +84,17 @@ export default {
             return p.reduce((acc, sku) => acc + sku.pivot.quantity, 0);
         },
         totalCartonQuantity(p) {
-            return p.reduce((acc, sku) => acc + sku.pivot.quantity/sku.pcs_in_carton, 0);
+            let s = p.reduce((acc, sku) => acc + sku.pivot.quantity/sku.pcs_in_carton, 0);
+            return Math.round(s *100)/100;
         },
         totalNetWeight(p) {
-            return p.reduce((acc, sku) => acc+ sku.pivot.quantity/sku.pcs_in_carton *sku.net_weight/100, 0);
+            let s = p.reduce((acc, sku) => acc+ sku.pivot.quantity/sku.pcs_in_carton *sku.net_weight/100, 0);
+            return Math.round(s *100)/100;
+            
         },
         totalGrossWeight(p) {
-            return p.reduce((acc, sku) => acc + sku.pivot.quantity/sku.pcs_in_carton *sku.gross_weight/100, 0);
+            let s = p.reduce((acc, sku) => acc + sku.pivot.quantity/sku.pcs_in_carton *sku.gross_weight/100, 0);
+            return Math.round(s *100)/100;
         },
         totalSpace(p) {
             let s = p.reduce((acc, sku) => acc + sku.pivot.quantity/sku.pcs_in_carton* sku.length*sku.width*sku.height/1000000000, 0);

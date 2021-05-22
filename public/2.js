@@ -103,19 +103,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, 0);
     },
     totalCartonQuantity: function totalCartonQuantity(p) {
-      return p.reduce(function (acc, sku) {
+      var s = p.reduce(function (acc, sku) {
         return acc + sku.pivot.quantity / sku.pcs_in_carton;
       }, 0);
+      return Math.round(s * 100) / 100;
     },
     totalNetWeight: function totalNetWeight(p) {
-      return p.reduce(function (acc, sku) {
+      var s = p.reduce(function (acc, sku) {
         return acc + sku.pivot.quantity / sku.pcs_in_carton * sku.net_weight / 100;
       }, 0);
+      return Math.round(s * 100) / 100;
     },
     totalGrossWeight: function totalGrossWeight(p) {
-      return p.reduce(function (acc, sku) {
+      var s = p.reduce(function (acc, sku) {
         return acc + sku.pivot.quantity / sku.pcs_in_carton * sku.gross_weight / 100;
       }, 0);
+      return Math.round(s * 100) / 100;
     },
     totalSpace: function totalSpace(p) {
       var s = p.reduce(function (acc, sku) {
