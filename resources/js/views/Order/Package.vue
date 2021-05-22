@@ -102,15 +102,15 @@ export default {
         },
         lineSpace(p) {
             let s = p.pivot.quantity/p.pcs_in_carton *p.length*p.width*p.height/1000000000;
-            return Math.round(s *100)/100;
+            return Math.round(s *1000)/1000;
         },
         lineGrossWeight(p) {
             let s = p.pivot.quantity / p.pcs_in_carton * p.gross_weight/100
-            return Math.round(s *100)/100;
+            return Math.round(s *1000)/1000;
         },
         lineNetWeight(p) {
             let s = p.pivot.quantity / p.pcs_in_carton * p.net_weight/100
-            return Math.round(s *100)/100;
+            return Math.round(s *1000)/1000;
         }
     }
 
