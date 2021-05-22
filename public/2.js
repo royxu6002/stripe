@@ -129,6 +129,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     lineSpace: function lineSpace(p) {
       var s = p.pivot.quantity / p.pcs_in_carton * p.length * p.width * p.height / 1000000000;
       return Math.round(s * 100) / 100;
+    },
+    lineGrossWeight: function lineGrossWeight(p) {
+      var s = p.pivot.quantity / p.pcs_in_carton * p.gross_weight / 100;
+      return Math.round(s * 100) / 100;
+    },
+    lineNetWeight: function lineNetWeight(p) {
+      var s = p.pivot.quantity / p.pcs_in_carton * p.net_weight / 100;
+      return Math.round(s * 100) / 100;
     }
   }
 });
@@ -251,23 +259,11 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("td", {
-                domProps: {
-                  textContent: _vm._s(
-                    ((sku.pivot.quantity / sku.pcs_in_carton) *
-                      sku.gross_weight) /
-                      100
-                  )
-                }
+                domProps: { textContent: _vm._s(_vm.lineGrossWeight(sku)) }
               }),
               _vm._v(" "),
               _c("td", {
-                domProps: {
-                  textContent: _vm._s(
-                    ((sku.pivot.quantity / sku.pcs_in_carton) *
-                      sku.net_weight) /
-                      100
-                  )
-                }
+                domProps: { textContent: _vm._s(_vm.lineNetWeight(sku)) }
               }),
               _vm._v(" "),
               _c("td", {

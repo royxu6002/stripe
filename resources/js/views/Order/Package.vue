@@ -33,8 +33,8 @@
                     <td v-text="productsFilteredBySku(sku.product_id)[0].name+sku.title"></td>
                     <td v-text="sku.pivot.quantity"></td>
                     <td v-text="sku.pivot.quantity / sku.pcs_in_carton"></td>
-                    <td v-text="sku.pivot.quantity / sku.pcs_in_carton * sku.gross_weight/100"></td>
-                    <td v-text="sku.pivot.quantity / sku.pcs_in_carton * sku.net_weight/100"></td>
+                    <td v-text="lineGrossWeight(sku)"></td>
+                    <td v-text="lineNetWeight(sku)"></td>
                     <td v-text="lineSpace(sku)"></td>
                 </tr>
                 <tr class="font-weight-bold">
@@ -102,6 +102,14 @@ export default {
         },
         lineSpace(p) {
             let s = p.pivot.quantity/p.pcs_in_carton *p.length*p.width*p.height/1000000000;
+            return Math.round(s *100)/100;
+        },
+        lineGrossWeight(p) {
+            let s = p.pivot.quantity / p.pcs_in_carton * p.gross_weight/100
+            return Math.round(s *100)/100;
+        },
+        lineNetWeight(p) {
+            let s = p.pivot.quantity / p.pcs_in_carton * p.net_weight/100
             return Math.round(s *100)/100;
         }
     }
