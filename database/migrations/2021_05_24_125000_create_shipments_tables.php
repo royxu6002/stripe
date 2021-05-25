@@ -26,9 +26,10 @@ class CreateShipmentsTables extends Migration
             $table->date('etd');
             $table->date('eta');
             $table->enum('status', [
+                'goods not ready',
                 'not shipped',
                 'to be shipped',
-                'em route',
+                'en route',
                 'custom clearance',
                 'received',
             ]);

@@ -89,7 +89,14 @@ class ShipmentController extends AdminController
         $form->date('etd', __('Etd'))->default(date('Y-m-d'));
         $form->date('eta', __('Eta'))->default(date('Y-m-d'));
         // enum status 字段
-        $form->text('status', __('Status'));
+        $form->select('director', 'Goods Status')->options([
+            1 => 'goods not ready',
+            2 => 'not shipped',
+            3 => 'to be shipped',
+            4 => 'en route',
+            5 => 'custom clearance',
+            6 => 'received',
+        ]);
 
         return $form;
     }
