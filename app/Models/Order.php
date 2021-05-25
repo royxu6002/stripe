@@ -37,4 +37,14 @@ class Order extends Model
     {
         $this->attributes['plus_charges'] = json_encode(array_values($value));
     }
+
+    public function shipment()
+    {
+        return $this->hasOne(Shipment::class);
+    }
+
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
+    }
 }

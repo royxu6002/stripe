@@ -80,14 +80,21 @@ class OrderController extends AdminController
     {
         $form = new Form(new Order());
 
-        $form->number('user_id', __('User id'));
+        // $form->number('user_id', __('User id'));
+        $form->number('invoice_no', __('Invoice number'));
         $form->text('transaction_id', __('Transaction id'));
         $form->text('status', __('Order Status'));
-        $form->number('total', __('Total'));
+        $form->text('payment_term', __('Payment term, T/T %'));
+        $form->text('price_term', __('Price term, FOB, EXW'));
+        $form->text('from', __('From, Sea Port'));
+        $form->text('to', __('TO, Sea port'));
+        // $form->number('total', __('Total'));
         $form->table('plus_charges', __('Plus Charges'), function ($form) {
                 $form->text('name');
                 $form->text('value');
         });
+        $form->date('delivery_date');
+        $form->date('due_date');
 
         return $form;
     }

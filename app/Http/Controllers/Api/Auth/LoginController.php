@@ -58,7 +58,7 @@ class LoginController extends Controller
         ]);
         return \Response::make([
             'cle_store_token' => $token,
-            'user' => $user->load('orders.skus', 'invoiceaddresses', 'consigneeaddresses'),
+            'user' => $user->load('orders.skus', 'orders.shipment', 'orders.transaction:income,id,order_id', 'invoiceaddresses', 'consigneeaddresses'),
             'msg' => 'You have logged in'
         ]);
     }

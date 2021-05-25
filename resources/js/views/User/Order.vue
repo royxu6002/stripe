@@ -11,12 +11,17 @@
                     <router-link :to="{name: 'OrderReview', params: {order: order.id, user: order.user_id}}">
                         Order NO.{{ order.id }}
                     </router-link>
-                    <!-- <router-link :to="{name: 'OrderInvoice', params: {order: order.id, user: order.user_id}}">
+                    <router-link 
+                        v-if="order.delivery_date"
+                        :to="{name: 'Proforma', params: {order: order.id, user: order.user_id}}">
                         Invoice
-                    </router-link>   -->
+                    </router-link>
                     <router-link :to="{name: 'OrderPacking', params: {order: order.id, user: order.user_id}}">
                         Packing
                     </router-link>
+                    <!-- <router-link :to="{name: 'OrderInvoice', params: {order: order.id, user: order.user_id}}">
+                        CI
+                    </router-link>   -->
                 </div>
 
                 <hr>

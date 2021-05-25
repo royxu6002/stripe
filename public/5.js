@@ -62,6 +62,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'UserOrder',
@@ -196,6 +201,25 @@ var render = function() {
                       )
                     ]
                   ),
+                  _vm._v(" "),
+                  order.delivery_date
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "Proforma",
+                              params: { order: order.id, user: order.user_id }
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    Invoice\n                "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
                   _c(
                     "router-link",

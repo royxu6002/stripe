@@ -153,10 +153,16 @@ const routes =  [
             header: 'Commercial Invoice',
             footer: 'Footer',
         },
+    },
+    {
+        path: '/user/:user/order/:order/proforma',
+        name: 'Proforma',
+        component: () => import('../views/Order/Proforma.vue'),
+        meta: {
+            header: 'Proforma Invoice',
+            footer: 'Footer',
+        },
     }
-    
-
-
 ];
 
 

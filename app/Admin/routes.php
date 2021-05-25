@@ -18,4 +18,6 @@ Route::group([
     $router->resource('order', OrderController::class);
     $router->resource('user', UserController::class);
     $router->resource('skus', SkuController::class);
+    $router->resource('transactions', TransactionController::class);
+    $router->resource('shipments', ShipmentController::class);
 });

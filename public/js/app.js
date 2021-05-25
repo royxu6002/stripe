@@ -31140,6 +31140,25 @@ var prodUrl = 'http://shop.comlibra.com/';
 
 /***/ }),
 
+/***/ "./resources/js/api/billFrom.js":
+/*!**************************************!*\
+  !*** ./resources/js/api/billFrom.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var billFrom = {
+  'company': 'Comlibra Electronic CO., Ltd',
+  'address': 'Room 2112, Baolong Square, Xiaoshan, Hangzhou, China',
+  'phone': '+86 18258194466',
+  'email': 'export@comlibra.com'
+};
+/* harmony default export */ __webpack_exports__["default"] = (billFrom);
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -31154,7 +31173,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _route_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./route/routes */ "./resources/js/route/routes.js");
 /* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store/index */ "./resources/js/store/index.js");
 /* harmony import */ var _api_baseUrl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./api/baseUrl */ "./resources/js/api/baseUrl.js");
-/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
+/* harmony import */ var _api_billFrom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./api/billFrom */ "./resources/js/api/billFrom.js");
+/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./css/iconfont */ "./resources/js/css/iconfont.js");
@@ -31164,6 +31184,8 @@ __webpack_require__(/*! ./css/iconfont */ "./resources/js/css/iconfont.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.GLOBAL = _api_baseUrl__WEBPACK_IMPORTED_MODULE_3__["default"];
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.BILLFROM = _api_billFrom__WEBPACK_IMPORTED_MODULE_4__["default"];
 axios.interceptors.request.use(function (config) {
   config.headers['Authorization'] = "Bearer ".concat(window.sessionStorage.getItem('cle_store_token'));
   return config;
@@ -31176,7 +31198,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   router: _route_routes__WEBPACK_IMPORTED_MODULE_1__["default"],
   store: _store_index__WEBPACK_IMPORTED_MODULE_2__["default"],
   render: function render(h) {
-    return h(_App_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
+    return h(_App_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
   },
   created: function created() {
     _store_index__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('getProducts').then(function (_) {})["catch"](function (error) {
@@ -31597,6 +31619,16 @@ var routes = [{
   },
   meta: {
     header: 'Commercial Invoice',
+    footer: 'Footer'
+  }
+}, {
+  path: '/user/:user/order/:order/proforma',
+  name: 'Proforma',
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ 26).then(__webpack_require__.bind(null, /*! ../views/Order/Proforma.vue */ "./resources/js/views/Order/Proforma.vue"));
+  },
+  meta: {
+    header: 'Proforma Invoice',
     footer: 'Footer'
   }
 }];
