@@ -23,11 +23,20 @@
                     <router-link active-class="active"
                         :to="{name: 'UserAddress', params: {user: $store.state.auth.userInfo.id}}" 
                         class="list-group-item">
-                    <svg class="icon svg-icon" aria-hidden="true">
-                        <use xlink:href="#icon-address"></use>
-                    </svg>
-                         <span class="ml-2">My Address</span>
+                        <svg class="icon svg-icon" aria-hidden="true">
+                            <use xlink:href="#icon-address"></use>
+                        </svg>
+                        <span class="ml-2">My Address</span>
                     </router-link>
+                    <a href=""
+                        active-class="active"
+                        class="list-group-item"
+                            @click="signOut()">
+                            <svg class="icon svg-icon" aria-hidden="true">
+                                <use xlink:href="#icon-icon_sign_uploadimage"></use>
+                            </svg>
+                            <span class="ml-2">Sign out</span>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-9">                    
@@ -60,6 +69,12 @@ export default {
         myCurrency(value) {
             return 'US$' + value/100;
         }
+    },
+    methods: {
+        signOut() {
+            sessionStorage.clear();
+            this.$router.replace('/login');
+        }
     }
 }
 </script>
@@ -74,8 +89,5 @@ export default {
   vertical-align: center;
   fill: currentColor;
   overflow: hidden;
-}
-.active {
-
 }
 </style>

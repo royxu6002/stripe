@@ -56,6 +56,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -75,6 +84,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     myCurrency: function myCurrency(value) {
       return 'US$' + value / 100;
     }
+  },
+  methods: {
+    signOut: function signOut() {
+      sessionStorage.clear();
+      this.$router.replace('/login');
+    }
   }
 });
 
@@ -92,7 +107,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.card-body-order-detail[data-v-3fc69452] {\n    display: flex;\n    align-content: space-between;\n}\n.icon[data-v-3fc69452] {\n  width: 1.5em;\n  height: 1.5em;\n  vertical-align: center;\n  fill: currentColor;\n  overflow: hidden;\n}\n.active[data-v-3fc69452] {\n}\n", ""]);
+exports.push([module.i, "\n.card-body-order-detail[data-v-3fc69452] {\n    display: flex;\n    align-content: space-between;\n}\n.icon[data-v-3fc69452] {\n  width: 1.5em;\n  height: 1.5em;\n  vertical-align: center;\n  fill: currentColor;\n  overflow: hidden;\n}\n", ""]);
 
 // exports
 
@@ -232,6 +247,35 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("span", { staticClass: "ml-2" }, [_vm._v("My Address")])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "list-group-item",
+                attrs: { href: "", "active-class": "active" },
+                on: {
+                  click: function($event) {
+                    return _vm.signOut()
+                  }
+                }
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "icon svg-icon",
+                    attrs: { "aria-hidden": "true" }
+                  },
+                  [
+                    _c("use", {
+                      attrs: { "xlink:href": "#icon-icon_sign_uploadimage" }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("span", { staticClass: "ml-2" }, [_vm._v("Sign out")])
               ]
             )
           ],
