@@ -410,6 +410,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -535,7 +544,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.payment_method_name[data-v-8482eb34] {\n    margin-right: 20px;\n}\n/* .tabpaymentcontent {\n    display: none;\n} */\n.active[data-v-8482eb34] {\n        display: block;\n        border: 2px solid lightskyblue;\n}\n", ""]);
+exports.push([module.i, "\n.payment_method_name[data-v-8482eb34] {\n    margin-right: 20px;\n}\n/* .tabpaymentcontent {\n    display: none;\n} */\n.active[data-v-8482eb34] {\n        display: block;\n        border: 2px solid lightskyblue;\n}\n\n", ""]);
 
 // exports
 
@@ -592,7 +601,7 @@ var render = function() {
       _vm.$store.state.auth.userInfo
         ? _c(
             "div",
-            { staticClass: "col-lg-6 col-md-6 col-sm-12 col-xs-12" },
+            { staticClass: "col-lg-4 col-md-4 col-sm-12 col-xs-12" },
             [
               _c("div", { staticClass: "mb-3" }, [
                 _c("div", [
@@ -610,7 +619,9 @@ var render = function() {
                 ? _c(
                     "p",
                     [
-                      _c("b", [_vm._v("Please select whom to be Billed To")]),
+                      _c("b", [_vm._v("Select whom to be Billed To")]),
+                      _vm._v(" "),
+                      _c("br"),
                       _vm._v(" "),
                       _c(
                         "router-link",
@@ -622,7 +633,11 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Create a new Invoice address")]
+                        [
+                          _vm._v(
+                            "\n                    Create new invoice address\n                "
+                          )
+                        ]
                       )
                     ],
                     1
@@ -697,7 +712,9 @@ var render = function() {
                 ? _c(
                     "p",
                     [
-                      _c("b", [_vm._v("Please select whom to be consignee")]),
+                      _c("b", [_vm._v("Select whom to be consignee")]),
+                      _vm._v(" "),
+                      _c("br"),
                       _vm._v(" "),
                       _c(
                         "router-link",
@@ -709,7 +726,11 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Create a new consignee")]
+                        [
+                          _vm._v(
+                            "\n                    Create new consignee\n                "
+                          )
+                        ]
                       )
                     ],
                     1
@@ -788,7 +809,7 @@ var render = function() {
       !_vm.$store.state.auth.userInfo
         ? _c(
             "div",
-            { staticClass: "col-lg-6 col-md-6 col-sm-12 col-xs-12" },
+            { staticClass: "col-lg-4 col-md-4 col-sm-12 col-xs-12" },
             [
               _c("h6", [_vm._v("Please login in to place the order")]),
               _vm._v(" "),
@@ -800,7 +821,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12 col-xs-12" }, [
+      _c("div", { staticClass: "col-lg-8 col-md-8 col-sm-12 col-xs-12" }, [
         _c(
           "table",
           {
@@ -815,18 +836,23 @@ var render = function() {
               [
                 _vm._l(_vm.cart, function(item, index) {
                   return _c("tr", { key: index }, [
-                    _c("td", {
-                      domProps: {
-                        textContent: _vm._s(
-                          item.name +
-                            ", " +
-                            item.title +
-                            ", " +
-                            item.pcs_in_carton +
-                            "pcs/carton"
-                        )
-                      }
-                    }),
+                    _c("td", [
+                      _c("img", {
+                        attrs: { src: item.image[0], alt: "", width: "44" }
+                      }),
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(
+                            item.name +
+                              ", " +
+                              item.title +
+                              ", " +
+                              item.pcs_in_carton +
+                              "pcs/carton"
+                          ) +
+                          "\n                        "
+                      )
+                    ]),
                     _vm._v(" "),
                     _c("td", [
                       _c("input", {
@@ -864,7 +890,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                X\n                            "
+                            "\n                                    x\n                                "
                           )
                         ]
                       )

@@ -9,7 +9,7 @@
                 :to="{name: 'AddressCreate', params: {
                     user: userInfo.id,
                 }}">
-                Create an new invoice address
+                New invoice address
             </router-link>
             <div 
                 class="card mb-2" 
@@ -37,7 +37,7 @@
                 :to="{name: 'CaddressCreate', params: {
                     user: userInfo.id,
                 }}">
-                Create an new consignee address
+                New consignee address
             </router-link>
 
             <div 

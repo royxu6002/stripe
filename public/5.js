@@ -214,7 +214,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n            Create an new invoice address\n        ")]
+              [_vm._v("\n            New invoice address\n        ")]
             ),
             _vm._v(" "),
             _vm._l(_vm.invoiceaddresses, function(address, index) {
@@ -291,11 +291,7 @@ var render = function() {
                   }
                 }
               },
-              [
-                _vm._v(
-                  "\n            Create an new consignee address\n        "
-                )
-              ]
+              [_vm._v("\n            New consignee address\n        ")]
             ),
             _vm._v(" "),
             _vm._l(_vm.consigneeaddresses, function(address, index) {

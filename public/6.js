@@ -67,6 +67,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'UserOrder',
@@ -166,7 +193,13 @@ var render = function() {
       _c("h5", { staticClass: "mt-3" }, [_vm._v("My Order")]),
       _vm._v(" "),
       _vm.userOrders
-        ? _c("span", [_vm._v(_vm._s(_vm._f("myCurrency")(_vm.orderTotal)))])
+        ? _c("span", [
+            _vm._v(
+              "Total \n        \n            Goods value (Other cost is excluded, E.g: Shipping Cost If)\n        of " +
+                _vm._s(_vm._f("myCurrency")(_vm.orderTotal)) +
+                ","
+            )
+          ])
         : _vm._e(),
       _vm._v(" "),
       _vm.userOrders
@@ -195,7 +228,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                    Order NO." +
+                        "\n                    " +
                           _vm._s(order.id) +
                           "\n                "
                       )
@@ -288,7 +321,67 @@ var render = function() {
               _vm._v(" "),
               _c("hr"),
               _vm._v(" "),
-              _c("h6", [_vm._v(_vm._s(_vm._f("myCurrency")(order.total)))])
+              _c("div", { staticClass: "card-body-order-detail" }, [
+                _vm._m(0, true),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-9 col-sm-8 col-md-9 col-lg-10" },
+                  [
+                    _c("h6", [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm._f("myCurrency")(order.total)) +
+                          "\n                        "
+                      )
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              order.plus_charges.length > 0
+                ? _c(
+                    "div",
+                    [
+                      _c("hr"),
+                      _vm._v(" "),
+                      _vm._l(order.plus_charges, function(charge, i) {
+                        return _c(
+                          "div",
+                          { staticClass: "card-body-order-detail" },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "col-3 col-sm-4 col-md-3 col-lg-2"
+                              },
+                              [_c("span", [_vm._v(_vm._s(charge.name))])]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "col-9 col-sm-8 col-md-9 col-lg-10"
+                              },
+                              [
+                                _c("h6", [
+                                  _vm._v(
+                                    "\n                            " +
+                                      _vm._s(
+                                        _vm._f("myCurrency")(charge.value)
+                                      ) +
+                                      "\n                        "
+                                  )
+                                ])
+                              ]
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                : _vm._e()
             ],
             2
           )
@@ -298,7 +391,16 @@ var render = function() {
     2
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3 col-sm-4 col-md-3 col-lg-2" }, [
+      _c("span", [_vm._v("Goods")])
+    ])
+  }
+]
 render._withStripped = true
 
 

@@ -3,12 +3,16 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>A price system from comlibra electronic</title>
-
-        <!-- Fonts -->
+        <title>Pricing and buying system from comlibra electronic</title>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <style>
+            body {
+                background-color: white;
+            }
+        </style>
     </head>
+
     <body class="antialiased">
         <div class="container mx-auto">
             <div id="app"> 

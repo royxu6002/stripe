@@ -1,7 +1,10 @@
 <template>
     <div class="container">
         <h5 class="mt-3">My Order</h5> 
-        <span v-if="userOrders">{{ orderTotal | myCurrency }}</span>
+        <span v-if="userOrders">Total 
+            
+                Goods value (Other cost is excluded, E.g: Shipping Cost If)
+            of {{ orderTotal | myCurrency }},</span>
         <span v-if="userOrders">Total {{ orderQuantity }} orders</span>
         <div class="card mb-3"
             v-for="(order, index) in userOrders"
@@ -9,7 +12,7 @@
             <div class="card-body">
                 <div class="card-body-header">
                     <router-link :to="{name: 'OrderReview', params: {order: order.id, user: order.user_id}}">
-                        Order NO.{{ order.id }}
+                        {{ order.id }}
                     </router-link>
                     <router-link 
                         v-if="order.delivery_date"
@@ -44,7 +47,31 @@
                     </div>
                 </div>
                 <hr>
-                <h6>{{ order.total | myCurrency }}</h6>
+                <div class="card-body-order-detail">
+                        <div class="col-3 col-sm-4 col-md-3 col-lg-2">
+                            <span>Goods</span>
+                        </div>
+                        <div class="col-9 col-sm-8 col-md-9 col-lg-10">
+                            <h6>
+                                {{ order.total | myCurrency }}
+                            </h6>
+                        </div>
+                </div>
+                <div v-if="order.plus_charges.length>0">
+                    <hr>
+                    <div v-for="(charge, i) in order.plus_charges" 
+                        class="card-body-order-detail">
+                        <div class="col-3 col-sm-4 col-md-3 col-lg-2">
+                            <span>{{charge.name}}</span>
+                        </div>
+                        <div class="col-9 col-sm-8 col-md-9 col-lg-10">
+                            <h6>
+                                {{charge.value | myCurrency}}
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>

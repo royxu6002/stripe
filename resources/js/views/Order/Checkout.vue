@@ -1,15 +1,18 @@
 <template>
 <div class="container">
     <div class="row mt-3">
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"  v-if="$store.state.auth.userInfo">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"  v-if="$store.state.auth.userInfo">
             <div class="mb-3">
                 <div>
                     Welcome {{ userInfo.name }}, Your email is  {{ userInfo.email }}
                 </div>
             </div>
             <p v-if="userInfo.invoiceaddresses">
-                <b>Please select whom to be Billed To</b>
-                <router-link :to="{name: 'AddressCreate', params: {user: userInfo.id}}">Create a new Invoice address</router-link>
+                <b>Select whom to be Billed To</b>
+                <br>
+                <router-link :to="{name: 'AddressCreate', params: {user: userInfo.id}}">
+                    Create new invoice address
+                </router-link>
             </p>
             <div class="card mb-3"
                 v-if="userInfo.invoiceaddresses" 
@@ -31,8 +34,11 @@
             </div>
 
             <p v-if="userInfo.consigneeaddresses">
-                <b>Please select whom to be consignee</b>
-                <router-link :to="{name: 'CaddressCreate', params: {user: userInfo.id}}">Create a new consignee</router-link>
+                <b>Select whom to be consignee</b>
+                <br>
+                <router-link :to="{name: 'CaddressCreate', params: {user: userInfo.id}}">
+                    Create new consignee
+                </router-link>
             </p>
 
              <div class="card mb-3"
@@ -57,14 +63,14 @@
 
         </div>
 
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" v-if="!$store.state.auth.userInfo">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" v-if="!$store.state.auth.userInfo">
            <h6>Please login in to place the order</h6>
            <router-link to="/login">
                 Login
            </router-link>
         </div>
 
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
             <table class="table table-striped" style="width: 100%">
                 <thead>
                     <tr style="font-weight:bold;">
@@ -79,7 +85,10 @@
                         v-for="(item, index) in cart"
                         :key="index"
                     >
-                        <td v-text="item.name+', '+ item.title+', '+item.pcs_in_carton+'pcs/carton'"></td>
+                        <td>
+                            <img :src="item.image[0]" alt="" width="44">
+                            {{item.name+', '+ item.title+', '+item.pcs_in_carton+'pcs/carton'}}
+                        </td>
                         <td>
                             <input 
                                 style="width: 100%; height: 100%"
@@ -92,10 +101,10 @@
                         <td>{{ cartLineTotal(item) }}</td>
                         <td>
                             <button 
-                                class="btn btn-sm"
-                                @click="$store.commit('removeFromCart', index)">
-                                X
-                            </button>
+                                    class="btn btn-sm"
+                                    @click="$store.commit('removeFromCart', index)">
+                                    x
+                                </button>
                         </td>
                     </tr>
                     <tr style="font-weight:bold">
@@ -249,4 +258,5 @@ export default {
         display: block;
         border: 2px solid lightskyblue;
     }
+
 </style>
