@@ -158,13 +158,13 @@
                         placeholder="USA">
                 </div>
 
-                 <div class="form-group col-12">
+                 <!-- <div class="form-group col-12">
                     <input 
                       type="checkbox" 
                       v-model="customer.consignee"
                       name="consignee">
                     <label for="consignee" class="ml-2">Consignee is the same</label>
-                  </div>
+                  </div> -->
 
                 <div class="form-group col-12">
                   <button class="form-control btn btn-primary" @click="submit">Submit</button>

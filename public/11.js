@@ -707,53 +707,6 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-12" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.customer.consignee,
-                expression: "customer.consignee"
-              }
-            ],
-            attrs: { type: "checkbox", name: "consignee" },
-            domProps: {
-              checked: Array.isArray(_vm.customer.consignee)
-                ? _vm._i(_vm.customer.consignee, null) > -1
-                : _vm.customer.consignee
-            },
-            on: {
-              change: function($event) {
-                var $$a = _vm.customer.consignee,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = null,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 &&
-                      _vm.$set(_vm.customer, "consignee", $$a.concat([$$v]))
-                  } else {
-                    $$i > -1 &&
-                      _vm.$set(
-                        _vm.customer,
-                        "consignee",
-                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                      )
-                  }
-                } else {
-                  _vm.$set(_vm.customer, "consignee", $$c)
-                }
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { staticClass: "ml-2", attrs: { for: "consignee" } }, [
-            _vm._v("Consignee is the same")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-12" }, [
           _c(
             "button",
             {
