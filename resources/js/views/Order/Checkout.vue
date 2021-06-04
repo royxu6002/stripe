@@ -86,8 +86,14 @@
                         :key="index"
                     >
                         <td>
-                            <img :src="item.image[0]" alt="" width="44">
-                            {{item.name+', '+ item.title+', '+item.pcs_in_carton+'pcs/carton'}}
+                            <div style="display: flex; justify-content: space-between;">
+                                 <div>
+                                      <img :src="item.image[0]" alt="" width="44">
+                                </div>
+                                <div class="ml-2">
+                                     {{item.name+', '+ item.title+', '+item.pcs_in_carton+'pcs/carton'}}
+                                </div>
+                            </div>
                         </td>
                         <td>
                             <input 

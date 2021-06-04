@@ -419,6 +419,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -837,20 +843,40 @@ var render = function() {
                 _vm._l(_vm.cart, function(item, index) {
                   return _c("tr", { key: index }, [
                     _c("td", [
-                      _c("img", {
-                        attrs: { src: item.image[0], alt: "", width: "44" }
-                      }),
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(
-                            item.name +
-                              ", " +
-                              item.title +
-                              ", " +
-                              item.pcs_in_carton +
-                              "pcs/carton"
-                          ) +
-                          "\n                        "
+                      _c(
+                        "div",
+                        {
+                          staticStyle: {
+                            display: "flex",
+                            "justify-content": "space-between"
+                          }
+                        },
+                        [
+                          _c("div", [
+                            _c("img", {
+                              attrs: {
+                                src: item.image[0],
+                                alt: "",
+                                width: "44"
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "ml-2" }, [
+                            _vm._v(
+                              "\n                                     " +
+                                _vm._s(
+                                  item.name +
+                                    ", " +
+                                    item.title +
+                                    ", " +
+                                    item.pcs_in_carton +
+                                    "pcs/carton"
+                                ) +
+                                "\n                                "
+                            )
+                          ])
+                        ]
                       )
                     ]),
                     _vm._v(" "),
