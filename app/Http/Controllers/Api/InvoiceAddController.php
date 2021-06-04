@@ -39,7 +39,7 @@ class InvoiceaddController extends Controller
             'country' => $request->input('country')
         ]);
 
-        if($request->input('consignee') == 'true') {
+        if($request->input('consignee') == 'true' || $request->input('consignee') == true) {
             $consignee_add = $this->guard()->user()->consigneeaddresses()->create([
                 'name' => $request->input('first_name'). ' '.$request->input('last_name'),
                 'company_name' => $request->input('company_name') ?? null,
