@@ -162,6 +162,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'OrderInvoice',
@@ -295,166 +296,160 @@ var render = function() {
       _c("div", { staticClass: "proforma-brief" }, [
         _c("div", { staticClass: "left" }, [
           _vm.order[0].invoice_address_id
-            ? _c(
-                "div",
-                { staticClass: "col-lg-6 col-md-6 col-sm-12 col-xs-12" },
-                [
-                  _c("h6", { staticClass: "mt-3" }, [_vm._v("Bill To:")]),
-                  _vm._v(" "),
-                  _vm.invoiceAddress(_vm.order[0].invoice_address_id)[0]
-                    ? _c("div", [
-                        _vm.invoiceAddress(_vm.order[0].invoice_address_id)[0]
-                          .company_name
-                          ? _c("h6", [
+            ? _c("div", [
+                _c("h6", { staticClass: "mt-3" }, [_vm._v("Bill To:")]),
+                _vm._v(" "),
+                _vm.invoiceAddress(_vm.order[0].invoice_address_id)[0]
+                  ? _c("div", [
+                      _vm.invoiceAddress(_vm.order[0].invoice_address_id)[0]
+                        .company_name
+                        ? _c("h6", [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(
+                                  _vm.invoiceAddress(
+                                    _vm.order[0].invoice_address_id
+                                  )[0].company_name
+                                ) +
+                                "\n                        "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(
+                            _vm.invoiceAddress(
+                              _vm.order[0].invoice_address_id
+                            )[0].address
+                          ) +
+                          ", " +
+                          _vm._s(
+                            _vm.invoiceAddress(
+                              _vm.order[0].invoice_address_id
+                            )[0].city
+                          ) +
+                          ", " +
+                          _vm._s(
+                            _vm.invoiceAddress(
+                              _vm.order[0].invoice_address_id
+                            )[0].state
+                          ) +
+                          ", " +
+                          _vm._s(
+                            _vm.invoiceAddress(
+                              _vm.order[0].invoice_address_id
+                            )[0].zip_code
+                          ) +
+                          ", " +
+                          _vm._s(
+                            _vm.invoiceAddress(
+                              _vm.order[0].invoice_address_id
+                            )[0].country
+                          ) +
+                          "\n                        "
+                      ),
+                      _c("div", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.invoiceAddress(
+                              _vm.order[0].invoice_address_id
+                            )[0].name
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.invoiceAddress(
+                              _vm.order[0].invoice_address_id
+                            )[0].phone
+                          )
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.order[0].consignee_address_id
+                  ? _c("div", [
+                      _c("h6", { staticClass: "mt-3" }, [
+                        _vm._v("Ship to 运到 :")
+                      ]),
+                      _vm._v(" "),
+                      _vm.consigneeAddress(_vm.order[0].consignee_address_id)[0]
+                        ? _c("div", [
+                            _vm.consigneeAddress(
+                              _vm.order[0].consignee_address_id
+                            )[0].company_name
+                              ? _c("div", [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(
+                                        _vm.consigneeAddress(
+                                          _vm.order[0].consignee_address_id
+                                        )[0].company_name
+                                      ) +
+                                      "\n                            "
+                                  )
+                                ])
+                              : _vm._e(),
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(
+                                  _vm.consigneeAddress(
+                                    _vm.order[0].consignee_address_id
+                                  )[0].address
+                                ) +
+                                ", " +
+                                _vm._s(
+                                  _vm.consigneeAddress(
+                                    _vm.order[0].consignee_address_id
+                                  )[0].city
+                                ) +
+                                ", " +
+                                _vm._s(
+                                  _vm.consigneeAddress(
+                                    _vm.order[0].consignee_address_id
+                                  )[0].state
+                                ) +
+                                ", " +
+                                _vm._s(
+                                  _vm.consigneeAddress(
+                                    _vm.order[0].consignee_address_id
+                                  )[0].zip_code
+                                ) +
+                                ", " +
+                                _vm._s(
+                                  _vm.consigneeAddress(
+                                    _vm.order[0].consignee_address_id
+                                  )[0].country
+                                ) +
+                                "\n                            "
+                            ),
+                            _c("div", [
                               _vm._v(
-                                "\n                        " +
-                                  _vm._s(
-                                    _vm.invoiceAddress(
-                                      _vm.order[0].invoice_address_id
-                                    )[0].company_name
-                                  ) +
-                                  "\n                    "
+                                _vm._s(
+                                  _vm.consigneeAddress(
+                                    _vm.order[0].consignee_address_id
+                                  )[0].name
+                                )
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.consigneeAddress(
+                                    _vm.order[0].consignee_address_id
+                                  )[0].phone
+                                )
                               )
                             ])
-                          : _vm._e(),
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(
-                              _vm.invoiceAddress(
-                                _vm.order[0].invoice_address_id
-                              )[0].address
-                            ) +
-                            ", " +
-                            _vm._s(
-                              _vm.invoiceAddress(
-                                _vm.order[0].invoice_address_id
-                              )[0].city
-                            ) +
-                            ", " +
-                            _vm._s(
-                              _vm.invoiceAddress(
-                                _vm.order[0].invoice_address_id
-                              )[0].state
-                            ) +
-                            ", " +
-                            _vm._s(
-                              _vm.invoiceAddress(
-                                _vm.order[0].invoice_address_id
-                              )[0].zip_code
-                            ) +
-                            ", " +
-                            _vm._s(
-                              _vm.invoiceAddress(
-                                _vm.order[0].invoice_address_id
-                              )[0].country
-                            ) +
-                            "\n                    "
-                        ),
-                        _c("div", [
-                          _vm._v(
-                            _vm._s(
-                              _vm.invoiceAddress(
-                                _vm.order[0].invoice_address_id
-                              )[0].name
-                            )
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _vm._v(
-                            _vm._s(
-                              _vm.invoiceAddress(
-                                _vm.order[0].invoice_address_id
-                              )[0].phone
-                            )
-                          )
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.order[0].consignee_address_id
-                    ? _c("div", [
-                        _c("h6", { staticClass: "mt-3" }, [
-                          _vm._v("Ship to 运到 :")
-                        ]),
-                        _vm._v(" "),
-                        _vm.consigneeAddress(
-                          _vm.order[0].consignee_address_id
-                        )[0]
-                          ? _c("div", [
-                              _vm.consigneeAddress(
-                                _vm.order[0].consignee_address_id
-                              )[0].company_name
-                                ? _c("div", [
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(
-                                          _vm.consigneeAddress(
-                                            _vm.order[0].consignee_address_id
-                                          )[0].company_name
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ])
-                                : _vm._e(),
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(
-                                    _vm.consigneeAddress(
-                                      _vm.order[0].consignee_address_id
-                                    )[0].address
-                                  ) +
-                                  ", " +
-                                  _vm._s(
-                                    _vm.consigneeAddress(
-                                      _vm.order[0].consignee_address_id
-                                    )[0].city
-                                  ) +
-                                  ", " +
-                                  _vm._s(
-                                    _vm.consigneeAddress(
-                                      _vm.order[0].consignee_address_id
-                                    )[0].state
-                                  ) +
-                                  ", " +
-                                  _vm._s(
-                                    _vm.consigneeAddress(
-                                      _vm.order[0].consignee_address_id
-                                    )[0].zip_code
-                                  ) +
-                                  ", " +
-                                  _vm._s(
-                                    _vm.consigneeAddress(
-                                      _vm.order[0].consignee_address_id
-                                    )[0].country
-                                  ) +
-                                  "\n                        "
-                              ),
-                              _c("div", [
-                                _vm._v(
-                                  _vm._s(
-                                    _vm.consigneeAddress(
-                                      _vm.order[0].consignee_address_id
-                                    )[0].name
-                                  )
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", [
-                                _vm._v(
-                                  _vm._s(
-                                    _vm.consigneeAddress(
-                                      _vm.order[0].consignee_address_id
-                                    )[0].phone
-                                  )
-                                )
-                              ])
-                            ])
-                          : _vm._e()
-                      ])
-                    : _vm._e()
-                ]
-              )
+                          ])
+                        : _vm._e()
+                    ])
+                  : _vm._e()
+              ])
             : _vm._e(),
           _vm._v(" "),
           _c("br")

@@ -9,26 +9,27 @@
 
             <div class="proforma-brief">
                 <div class="left">
-                    <div v-if="order[0].invoice_address_id" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <h6 class="mt-3">Bill To:</h6>
-                    <div v-if="invoiceAddress(order[0].invoice_address_id)[0]">
-                        <h6 v-if="invoiceAddress(order[0].invoice_address_id)[0].company_name">
-                            {{ invoiceAddress(order[0].invoice_address_id)[0].company_name }}
-                        </h6>
-                        {{ invoiceAddress(order[0].invoice_address_id)[0].address }}, {{ invoiceAddress(order[0].invoice_address_id)[0].city }}, {{ invoiceAddress(order[0].invoice_address_id)[0].state }}, {{ invoiceAddress(order[0].invoice_address_id)[0].zip_code }}, {{ invoiceAddress(order[0].invoice_address_id)[0].country }}
-                        <div>{{ invoiceAddress(order[0].invoice_address_id)[0].name }}</div>
-                        <div>{{ invoiceAddress(order[0].invoice_address_id)[0].phone }}</div> 
-                    </div>
+                    <div v-if="order[0].invoice_address_id">
+                        <h6 class="mt-3">Bill To:</h6>
+                        <div v-if="invoiceAddress(order[0].invoice_address_id)[0]">
+                            <h6 v-if="invoiceAddress(order[0].invoice_address_id)[0].company_name">
+                                {{ invoiceAddress(order[0].invoice_address_id)[0].company_name }}
+                            </h6>
+                            {{ invoiceAddress(order[0].invoice_address_id)[0].address }}, {{ invoiceAddress(order[0].invoice_address_id)[0].city }}, {{ invoiceAddress(order[0].invoice_address_id)[0].state }}, {{ invoiceAddress(order[0].invoice_address_id)[0].zip_code }}, {{ invoiceAddress(order[0].invoice_address_id)[0].country }}
+                            <div>{{ invoiceAddress(order[0].invoice_address_id)[0].name }}</div>
+                            <div>{{ invoiceAddress(order[0].invoice_address_id)[0].phone }}</div> 
+                        </div>
+                    
                      <div v-if="order[0].consignee_address_id">
-                    <h6 class="mt-3">Ship to 运到 :</h6>
-                    <div v-if="consigneeAddress(order[0].consignee_address_id)[0]">
-                            <div v-if="consigneeAddress(order[0].consignee_address_id)[0].company_name">
-                                {{ consigneeAddress(order[0].consignee_address_id)[0].company_name }}
-                            </div>
-                            {{ consigneeAddress(order[0].consignee_address_id)[0].address }}, {{ consigneeAddress(order[0].consignee_address_id)[0].city }}, {{ consigneeAddress(order[0].consignee_address_id)[0].state }}, {{ consigneeAddress(order[0].consignee_address_id)[0].zip_code }}, {{ consigneeAddress(order[0].consignee_address_id)[0].country }}
-                            <div>{{ consigneeAddress(order[0].consignee_address_id)[0].name }}</div>
-                            <div>{{ consigneeAddress(order[0].consignee_address_id)[0].phone }}</div> 
-                    </div>
+                        <h6 class="mt-3">Ship to 运到 :</h6>
+                        <div v-if="consigneeAddress(order[0].consignee_address_id)[0]">
+                                <div v-if="consigneeAddress(order[0].consignee_address_id)[0].company_name">
+                                    {{ consigneeAddress(order[0].consignee_address_id)[0].company_name }}
+                                </div>
+                                {{ consigneeAddress(order[0].consignee_address_id)[0].address }}, {{ consigneeAddress(order[0].consignee_address_id)[0].city }}, {{ consigneeAddress(order[0].consignee_address_id)[0].state }}, {{ consigneeAddress(order[0].consignee_address_id)[0].zip_code }}, {{ consigneeAddress(order[0].consignee_address_id)[0].country }}
+                                <div>{{ consigneeAddress(order[0].consignee_address_id)[0].name }}</div>
+                                <div>{{ consigneeAddress(order[0].consignee_address_id)[0].phone }}</div> 
+                        </div>
                     </div>
                 </div>
                 <br>
