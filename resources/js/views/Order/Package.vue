@@ -9,7 +9,7 @@
         <div class="packing-list-header">
             <div>
                 <h5>Shipping mark</h5>
-                <div v-if="order[0].shipment.shipping_mark">
+                <div v-if="order[0].shipment && order[0].shipment.shipping_mark">
                     {{order[0].shipment.shipping_mark}}
                 </div>
             </div>

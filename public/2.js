@@ -240,7 +240,7 @@ var render = function() {
       _c("div", [
         _c("h5", [_vm._v("Shipping mark")]),
         _vm._v(" "),
-        _vm.order[0].shipment.shipping_mark
+        _vm.order[0].shipment && _vm.order[0].shipment.shipping_mark
           ? _c("div", [
               _vm._v(
                 "\n                " +
