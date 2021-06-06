@@ -22,9 +22,11 @@
                     <router-link :to="{name: 'OrderPacking', params: {order: order.id, user: order.user_id}}">
                         Packing
                     </router-link>
-                    <!-- <router-link :to="{name: 'OrderInvoice', params: {order: order.id, user: order.user_id}}">
-                        CI
-                    </router-link>   -->
+                    <router-link 
+                        v-if="order.shipment"
+                        :to="{name: 'OrderInvoice', params: {order: order.id, user: order.user_id}}">
+                        Commercial
+                    </router-link>  
                 </div>
 
                 <hr>

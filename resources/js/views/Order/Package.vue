@@ -1,10 +1,23 @@
 <template>
     <div class="container mt-3">
-        <div class="packing-list-header">
-            <h2>Packing List
+        <div align="center" class="invoice-title">
+            <h5 class="mt-3">COMLIBRA ELECTRONIC CO., LTD</h5>
+            <div>ADD:ROOM 2112, BAOLONG SQUARE, XIAOSHAN, HANGZHOU, ZHEJIANG</div>
+            <h5 class="m-3">PACKING LIST</h5></div>
+        
             
-            </h2>
+        <div class="packing-list-header">
+            <div>
+                <h5>Shipping mark</h5>
+                <div v-if="order[0].shipment.shipping_mark">
+                    {{order[0].shipment.shipping_mark}}
+                </div>
+            </div>
+            
             <div align="right">
+                <div>
+                    Invoice #: {{order[0].invoice_no}}
+                </div>
                 <div>Order NO.{{order[0].id}}</div>
                 <div>Reference. {{order[0].transaction_id}}</div>
                 <span>
@@ -25,7 +38,7 @@
                     <th>Carton Amount</th>
                     <th>GW</th>
                     <th>NW</th>
-                    <th>CBM</th>
+                    <th style="text-align: right;">CBM</th>
                 </thead>
                 <tr 
                     v-for="(sku, index) in order[0].skus"
@@ -35,7 +48,7 @@
                     <td v-text="sku.pivot.quantity / sku.pcs_in_carton"></td>
                     <td v-text="lineGrossWeight(sku)"></td>
                     <td v-text="lineNetWeight(sku)"></td>
-                    <td v-text="lineSpace(sku)"></td>
+                    <td v-text="lineSpace(sku)" align="right"></td>
                 </tr>
                 <tr class="font-weight-bold">
                     <td rowspan="2">
@@ -46,16 +59,29 @@
                     <td v-text="totalCartonQuantity(order[0].skus)"></td>
                     <td v-text="totalGrossWeight(order[0].skus)"></td>
                     <td v-text="totalNetWeight(order[0].skus)"></td>
-                    <td v-text="totalSpace(order[0].skus)"></td>
+                    <td v-text="totalSpace(order[0].skus)" align="right"></td>
                 </tr> 
                 <tr class="font-weight-bold total-wrap">
                     <td>PCS</td>
                     <td>CARTONS</td>
                     <td>KGS</td>
                     <td>KGS</td>
-                    <td>M³</td>
+                    <td align="right">M³</td>
                 </tr>
             </table>
+            <div class="invoice-stamp">
+                <table align="right" cellpadding="10px">
+                    <tr align="center">
+                        <td colspan="2" style="background-image: url(&quot;../../../assets/imgs/stamp.png&quot;); background-size: contain; background-repeat: no-repeat; background-position: center center;"> 
+                        THE SELLER:
+                        <br>
+                        <br>
+                        <br> COMLIBRA ELECTRONIC CO., LTD.<br>
+                        Signature &amp; Stamp 
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 

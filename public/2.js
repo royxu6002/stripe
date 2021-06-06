@@ -78,6 +78,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'OrderPacking',
@@ -208,10 +234,32 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container mt-3" }, [
+    _vm._m(0),
+    _vm._v(" "),
     _c("div", { staticClass: "packing-list-header" }, [
-      _c("h2", [_vm._v("Packing List\n        \n        ")]),
+      _c("div", [
+        _c("h5", [_vm._v("Shipping mark")]),
+        _vm._v(" "),
+        _vm.order[0].shipment.shipping_mark
+          ? _c("div", [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.order[0].shipment.shipping_mark) +
+                  "\n            "
+              )
+            ])
+          : _vm._e()
+      ]),
       _vm._v(" "),
       _c("div", { attrs: { align: "right" } }, [
+        _c("div", [
+          _vm._v(
+            "\n                Invoice #: " +
+              _vm._s(_vm.order[0].invoice_no) +
+              "\n            "
+          )
+        ]),
+        _vm._v(" "),
         _c("div", [_vm._v("Order NO." + _vm._s(_vm.order[0].id))]),
         _vm._v(" "),
         _c("div", [
@@ -235,7 +283,7 @@ var render = function() {
         "table",
         { staticClass: "table" },
         [
-          _vm._m(0),
+          _vm._m(1),
           _vm._v(" "),
           _vm._l(_vm.order[0].skus, function(sku, index) {
             return _c("tr", { key: index }, [
@@ -267,6 +315,7 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("td", {
+                attrs: { align: "right" },
                 domProps: { textContent: _vm._s(_vm.lineSpace(sku)) }
               })
             ])
@@ -302,20 +351,43 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("td", {
+              attrs: { align: "right" },
               domProps: {
                 textContent: _vm._s(_vm.totalSpace(_vm.order[0].skus))
               }
             })
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _vm._m(2)
         ],
         2
-      )
+      ),
+      _vm._v(" "),
+      _vm._m(3)
     ])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "invoice-title", attrs: { align: "center" } },
+      [
+        _c("h5", { staticClass: "mt-3" }, [
+          _vm._v("COMLIBRA ELECTRONIC CO., LTD")
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _vm._v("ADD:ROOM 2112, BAOLONG SQUARE, XIAOSHAN, HANGZHOU, ZHEJIANG")
+        ]),
+        _vm._v(" "),
+        _c("h5", { staticClass: "m-3" }, [_vm._v("PACKING LIST")])
+      ]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -331,7 +403,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("NW")]),
       _vm._v(" "),
-      _c("th", [_vm._v("CBM")])
+      _c("th", { staticStyle: { "text-align": "right" } }, [_vm._v("CBM")])
     ])
   },
   function() {
@@ -347,7 +419,45 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("td", [_vm._v("KGS")]),
       _vm._v(" "),
-      _c("td", [_vm._v("M³")])
+      _c("td", { attrs: { align: "right" } }, [_vm._v("M³")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "invoice-stamp" }, [
+      _c("table", { attrs: { align: "right", cellpadding: "10px" } }, [
+        _c("tr", { attrs: { align: "center" } }, [
+          _c(
+            "td",
+            {
+              staticStyle: {
+                "background-image": 'url("../../../assets/imgs/stamp.png")',
+                "background-size": "contain",
+                "background-repeat": "no-repeat",
+                "background-position": "center center"
+              },
+              attrs: { colspan: "2" }
+            },
+            [
+              _vm._v(
+                " \n                    THE SELLER:\n                    "
+              ),
+              _c("br"),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" COMLIBRA ELECTRONIC CO., LTD."),
+              _c("br"),
+              _vm._v(
+                "\n                    Signature & Stamp \n                    "
+              )
+            ]
+          )
+        ])
+      ])
     ])
   }
 ]
