@@ -39,6 +39,15 @@ const routes =  [
         component: () => import('../views/Products/Show.vue'),
     },
     {
+        path: '/products/:slug/pdf',
+        name: 'products.pdf',
+        component: () => import('../views/Products/Pdf.vue'),
+        meta: {
+            header: 'Products show in PDF',
+            footer: 'Footer',
+        },
+    },
+    {
         path: '/checkout',
         name: 'order.checkout',
         component: () => import('../views/Order/Checkout.vue'),
