@@ -1,13 +1,31 @@
 <template>
     <div class="container mx-auto mt-5">
         <div class="row">
+            <span class="mr-2">
+                <router-link to="/home">Home </router-link>
+            </span>
+            <span class="mr-2">/</span>
+             <span class="mr-2"
+                    v-for="category in product[0].categories"
+                    :key="category.id">
+                    <router-link :to="{name: 'category', params: {category: category.slug}}">
+                        {{ category.name }}
+                    </router-link>
+            </span>
+            <span class="mr-2">/</span>
+            <span
+                v-text="product[0].name">
+            </span> 
+        </div>
+        <div class="row">
+           
+
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="(image, index) in product[0].images" :key=index>
                             <img :src="GLOBAL.baseUrl + image" alt="" style="width:100%">
                         </div>
-                        
                     </div>
                     <!-- 如果需要分页器 -->
                     <div class="swiper-pagination"></div>
@@ -19,44 +37,12 @@
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <div
-                    v-for="category in product[0].categories"
-                    :key="category.id">
-                    <h2 v-text="category.name"></h2>
-                </div>
+                 <p
+                    v-text="product[0].name">
+                </p>                
 
-                <h1
-                    v-text="product[0].name"
-                >
-                </h1>
-                
-                <p  class="mt-3"
-                    v-html="product[0].description"></p>
-
-                <div>
-                    <strong>
-                        Please select below SKU option, price may vary a little bit.
-                    </strong>
-                    </div>
-                <div>
-                    <div 
-                        class="mr-2 btn mt-2 price-wrap"
-                        :class="{active: skuId === sku.id}"
-                        v-for="(sku, ind) in product[0].skus"
-                        :key="ind"
-                        @click="selectSku(sku, ind)">{{sku.title}}
-                    </div>
-                </div>
-
-                <div class="mt-3">
-                    <div v-if="skuPrice">
-                        <img 
-                            :src="GLOBAL.baseUrl+skuImage" 
-                            alt="" 
-                            width="180px">
-                        
-                    </div>
-                    <span
+                <div class="price-label">
+                     <span
                         v-if="skuPrice"
                         v-text="formatCurrency(skuPrice)"
                     ></span>
@@ -66,12 +52,48 @@
                         v-text="formatCurrency(product[0].price)"
                     ></span>
                 </div>
+                <hr>
+                <div class="mt-3">
+                    <p>
+                        <strong>
+                            Options:
+                        </strong>
+                    </p>
+                     <div 
+                        class="mr-2 btn mt-2 price-wrap"
+                        :class="{active: skuId === sku.id}"
+                        v-for="(sku, ind) in product[0].skus"
+                        :key="ind"
+                        @click="selectSku(sku, ind)">{{sku.title}}
+                    </div>
+                </div>
+               
+
+                <div class="mt-3">
+                    <div v-if="skuPrice">
+                        <img 
+                            :src="GLOBAL.baseUrl+skuImage" 
+                            alt="" 
+                            width="180px">
+                    </div>
+                   
+                </div>
+
+                <div class="mt-4">
+                     <button 
+                        class="btn btn-primary btn-block add-cart btn-lg"
+                        @click="addToCart(product[0].skus[skuIndex], product[0].name)">
+                            ADD TO CART
+                    </button>
+                </div>
                 
-                <button 
-                    class="mt-3"
-                    @click="addToCart(product[0].skus[skuIndex], product[0].name)">
-                        Add To Cart
-                </button>
+                <hr>
+                <div>
+                    <strong>Descriptions:</strong>
+                    <p  class="mt-3"
+                    v-html="product[0].description"></p>
+                </div>
+               
             </div>
         </div>
     </div>
@@ -156,5 +178,9 @@ export default {
     border: 1px solid #ccc;
     /* background-color: #3490dc;;
     color: white; */
+}
+.price-label {
+    font-weight: 700;
+    font-size: 26px;
 }
 </style>

@@ -425,6 +425,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -550,7 +556,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.payment_method_name[data-v-8482eb34] {\n    margin-right: 20px;\n}\n/* .tabpaymentcontent {\n    display: none;\n} */\n.active[data-v-8482eb34] {\n        display: block;\n        border: 2px solid lightskyblue;\n}\n\n", ""]);
+exports.push([module.i, "\n.payment_method_name[data-v-8482eb34] {\n    margin-right: 20px;\n}\n/* .tabpaymentcontent {\n    display: none;\n} */\n.active[data-v-8482eb34] {\n        display: block;\n        border: 2px solid #4889f3;\n        color: 000;\n        background-color: #4889f3;\n}\n\n", ""]);
 
 // exports
 
@@ -625,7 +631,7 @@ var render = function() {
                 ? _c(
                     "p",
                     [
-                      _c("b", [_vm._v("Select whom to be Billed To")]),
+                      _c("b", [_vm._v("Bill To:")]),
                       _vm._v(" "),
                       _c("br"),
                       _vm._v(" "),
@@ -641,7 +647,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                    Create new invoice address\n                "
+                            "\n                    Bill to New\n                "
                           )
                         ]
                       )
@@ -715,33 +721,33 @@ var render = function() {
               }),
               _vm._v(" "),
               _vm.userInfo.consigneeaddresses
-                ? _c(
-                    "p",
-                    [
-                      _c("b", [_vm._v("Select whom to be consignee")]),
-                      _vm._v(" "),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c(
-                        "router-link",
-                        {
-                          attrs: {
-                            to: {
-                              name: "CaddressCreate",
-                              params: { user: _vm.userInfo.id }
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                    Create new consignee\n                "
-                          )
-                        ]
-                      )
-                    ],
-                    1
-                  )
+                ? _c("p", [
+                    _c("b", [_vm._v("Ship To:")]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ])
                 : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  attrs: {
+                    to: {
+                      name: "CaddressCreate",
+                      params: { user: _vm.userInfo.id }
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                   Ship to Another Place\n                "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("p"),
               _vm._v(" "),
               _vm._l(_vm.userInfo.consigneeaddresses, function(address, index) {
                 return _vm.userInfo.consigneeaddresses
@@ -835,7 +841,7 @@ var render = function() {
             staticStyle: { width: "100%" }
           },
           [
-            _vm._m(0),
+            _vm._m(1),
             _vm._v(" "),
             _c(
               "tbody",
@@ -1000,7 +1006,7 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(1),
+            _vm._m(2),
             _vm._v(" "),
             _c("p", [
               _vm._v(
@@ -1030,6 +1036,19 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [
+      _vm._v(
+        "Not mandatory, you can ignore this option if the consignee information is same as \n                    "
+      ),
+      _c("strong", [
+        _vm._v("\n                        Bill To\n                    ")
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

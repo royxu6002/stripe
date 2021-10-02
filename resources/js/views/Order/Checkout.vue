@@ -8,10 +8,10 @@
                 </div>
             </div>
             <p v-if="userInfo.invoiceaddresses">
-                <b>Select whom to be Billed To</b>
+                <b>Bill To:</b>
                 <br>
                 <router-link :to="{name: 'AddressCreate', params: {user: userInfo.id}}">
-                    Create new invoice address
+                    Bill to New
                 </router-link>
             </p>
             <div class="card mb-3"
@@ -34,10 +34,16 @@
             </div>
 
             <p v-if="userInfo.consigneeaddresses">
-                <b>Select whom to be consignee</b>
+                <b>Ship To:</b>
                 <br>
+                <span>Not mandatory, you can ignore this option if the consignee information is same as 
+                    <strong>
+                        Bill To
+                    </strong>
+                </span>
+                </p>
                 <router-link :to="{name: 'CaddressCreate', params: {user: userInfo.id}}">
-                    Create new consignee
+                   Ship to Another Place
                 </router-link>
             </p>
 
@@ -262,7 +268,9 @@ export default {
 } */
 .active {
         display: block;
-        border: 2px solid lightskyblue;
+        border: 2px solid #4889f3;
+        color: 000;
+        background-color: #4889f3;
     }
 
 </style>

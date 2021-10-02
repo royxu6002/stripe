@@ -14275,7 +14275,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12 col-md" }, [
           _c("small", { staticClass: "d-block mb-3 text-muted" }, [
-            _vm._v("© 2021 COMLIBRA ELECTRONIC CO., LTD.")
+            _vm._v("© Ever since 2017., COMLIBRA ELECTRONIC CO., LTD.")
           ])
         ])
       ])
