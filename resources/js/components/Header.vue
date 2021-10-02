@@ -94,7 +94,7 @@ export default {
   width: 2em;
   height: 2em;
   vertical-align: center;
-  fill: rgba(138, 114, 245, 0.68);
+  fill: #4889f3;
   overflow: hidden;
 }
 
@@ -143,18 +143,19 @@ export default {
   width: 100%;
 }
 
+
 .submenu>ul>li>a {
   display: block;
-  background-color: #3490dc;
-  color: #fff;
+  background-color: #f3f6f8 !important;
+  color: #333 !important;
   padding: 10px 20px;
   text-decoration: none;
   transition: all 1s ease-in-out;
 }
 
 .submenu>ul>li>a:hover {
-  background-color: rgba(138, 114, 245, 0.68);
+  background-color: #3490dc !important;
+  color: #fff !important;
 }
-
 
 </style>

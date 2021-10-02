@@ -107,7 +107,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.card-body-order-detail[data-v-3fc69452] {\n    display: flex;\n    align-content: space-between;\n}\n.icon[data-v-3fc69452] {\n  width: 1.5em;\n  height: 1.5em;\n  vertical-align: center;\n  fill: currentColor;\n  overflow: hidden;\n}\n", ""]);
+exports.push([module.i, "\n.card-body-order-detail[data-v-3fc69452] {\n    display: flex;\n    align-content: space-between;\n}\n.icon[data-v-3fc69452] {\n  width: 1.5em;\n  height: 1.5em;\n  vertical-align: center;\n  fill: currentColor;\n  overflow: hidden;\n}\n\n", ""]);
 
 // exports
 
