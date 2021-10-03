@@ -10,10 +10,15 @@
             <p v-if="userInfo.invoiceaddresses">
                 <b>Bill To:</b>
                 <br>
-                <router-link :to="{name: 'AddressCreate', params: {user: userInfo.id}}">
-                    Bill to New
-                </router-link>
+                <span>
+                    Please create your business/person info as recipient of this Invoice.
+                </span>
             </p>
+            <p>
+                <router-link :to="{name: 'AddressCreate', params: {user: userInfo.id}}">
+                    Create New Recipient for Invoice
+                </router-link>
+                </p>
             <div class="card mb-3"
                 v-if="userInfo.invoiceaddresses" 
                 v-for="(address, index) in userInfo.invoiceaddresses" 
@@ -42,10 +47,12 @@
                     </strong>
                 </span>
                 </p>
-                <router-link :to="{name: 'CaddressCreate', params: {user: userInfo.id}}">
+                <p>
+                    <router-link :to="{name: 'CaddressCreate', params: {user: userInfo.id}}">
                    Ship to Another Place
                 </router-link>
-            </p>
+                </p>
+              
 
              <div class="card mb-3"
                 v-if="userInfo.consigneeaddresses"
@@ -167,7 +174,7 @@
 </template>
 <script>
 import { loadScript } from "@paypal/paypal-js";
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
     data() {
@@ -180,6 +187,11 @@ export default {
             errors: '',
             messages: '',
         }
+    },
+    created() {
+        if(this.userInfo && this.userInfo.invoiceaddresses.length >0) this.customer.iav = this.recentIavId;
+        if(this.userInfo && this.userInfo.consigneeaddresses.length >0) this.customer.cav = this.recentCavId;
+        return;
     },
     computed: {
         cartQuantity() {
@@ -205,7 +217,10 @@ export default {
             cart: (state) => state.cart,
             userInfo: (state) => state.auth.userInfo,
         }),
-
+        ...mapGetters({
+            recentIavId: 'auth/recentInvoiceAddressId',
+            recentCavId: 'auth/recentConsigneeAddressId',
+        }),
     },
     methods: {
         cartLineTotal(item) {

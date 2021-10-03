@@ -31671,6 +31671,16 @@ var getters = {
     return state.userInfo.orders.sort(function (a, b) {
       return b.id - a.id;
     });
+  },
+  recentInvoiceAddressId: function recentInvoiceAddressId(state) {
+    var i = state.userInfo.invoiceaddresses.length;
+    var p = i - 1;
+    return state.userInfo.invoiceaddresses[p].id;
+  },
+  recentConsigneeAddressId: function recentConsigneeAddressId(state) {
+    var i = state.userInfo.consigneeaddresses.length;
+    var p = i - 1;
+    return state.userInfo.consigneeaddresses[p].id;
   }
 };
 var mutations = {

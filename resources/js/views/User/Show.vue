@@ -3,7 +3,7 @@
         <div class="row mt-3">
             <div class="col-lg-3">
                 <h4>Personal profile center</h4>
-                <div class="list-group">
+                <div class="list-group" v-if="$store.state.auth.userInfo">
                     <router-link 
                         :to="{name: 'UserProfile', params: {user: $store.state.auth.userInfo.id}}" 
                         class="list-group-item" active-class="active">

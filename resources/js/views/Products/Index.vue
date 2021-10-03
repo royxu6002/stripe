@@ -7,8 +7,9 @@
   </h1>
 
   <div class="row">
+    <!-- 这是链接 /products 的展示页面, 目录展示页面在 文件夹 Category/Index.vue 下 -->
     <!-- begin the loop v-for; -->
-    <div class="col-lg-4 col-sm-6 mb-4"
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4"
       v-for="product in productsFilteredBy"
       :key="product.id"
     >

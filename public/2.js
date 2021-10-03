@@ -431,6 +431,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -445,7 +452,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       messages: ''
     };
   },
-  computed: _objectSpread({
+  created: function created() {
+    if (this.userInfo && this.userInfo.invoiceaddresses.length > 0) this.customer.iav = this.recentIavId;
+    if (this.userInfo && this.userInfo.consigneeaddresses.length > 0) this.customer.cav = this.recentCavId;
+    return;
+  },
+  computed: _objectSpread(_objectSpread({
     cartQuantity: function cartQuantity() {
       return this.cart.reduce(function (acc, item) {
         return acc + item.quantity;
@@ -480,6 +492,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     userInfo: function userInfo(state) {
       return state.auth.userInfo;
     }
+  })), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+    recentIavId: 'auth/recentInvoiceAddressId',
+    recentCavId: 'auth/recentConsigneeAddressId'
   })),
   methods: {
     cartLineTotal: function cartLineTotal(item) {
@@ -628,33 +643,41 @@ var render = function() {
               ]),
               _vm._v(" "),
               _vm.userInfo.invoiceaddresses
-                ? _c(
-                    "p",
-                    [
-                      _c("b", [_vm._v("Bill To:")]),
-                      _vm._v(" "),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c(
-                        "router-link",
-                        {
-                          attrs: {
-                            to: {
-                              name: "AddressCreate",
-                              params: { user: _vm.userInfo.id }
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                    Bill to New\n                "
-                          )
-                        ]
+                ? _c("p", [
+                    _c("b", [_vm._v("Bill To:")]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("span", [
+                      _vm._v(
+                        "\n                    Please create your business/person info as recipient of this Invoice.\n                "
                       )
-                    ],
-                    1
-                  )
+                    ])
+                  ])
                 : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "p",
+                [
+                  _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to: {
+                          name: "AddressCreate",
+                          params: { user: _vm.userInfo.id }
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    Create New Recipient for Invoice\n                "
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
               _vm._l(_vm.userInfo.invoiceaddresses, function(address, index) {
                 return _vm.userInfo.invoiceaddresses
@@ -731,23 +754,27 @@ var render = function() {
                 : _vm._e(),
               _vm._v(" "),
               _c(
-                "router-link",
-                {
-                  attrs: {
-                    to: {
-                      name: "CaddressCreate",
-                      params: { user: _vm.userInfo.id }
-                    }
-                  }
-                },
+                "p",
                 [
-                  _vm._v(
-                    "\n                   Ship to Another Place\n                "
+                  _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to: {
+                          name: "CaddressCreate",
+                          params: { user: _vm.userInfo.id }
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                   Ship to Another Place\n                "
+                      )
+                    ]
                   )
-                ]
+                ],
+                1
               ),
-              _vm._v(" "),
-              _c("p"),
               _vm._v(" "),
               _vm._l(_vm.userInfo.consigneeaddresses, function(address, index) {
                 return _vm.userInfo.consigneeaddresses

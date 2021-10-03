@@ -166,7 +166,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       navigation: {
         nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
+        prevEl: '.swiper-button-prev',
+        disabledClass: 'my-button-disabled'
       }
     });
   },
@@ -180,7 +181,8 @@ __webpack_require__.r(__webpack_exports__);
           },
           navigation: {
             nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
+            prevEl: '.swiper-button-prev',
+            disabledClass: 'my-button-disabled'
           }
         });
       });
@@ -202,7 +204,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.active[data-v-a872d34e] {\n    background-color: #3490dc !important;\n    border-color: #3490dc !important;\n}\n.price-wrap[data-v-a872d34e] {\n    border: 1px solid #ccc;\n    /* background-color: #3490dc;;\n    color: white; */\n}\n.price-label[data-v-a872d34e] {\n    font-weight: 700;\n    font-size: 26px;\n}\n", ""]);
+exports.push([module.i, "\n.active[data-v-a872d34e] {\n    background-color: #3490dc !important;\n    border-color: #3490dc !important;\n}\n.price-wrap[data-v-a872d34e] {\n    border: 1px solid #ccc;\n    /* background-color: #3490dc;;\n    color: white; */\n}\n.price-label[data-v-a872d34e] {\n    font-weight: 700;\n    font-size: 26px;\n}\n.swiper-button-prev.swiper-button-next[data-v-a872d34e] {\n    height: 24px !important;\n}\n\n", ""]);
 
 // exports
 
@@ -257,7 +259,7 @@ var render = function() {
   return _c("div", { staticClass: "container mx-auto mt-5" }, [
     _c(
       "div",
-      { staticClass: "row" },
+      { staticClass: "row mb-3" },
       [
         _c(
           "span",

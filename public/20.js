@@ -50,7 +50,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'category',
   data: function data() {
@@ -98,16 +97,23 @@ var render = function() {
   return _c("section", { staticClass: "product-index-page" }, [
     _c("div", { staticClass: "container" }, [
       _c("h1", { staticClass: "my-4" }, [
-        _vm._v("\n    View all products\n  ")
+        _vm._v(
+          "\n    View all " +
+            _vm._s(_vm.$route.params.category) +
+            " products\n  "
+        )
       ]),
-      _vm._v("\n  " + _vm._s(_vm.$route.params.category) + "\n\n  "),
+      _vm._v(" "),
       _c(
         "div",
         { staticClass: "row" },
         _vm._l(_vm.productsFilteredBy, function(product, index) {
           return _c(
             "div",
-            { key: index, staticClass: "col-lg-4 col-sm-6 mb-4" },
+            {
+              key: index,
+              staticClass: "col-lg-3 col-md-4 col-sm-6 col-6 mb-4"
+            },
             [
               _c("div", { staticClass: "card h-100" }, [
                 product.images

@@ -5,6 +5,16 @@ const state = {
 const getters = {
     userOrders(state) {
         return state.userInfo.orders.sort((a, b) => b.id - a.id);
+    },
+    recentInvoiceAddressId(state) {
+        let i =  state.userInfo.invoiceaddresses.length;
+        let p = i - 1;
+        return state.userInfo.invoiceaddresses[p].id;
+    },
+    recentConsigneeAddressId(state) {
+        let i = state.userInfo.consigneeaddresses.length;
+        let p = i - 1;
+        return state.userInfo.consigneeaddresses[p].id; 
     }
 };
 const mutations = {

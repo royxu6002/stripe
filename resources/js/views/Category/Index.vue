@@ -3,13 +3,12 @@
 <div class="container">
   <!-- Page Heading -->
   <h1 class="my-4">
-    View all products
+    View all {{$route.params.category}} products
   </h1>
-  {{$route.params.category}}
 
   <div class="row">
     <!-- begin the loop v-for; -->
-    <div class="col-lg-4 col-sm-6 mb-4"
+    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-4"
       v-for="(product, index) in productsFilteredBy"
       :key="index"
     >

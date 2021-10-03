@@ -67,6 +67,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -115,7 +116,7 @@ var render = function() {
         _vm._l(_vm.productsFilteredBy, function(product) {
           return _c(
             "div",
-            { key: product.id, staticClass: "col-lg-4 col-sm-6 mb-4" },
+            { key: product.id, staticClass: "col-lg-3 col-md-4 col-sm-6 mb-4" },
             [
               _c("div", { staticClass: "card h-100" }, [
                 product.images

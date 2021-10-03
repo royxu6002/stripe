@@ -1,6 +1,6 @@
 <template>
     <div class="container mx-auto mt-5">
-        <div class="row">
+        <div class="row mb-3">
             <span class="mr-2">
                 <router-link to="/home">Home </router-link>
             </span>
@@ -147,6 +147,7 @@ export default {
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
+                disabledClass: 'my-button-disabled',
             },
         })
     },
@@ -161,6 +162,7 @@ export default {
                     navigation: {
                         nextEl: '.swiper-button-next',
                         prevEl: '.swiper-button-prev',
+                        disabledClass: 'my-button-disabled',
                     },
                 })
             })
@@ -183,4 +185,9 @@ export default {
     font-weight: 700;
     font-size: 26px;
 }
+
+.swiper-button-prev.swiper-button-next {
+    height: 24px !important;
+}
+
 </style>

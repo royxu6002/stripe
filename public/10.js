@@ -164,123 +164,125 @@ var render = function() {
       _c("div", { staticClass: "col-lg-3" }, [
         _c("h4", [_vm._v("Personal profile center")]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "list-group" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "list-group-item",
-                attrs: {
-                  to: {
-                    name: "UserProfile",
-                    params: { user: _vm.$store.state.auth.userInfo.id }
-                  },
-                  "active-class": "active"
-                }
-              },
+        _vm.$store.state.auth.userInfo
+          ? _c(
+              "div",
+              { staticClass: "list-group" },
               [
                 _c(
-                  "svg",
+                  "router-link",
                   {
-                    staticClass: "icon svg-icon",
-                    attrs: { "aria-hidden": "true" }
+                    staticClass: "list-group-item",
+                    attrs: {
+                      to: {
+                        name: "UserProfile",
+                        params: { user: _vm.$store.state.auth.userInfo.id }
+                      },
+                      "active-class": "active"
+                    }
                   },
                   [
-                    _c("use", {
-                      attrs: { "xlink:href": "#icon-gerenzhongxin" }
-                    })
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "icon svg-icon",
+                        attrs: { "aria-hidden": "true" }
+                      },
+                      [
+                        _c("use", {
+                          attrs: { "xlink:href": "#icon-gerenzhongxin" }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "ml-2" }, [_vm._v("My Profile")])
                   ]
                 ),
                 _vm._v(" "),
-                _c("span", { staticClass: "ml-2" }, [_vm._v("My Profile")])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "router-link",
-              {
-                staticClass: "list-group-item",
-                attrs: {
-                  to: {
-                    name: "UserOrder",
-                    params: { user: _vm.$store.state.auth.userInfo.id }
-                  },
-                  "active-class": "active"
-                }
-              },
-              [
                 _c(
-                  "svg",
+                  "router-link",
                   {
-                    staticClass: "icon svg-icon",
-                    attrs: { "aria-hidden": "true" }
-                  },
-                  [_c("use", { attrs: { "xlink:href": "#icon-viewlist" } })]
-                ),
-                _vm._v(" "),
-                _c("span", { staticClass: "ml-2" }, [_vm._v("My Order")])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "router-link",
-              {
-                staticClass: "list-group-item",
-                attrs: {
-                  "active-class": "active",
-                  to: {
-                    name: "UserAddress",
-                    params: { user: _vm.$store.state.auth.userInfo.id }
-                  }
-                }
-              },
-              [
-                _c(
-                  "svg",
-                  {
-                    staticClass: "icon svg-icon",
-                    attrs: { "aria-hidden": "true" }
-                  },
-                  [_c("use", { attrs: { "xlink:href": "#icon-address" } })]
-                ),
-                _vm._v(" "),
-                _c("span", { staticClass: "ml-2" }, [_vm._v("My Address")])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "list-group-item",
-                attrs: { href: "", "active-class": "active" },
-                on: {
-                  click: function($event) {
-                    return _vm.signOut()
-                  }
-                }
-              },
-              [
-                _c(
-                  "svg",
-                  {
-                    staticClass: "icon svg-icon",
-                    attrs: { "aria-hidden": "true" }
+                    staticClass: "list-group-item",
+                    attrs: {
+                      to: {
+                        name: "UserOrder",
+                        params: { user: _vm.$store.state.auth.userInfo.id }
+                      },
+                      "active-class": "active"
+                    }
                   },
                   [
-                    _c("use", {
-                      attrs: { "xlink:href": "#icon-icon_sign_uploadimage" }
-                    })
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "icon svg-icon",
+                        attrs: { "aria-hidden": "true" }
+                      },
+                      [_c("use", { attrs: { "xlink:href": "#icon-viewlist" } })]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "ml-2" }, [_vm._v("My Order")])
                   ]
                 ),
                 _vm._v(" "),
-                _c("span", { staticClass: "ml-2" }, [_vm._v("Sign out")])
-              ]
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "list-group-item",
+                    attrs: {
+                      "active-class": "active",
+                      to: {
+                        name: "UserAddress",
+                        params: { user: _vm.$store.state.auth.userInfo.id }
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "icon svg-icon",
+                        attrs: { "aria-hidden": "true" }
+                      },
+                      [_c("use", { attrs: { "xlink:href": "#icon-address" } })]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "ml-2" }, [_vm._v("My Address")])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "list-group-item",
+                    attrs: { href: "", "active-class": "active" },
+                    on: {
+                      click: function($event) {
+                        return _vm.signOut()
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "icon svg-icon",
+                        attrs: { "aria-hidden": "true" }
+                      },
+                      [
+                        _c("use", {
+                          attrs: { "xlink:href": "#icon-icon_sign_uploadimage" }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "ml-2" }, [_vm._v("Sign out")])
+                  ]
+                )
+              ],
+              1
             )
-          ],
-          1
-        )
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-lg-9" }, [_c("router-view")], 1)
