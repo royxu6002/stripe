@@ -1,15 +1,15 @@
 <template>
     <div class="container">
-        <h4 class="mt-3">My address list</h4>
+        <h5 class="mt-3">My Address List</h5>
         <div v-if="userInfo.invoiceaddresses" class="mt-3">
-            <h3>Invoice address
-            </h3>
+            <h6>Invoice Address
+            </h6>
             <router-link 
                 class="btn btn-primary mb-3"
                 :to="{name: 'AddressCreate', params: {
                     user: userInfo.id,
                 }}">
-                New invoice address
+                New Invoice Address
             </router-link>
             <div 
                 class="card mb-2" 
@@ -22,7 +22,7 @@
                     <div>{{address.address}},{{address.city}},{{address.state}},{{address.zip_code}},{{address.country}}</div>
                     <router-link 
                         :to="{name: 'AddressEdit', params: {user: userInfo.id, address: address.id}}" 
-                        class="btn btn-primary">
+                        class="btn btn-primary mt-3">
                         Edit
                     </router-link>
                 </div>
@@ -30,14 +30,14 @@
         </div>
         
         <div v-if="userInfo.consigneeaddresses" class="mt-3">
-            <h3>Consignee address
-            </h3>
+            <h6>Consignee Address
+            </h6>
              <router-link 
                 class="btn btn-primary mb-3"
                 :to="{name: 'CaddressCreate', params: {
                     user: userInfo.id,
                 }}">
-                New consignee address
+                New Consignee Address
             </router-link>
 
             <div 
@@ -51,7 +51,7 @@
                     <div>{{address.address}},{{address.city}},{{address.state}},{{address.zip_code}},{{address.country}}</div>
                     <router-link 
                         :to="{name: 'CaddressEdit', params: {user: userInfo.id, address: address.id}}" 
-                        class="btn btn-primary">
+                        class="btn btn-primary mt-3">
                         Edit
                     </router-link>
                     <!-- <button 

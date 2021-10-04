@@ -192,14 +192,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("h4", { staticClass: "mt-3" }, [_vm._v("My address list")]),
+    _c("h5", { staticClass: "mt-3" }, [_vm._v("My Address List")]),
     _vm._v(" "),
     _vm.userInfo.invoiceaddresses
       ? _c(
           "div",
           { staticClass: "mt-3" },
           [
-            _c("h3", [_vm._v("Invoice address\n        ")]),
+            _c("h6", [_vm._v("Invoice Address\n        ")]),
             _vm._v(" "),
             _c(
               "router-link",
@@ -214,7 +214,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n            New invoice address\n        ")]
+              [_vm._v("\n            New Invoice Address\n        ")]
             ),
             _vm._v(" "),
             _vm._l(_vm.invoiceaddresses, function(address, index) {
@@ -248,7 +248,7 @@ var render = function() {
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-primary",
+                        staticClass: "btn btn-primary mt-3",
                         attrs: {
                           to: {
                             name: "AddressEdit",
@@ -276,7 +276,7 @@ var render = function() {
           "div",
           { staticClass: "mt-3" },
           [
-            _c("h3", [_vm._v("Consignee address\n        ")]),
+            _c("h6", [_vm._v("Consignee Address\n        ")]),
             _vm._v(" "),
             _c(
               "router-link",
@@ -291,7 +291,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n            New consignee address\n        ")]
+              [_vm._v("\n            New Consignee Address\n        ")]
             ),
             _vm._v(" "),
             _vm._l(_vm.consigneeaddresses, function(address, index) {
@@ -325,7 +325,7 @@ var render = function() {
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-primary",
+                        staticClass: "btn btn-primary mt-3",
                         attrs: {
                           to: {
                             name: "CaddressEdit",

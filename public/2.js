@@ -1047,7 +1047,7 @@ var render = function() {
               "button",
               {
                 staticClass:
-                  "form-control btn btn-primary mx-auto text-large mt-3",
+                  "form-control btn btn-primary btn-lg mx-auto text-large mt-3",
                 on: { click: _vm.bankTransfer }
               },
               [

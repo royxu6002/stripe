@@ -162,7 +162,7 @@
                 </div>
                 <div class="form-group col-12 tabpaymentcontent"> 
                     <button
-                        class="form-control btn btn-primary mx-auto text-large mt-3"
+                        class="form-control btn btn-primary btn-lg mx-auto text-large mt-3"
                         @click="bankTransfer">
                         Place the order
                     </button>
