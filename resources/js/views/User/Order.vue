@@ -1,12 +1,12 @@
 <template>
     <div class="container">
         <h5 class="mt-3">My Order</h5> 
-        <span v-if="userOrders">Total 
-            
-                Goods value (Other cost is excluded, E.g: Shipping Cost If)
+        <p>
+            <span v-if="userOrders">Total Goods value (Other cost is excluded, E.g: Shipping Cost If)
             of {{ orderTotal | myCurrency }},</span>
-        <span v-if="userOrders">Total {{ orderQuantity }} orders</span>
-        <div class="card mb-3"
+            <span v-if="userOrders">Total {{ orderQuantity }} orders</span>
+        </p>
+        <div class="card mb-3 mt-3"
             v-for="(order, index) in userOrders"
             :key="index">
             <div class="card-body">

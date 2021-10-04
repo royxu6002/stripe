@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row mt-3">
             <div class="col-lg-3">
-                <h4>Personal profile center</h4>
+                <h4>Profile Center</h4>
                 <div class="list-group" v-if="$store.state.auth.userInfo">
                     <router-link 
                         :to="{name: 'UserProfile', params: {user: $store.state.auth.userInfo.id}}" 
@@ -35,7 +35,7 @@
                             <svg class="icon svg-icon" aria-hidden="true">
                                 <use xlink:href="#icon-icon_sign_uploadimage"></use>
                             </svg>
-                            <span class="ml-2">Sign out</span>
+                            <span class="ml-2">Sign Out</span>
                     </a>
                 </div>
             </div>

@@ -162,7 +162,7 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row mt-3" }, [
       _c("div", { staticClass: "col-lg-3" }, [
-        _c("h4", [_vm._v("Personal profile center")]),
+        _c("h4", [_vm._v("Profile Center")]),
         _vm._v(" "),
         _vm.$store.state.auth.userInfo
           ? _c(
@@ -276,7 +276,7 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    _c("span", { staticClass: "ml-2" }, [_vm._v("Sign out")])
+                    _c("span", { staticClass: "ml-2" }, [_vm._v("Sign Out")])
                   ]
                 )
               ],

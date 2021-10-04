@@ -194,22 +194,26 @@ var render = function() {
     [
       _c("h5", { staticClass: "mt-3" }, [_vm._v("My Order")]),
       _vm._v(" "),
-      _vm.userOrders
-        ? _c("span", [
-            _vm._v(
-              "Total \n        \n            Goods value (Other cost is excluded, E.g: Shipping Cost If)\n        of " +
-                _vm._s(_vm._f("myCurrency")(_vm.orderTotal)) +
-                ","
-            )
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.userOrders
-        ? _c("span", [_vm._v("Total " + _vm._s(_vm.orderQuantity) + " orders")])
-        : _vm._e(),
+      _c("p", [
+        _vm.userOrders
+          ? _c("span", [
+              _vm._v(
+                "Total Goods value (Other cost is excluded, E.g: Shipping Cost If)\n        of " +
+                  _vm._s(_vm._f("myCurrency")(_vm.orderTotal)) +
+                  ","
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.userOrders
+          ? _c("span", [
+              _vm._v("Total " + _vm._s(_vm.orderQuantity) + " orders")
+            ])
+          : _vm._e()
+      ]),
       _vm._v(" "),
       _vm._l(_vm.userOrders, function(order, index) {
-        return _c("div", { key: index, staticClass: "card mb-3" }, [
+        return _c("div", { key: index, staticClass: "card mb-3 mt-3" }, [
           _c(
             "div",
             { staticClass: "card-body" },
