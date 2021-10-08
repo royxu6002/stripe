@@ -80,7 +80,7 @@
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <h5>Dear  {{userInfo.name}}, Thanks for your order.</h5>
                 <div>Purchase order ID:  {{order[0].id}}</div>
-                <div>Total invoice value of {{order[0].total/100 | myCurrency}},</div>
+                <div>Total invoice value of {{grandTotal(order[0]) | myCurrency}},</div>
                 <div> Dated on {{order[0].created_at}}</div>
             </div>
 

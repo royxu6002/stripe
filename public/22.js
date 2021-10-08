@@ -472,7 +472,7 @@ var render = function() {
         _c("div", [
           _vm._v(
             "Total invoice value of " +
-              _vm._s(_vm._f("myCurrency")(_vm.order[0].total / 100)) +
+              _vm._s(_vm._f("myCurrency")(_vm.grandTotal(_vm.order[0]))) +
               ","
           )
         ]),
