@@ -14309,7 +14309,7 @@ var render = function() {
     [
       _c("router-link", { staticClass: "nav-link", attrs: { to: "/home" } }, [
         _c("img", {
-          attrs: { src: "https://comlibra.com/images/logo.svg", width: "66" }
+          attrs: { src: "http://comlibra.com/images/logo.svg", width: "66" }
         })
       ]),
       _vm._v(" "),

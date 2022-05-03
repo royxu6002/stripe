@@ -82,7 +82,7 @@ var staticRenderFns = [
           "a",
           {
             staticClass: "btn btn-outline btn-lg",
-            attrs: { href: "https://www.comlibra.com" }
+            attrs: { href: "http://www.comlibra.com" }
           },
           [
             _vm._v(

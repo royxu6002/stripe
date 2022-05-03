@@ -1,7 +1,7 @@
 <template>
   <nav class="nav-container container">
       <router-link to="/home" class="nav-link">
-        <img src="https://comlibra.com/images/logo.svg" width="66">
+        <img src="http://comlibra.com/images/logo.svg" width="66">
       </router-link>
       
     <div class="nav-container-right">

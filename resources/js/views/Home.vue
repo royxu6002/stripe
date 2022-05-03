@@ -7,7 +7,7 @@
 		</p>
 		<p class="lead">Speedy and simplify the whole purchase process is a necessary evolution for us.</p>
 		<p class="leader">
-			<a href="https://www.comlibra.com" class="btn btn-outline btn-lg">
+			<a href="http://www.comlibra.com" class="btn btn-outline btn-lg">
 			You can visit comlibra.com if you want to know more about us.
 			</a>
 		</p>

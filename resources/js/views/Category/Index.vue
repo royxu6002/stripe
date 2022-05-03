@@ -77,3 +77,9 @@ export default {
     }
 }
 </script>
+<style scoped>
+.active {
+  color: red;
+}
+
+</style>
