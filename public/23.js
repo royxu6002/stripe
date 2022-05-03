@@ -68,6 +68,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -84,7 +99,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(['SET_CATEGORY'])),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['productsFilteredBy']))
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['productsFilteredBy'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categories']))
 });
 
 /***/ }),
@@ -109,6 +124,45 @@ var render = function() {
       _c("h1", { staticClass: "my-4" }, [
         _vm._v("\n    View all products\n  ")
       ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row mb-3 mt-4" },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("span", { staticClass: "mr-2" }, [_vm._v(":")]),
+          _vm._v(" "),
+          _vm._l(_vm.categories, function(category, index) {
+            return _c(
+              "span",
+              { key: index, staticClass: "mr-2" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    attrs: {
+                      to: {
+                        name: "category",
+                        params: { category: category.slug }
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(category.name) +
+                        "\n                    "
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          })
+        ],
+        2
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -185,7 +239,14 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("strong", [_c("span", [_vm._v("Category")])])
+  }
+]
 render._withStripped = true
 
 

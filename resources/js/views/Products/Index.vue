@@ -6,6 +6,21 @@
     View all products
   </h1>
 
+   <div class="row mb-3 mt-4">
+            <strong>
+            <span >Category</span>
+            </strong>
+            <span class="mr-2">:</span>
+             <span class="mr-2"
+                    v-for="(category, index) in categories"
+                    :key="index">
+                    <router-link :to="{name: 'category', params: {category: category.slug}}">
+                        {{ category.name }}
+                    </router-link>
+            </span>
+        </div>
+    
+
   <div class="row">
     <!-- 这是链接 /products 的展示页面, 目录展示页面在 文件夹 Category/Index.vue 下 -->
     <!-- begin the loop v-for; -->
@@ -51,7 +66,7 @@
 </section>
 </template>
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapState } from "vuex";
 
 export default {
     data() {
@@ -71,6 +86,7 @@ export default {
     }, 
     computed: {
         ...mapGetters(['productsFilteredBy']),
+        ...mapState(['categories']),
     }
 }
 </script>

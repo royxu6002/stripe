@@ -9,6 +9,13 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -50,6 +57,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'category',
   data: function data() {
@@ -66,7 +85,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  computed: {
+  computed: _objectSpread({
     productsFilteredBy: function productsFilteredBy() {
       var _this = this;
 
@@ -74,7 +93,7 @@ __webpack_require__.r(__webpack_exports__);
         return JSON.stringify(product.categories).indexOf(_this.$route.params.category) > -1;
       });
     }
-  }
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categories']))
 });
 
 /***/ }),
@@ -96,13 +115,59 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("section", { staticClass: "product-index-page" }, [
     _c("div", { staticClass: "container" }, [
-      _c("h1", { staticClass: "my-4" }, [
-        _vm._v(
-          "\n    View all " +
-            _vm._s(_vm.$route.params.category) +
-            " products\n  "
-        )
+      _c(
+        "span",
+        { staticStyle: { "line-height": "28px", "font-size": "16px" } },
+        [_vm._v("All Categories >")]
+      ),
+      _vm._v(" "),
+      _c("span", [
+        _vm._v(" View all " + _vm._s(_vm.$route.params.category) + " products")
       ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "mb-4",
+          staticStyle: {
+            "border-top": "1px solid rgb(244, 244, 244)",
+            "border-bottom": "1px solid rgb(244, 244, 244)",
+            "line-height": "40px"
+          }
+        },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._l(_vm.categories, function(category, index) {
+            return _c(
+              "span",
+              { key: index, staticStyle: { "margin-left": "20px" } },
+              [
+                _c(
+                  "router-link",
+                  {
+                    attrs: {
+                      to: {
+                        name: "category",
+                        params: { category: category.slug }
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(category.name) +
+                        "\n                    "
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          })
+        ],
+        2
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -163,7 +228,14 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("strong", [_c("span", [_vm._v("Category:")])])
+  }
+]
 render._withStripped = true
 
 

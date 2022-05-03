@@ -2,9 +2,20 @@
 <section class="product-index-page">    
 <div class="container">
   <!-- Page Heading -->
-  <h1 class="my-4">
-    View all {{$route.params.category}} products
-  </h1>
+    <span  style="line-height: 28px; font-size: 16px;">All Categories ></span>
+    <span> View all {{$route.params.category}} products</span>
+     <div class="mb-4" style="border-top: 1px solid rgb(244, 244, 244);border-bottom: 1px solid rgb(244, 244, 244); line-height: 40px; ">
+            <strong>
+            <span>Category:</span>
+            </strong>
+             <span style="margin-left: 20px;"
+                    v-for="(category, index) in categories"
+                    :key="index">
+                    <router-link :to="{name: 'category', params: {category: category.slug}}">
+                        {{ category.name }}
+                    </router-link>
+            </span>
+        </div>
 
   <div class="row">
     <!-- begin the loop v-for; -->
@@ -40,6 +51,8 @@
 </section>
 </template>
 <script>
+import { mapState } from 'vuex';
+
 export default {
     name: 'category',
     data() {
@@ -59,7 +72,8 @@ export default {
     computed: {
         productsFilteredBy() {
           return this.$store.state.products.filter((product) => JSON.stringify(product.categories).indexOf(this.$route.params.category) > -1);
-        }
+        },
+        ...mapState(['categories']),
     }
 }
 </script>

@@ -17,9 +17,9 @@
                 v-text="product[0].name">
             </span> 
         </div>
-        <div class="row">
-           
 
+        <div class="row">
+        
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
@@ -114,7 +114,7 @@ export default {
     computed: {
         product() {
             return this.$store.state.products.filter(p => p.slug == this.$route.params.slug );
-        }
+        },
     },
     methods: {
         formatCurrency(amount) {
