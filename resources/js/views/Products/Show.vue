@@ -21,17 +21,39 @@
         <div class="row">
         
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <div class="swiper-container">
+               <!-- <div class="swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="(image, index) in product[0].images" :key=index>
                             <img :src="GLOBAL.baseUrl + image" alt="" style="width:100%">
                         </div>
-                    </div>
+                    </div> -->
                     <!-- 如果需要分页器 -->
-                    <div class="swiper-pagination"></div>
+                    <!-- <div class="swiper-pagination"></div> -->
                     <!-- 如果需要导航按钮 -->
-                    <div class="swiper-button-prev"></div>
+                    <!-- <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
+                </div>
+                --> 
+
+                <!-- 适用carousel 更加直观的展示产品 -->
+                <div class="carousel col-12">
+                    <div class="carousel-inner  col-12">
+                        <div class="carousel-item col-12">
+                            <a href="">
+                                <img :src="GLOBAL.baseUrl +product[0].images[position]" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-indicators col-12">
+                        <div class="carousel-thumbnail" 
+                            v-for="(image, index) in product[0].images" 
+                            :key=index
+                            @mouseenter="changeThumbnail(index)">
+                            <a href="">
+                                <img :src="GLOBAL.baseUrl + image" alt="">
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -109,6 +131,7 @@ export default {
             skuIndex: null,
             skuPrice: null,
             skuImage: null,
+            position: 0,
         }
     },
     computed: {
@@ -136,38 +159,43 @@ export default {
                 return;
             }
             this.$store.commit('addToCart', {'sku': sku, 'name': name})
+        },
+        changeThumbnail(i) {
+            this.position = i;
         }
     },
-    mounted() {
-        var mySwiper = new Swiper('.swiper-container',{
-            loop : true,
-            pagination: {
-                el: '.swiper-pagination',
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-                disabledClass: 'my-button-disabled',
-            },
-        })
-    },
-    watch: {
-        product(value) {
-            this.$nextTick(() => {
-                var mySwiper = new Swiper('.swiper-container',{
-                    loop : true,
-                    pagination: {
-                        el: '.swiper-pagination',
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                        disabledClass: 'my-button-disabled',
-                    },
-                })
-            })
-        }
-    }
+
+    // 这是用 swiper来
+    // mounted() {
+    //     var mySwiper = new Swiper('.swiper-container',{
+    //         loop : true,
+    //         pagination: {
+    //             el: '.swiper-pagination',
+    //         },
+    //         navigation: {
+    //             nextEl: '.swiper-button-next',
+    //             prevEl: '.swiper-button-prev',
+    //             disabledClass: 'my-button-disabled',
+    //         },
+    //     })
+    // },
+    // watch: {
+    //     product(value) {
+    //         this.$nextTick(() => {
+    //             var mySwiper = new Swiper('.swiper-container',{
+    //                 loop : true,
+    //                 pagination: {
+    //                     el: '.swiper-pagination',
+    //                 },
+    //                 navigation: {
+    //                     nextEl: '.swiper-button-next',
+    //                     prevEl: '.swiper-button-prev',
+    //                     disabledClass: 'my-button-disabled',
+    //                 },
+    //             })
+    //         })
+    //     }
+    // }
 
 }
 </script>
@@ -188,6 +216,29 @@ export default {
 
 .swiper-button-prev.swiper-button-next {
     height: 24px !important;
+}
+.carousel-inner .carousel-item{
+    height: 100%;
+    display: block;
+}
+.carousel-item img {
+    width: 100%;
+    height: auto;
+}
+.carousel-indicators  {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.carousel-thumbnail {
+     border: 1px solid rgb(244, 244,244);
+}
+.carousel-thumbnail img{
+    width:  60px;
+    height: 60px;
+    float: left;
+   
 }
 
 </style>
