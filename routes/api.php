@@ -14,10 +14,10 @@ Route::namespace('Api')->group(function() {
     //用户创建订单
     Route::post('/user/{user}/bank', 'UserController@bank');
     // invoiceAddress 
-    Route::post('/user/{user}/invoiceaddress/create', 'InvoiceaddController@create');
-    Route::get('/user/{user}/invoiceaddress/{address}/show', 'InvoiceaddController@show');
-    Route::put('/user/{user}/invoiceaddress/{address}/update', 'InvoiceaddController@update');
-    Route::delete('/user/{user}/invoiceaddress/{address}/delete', 'InvoiceaddController@destroy');
+    Route::post('/user/{user}/invoiceaddress/create', 'InvoiceAddController@create');
+    Route::get('/user/{user}/invoiceaddress/{address}/show', 'InvoicAaddController@show');
+    Route::put('/user/{user}/invoiceaddress/{address}/update', 'InvoiceAddController@update');
+    Route::delete('/user/{user}/invoiceaddress/{address}/delete', 'InvoiceAddController@destroy');
     // consignedAddress
     Route::post('/user/{user}/consigneeaddress/create', 'ConsigneeaddController@create');
     Route::get('/user/{user}/consigneeaddress/{address}/show', 'ConsigneeaddController@show')->middleware('auth:api');
