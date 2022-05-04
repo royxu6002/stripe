@@ -15,7 +15,7 @@ Route::namespace('Api')->group(function() {
     Route::post('/user/{user}/bank', 'UserController@bank');
     // invoiceAddress 
     Route::post('/user/{user}/invoiceaddress/create', 'InvoiceAddController@create');
-    Route::get('/user/{user}/invoiceaddress/{address}/show', 'InvoicAaddController@show');
+    Route::get('/user/{user}/invoiceaddress/{address}/show', 'InvoicAddController@show');
     Route::put('/user/{user}/invoiceaddress/{address}/update', 'InvoiceAddController@update');
     Route::delete('/user/{user}/invoiceaddress/{address}/delete', 'InvoiceAddController@destroy');
     // consignedAddress
