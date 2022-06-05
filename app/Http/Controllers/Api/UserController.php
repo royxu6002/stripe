@@ -22,9 +22,15 @@ use PayPal\Api\PaymentExecution;
 use PayPal\Api\ShippingAddress;
 use Validator;
 use DB;
+use Auth;
 
 class UserController extends Controller
+
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     // stripe 付款, // 修改了 关联关系, 新的多对多关联关系 $order->skus, 不再关联 $order->products()
     // 代码未更改
     public function stripe(Request $request)
@@ -151,5 +157,60 @@ class UserController extends Controller
             return response()->json(['message' => $e->getMessage()],500);
         }
         
+    }
+
+    public function update(Request $request, User $user) {
+        if($user->id === Auth::guard('api')->user()->id) {
+            $validator = $this->validateUser($request->all());
+
+            if($validator->fails()) {
+                return response()->json([
+                    'errors' => $validator->errors(),
+                ]);
+            }
+            // $result 是布尔值, 反馈是否创建成功;
+            $result = User::where('id', $user->id)->update([
+                'name'      => $request->input('first_name'). ' '.$request->input('last_name'),
+                'company'   => $request->input('company') ?? null,
+                'position'  => $request->input('position') ?? null,
+                'about'     => $request->input('about') ?? null,
+                'phone'     => $request->input('phone'),
+                'address'   => $request->input('address'),
+                'city'      => $request->input('city'),
+                'state'     => $request->input('state'),
+                'zip_code'  => $request->input('zip_code'),
+                'country'   => $request->input('country'),
+            ]);
+
+            $user =  User::where('id', $user->id)->get();
+
+            if($result) {
+                return response()->json([
+                    'status' => 'succ',
+                    'user'   => $user,
+                ]);
+            }
+
+        }
+    }
+
+    public function validateUser(array $data)
+    {
+        return Validator::make($data, [
+            'first_name' => ['required', 'min:2'],
+            'last_name'  => ['required', 'min:2'],
+            'phone'      => ['required'],
+            'address'    => ['required'],
+            'city'       => ['required'],
+            'state'      => ['required'],
+            'zip_code'   => ['required'],
+            'country'    => ['required'],
+        ]);
+    }
+
+    public function get(User $user) {
+        if( $user->id === Auth::guard('api')->user()->id ) {
+            return $user;
+        }
     }
 }

@@ -2110,6 +2110,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      year: new Date().getFullYear()
+    };
+  },
   name: "Footer"
 });
 
@@ -2188,6 +2193,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Header",
@@ -2196,8 +2206,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       submenus: false
     };
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(['SET_CATEGORY'])),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categories'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(["SET_CATEGORY"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["categories"])),
   watch: {
     $route: function $route(value) {
       if (value) {
@@ -2221,7 +2231,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.nav-container[data-v-1f42fb90]{\n  display: flex;\n  justify-content: space-between;\n}\n.nav-container-right[data-v-1f42fb90]{\n  display: flex;\n  justify-content: space-between;\n}\n.icon[data-v-1f42fb90] {\n  width: 2em;\n  height: 2em;\n  vertical-align: center;\n  fill: #4889f3;\n  overflow: hidden;\n}\n.nav-container-right ul[data-v-1f42fb90] {\n  list-style: none;\n}\n.nav-container-right ul li[data-v-1f42fb90] {\n  position: relative;\n}\n.nav-container-right ul li:hover a[data-v-1f42fb90]{\n  background-color: #3490dc;\n  color: #fff;\n}\n.nav-container-right ul li:hover .icon[data-v-1f42fb90] {\n  fill: rgb(254, 254, 255);\n}\n.submenu[data-v-1f42fb90] {\n  position: absolute;\n  width: 100%;\n  height: 0;\n  overflow: hidden;\n  z-index: 100;\n}\n.nav-container-right>ul>li:hover .submenu[data-v-1f42fb90]{\n  height: auto;\n}\n.submenu>ul[data-v-1f42fb90] {\n  list-style: none;\n  margin: 0 !important;\n  transform: translateY(-100%);\n  transition: all 1s ease;\n  padding: 0;\n  height: 0;\n}\n.nav-container-right>ul>li:hover .submenu>ul[data-v-1f42fb90] {\n  transform: translateY(0);\n}\n.submenu>ul>li[data-v-1f42fb90] {\n  float: left !important;\n  border-top: 1px solid rgb(255, 255, 255);\n  width: 100%;\n}\n.submenu>ul>li>a[data-v-1f42fb90] {\n  display: block;\n  background-color: #f3f6f8 !important;\n  color: #333 !important;\n  padding: 10px 20px;\n  text-decoration: none;\n  transition: all 1s ease-in-out;\n}\n.submenu>ul>li>a[data-v-1f42fb90]:hover {\n  background-color: #3490dc !important;\n  color: #fff !important;\n}\n\n", ""]);
+exports.push([module.i, "\n.nav-container[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n}\n.nav-container-right[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n}\n.icon[data-v-1f42fb90] {\n  width: 2em;\n  height: 2em;\n  vertical-align: center;\n  fill: #4889f3;\n  overflow: hidden;\n}\n.nav-container-right ul[data-v-1f42fb90] {\n  list-style: none;\n}\n.nav-container-right ul li[data-v-1f42fb90] {\n  position: relative;\n}\n.nav-container-right ul li:hover a[data-v-1f42fb90] {\n  background-color: #3490dc;\n  color: #fff;\n}\n.nav-container-right ul li:hover .icon[data-v-1f42fb90] {\n  fill: rgb(254, 254, 255);\n}\n.submenu[data-v-1f42fb90] {\n  position: absolute;\n  width: 100%;\n  height: 0;\n  overflow: hidden;\n  z-index: 100;\n}\n.nav-container-right > ul > li:hover .submenu[data-v-1f42fb90] {\n  height: auto;\n}\n.submenu > ul[data-v-1f42fb90] {\n  list-style: none;\n  margin: 0 !important;\n  transform: translateY(-100%);\n  transition: all 1s ease;\n  padding: 0;\n  height: 0;\n}\n.nav-container-right > ul > li:hover .submenu > ul[data-v-1f42fb90] {\n  transform: translateY(0);\n}\n.submenu > ul > li[data-v-1f42fb90] {\n  float: left !important;\n  border-top: 1px solid rgb(255, 255, 255);\n  width: 100%;\n}\n.submenu > ul > li > a[data-v-1f42fb90] {\n  display: block;\n  background-color: #f3f6f8 !important;\n  color: #333 !important;\n  padding: 10px 20px;\n  text-decoration: none;\n  transition: all 1s ease-in-out;\n}\n.submenu > ul > li > a[data-v-1f42fb90]:hover {\n  background-color: #3490dc !important;\n  color: #fff !important;\n}\n", ""]);
 
 // exports
 
@@ -14264,24 +14274,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("footer", { staticClass: "container py-5" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12 col-md" }, [
-          _c("small", { staticClass: "d-block mb-3 text-muted" }, [
-            _vm._v("© Ever since 2017., COMLIBRA ELECTRONIC CO., LTD.")
-          ])
+  return _c("footer", { staticClass: "container py-5" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12 col-md" }, [
+        _c("small", { staticClass: "d-block mb-3 text-muted" }, [
+          _vm._v(
+            "© 2017-" + _vm._s(_vm.year) + ", COMLIBRA ELECTRONIC CO., LTD."
+          )
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -14339,9 +14344,9 @@ var render = function() {
                       [_c("use", { attrs: { "xlink:href": "#icon-gouwuche" } })]
                     ),
                     _vm._v(
-                      " ( " +
+                      "\n          ( " +
                         _vm._s(_vm.$store.state.cart.length) +
-                        " ) Items \n          "
+                        " ) Items\n        "
                     )
                   ]
                 )
@@ -14403,7 +14408,7 @@ var render = function() {
                             })
                           ]
                         ),
-                        _vm._v("Sign In/Up\n          ")
+                        _vm._v("Sign In/Up\n        ")
                       ]
                     )
                   ],
@@ -14460,9 +14465,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                    " +
+                                      "\n                  " +
                                         _vm._s(cat.name) +
-                                        "\n                  "
+                                        "\n                "
                                     )
                                   ]
                                 )
@@ -31175,6 +31180,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _api_baseUrl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./api/baseUrl */ "./resources/js/api/baseUrl.js");
 /* harmony import */ var _api_billFrom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./api/billFrom */ "./resources/js/api/billFrom.js");
 /* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
+//  这里已经包含了 axios, jquery
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./css/iconfont */ "./resources/js/css/iconfont.js");
@@ -31464,7 +31470,7 @@ var routes = [{
   path: '/home',
   name: 'Home',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.bind(null, /*! ../views/Home.vue */ "./resources/js/views/Home.vue"));
+    return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ../views/Home.vue */ "./resources/js/views/Home.vue"));
   }
 }, {
   path: '/',
@@ -31473,25 +31479,25 @@ var routes = [{
   path: '/products',
   name: 'products.index',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 23).then(__webpack_require__.bind(null, /*! ../views/Products/Index.vue */ "./resources/js/views/Products/Index.vue"));
+    return __webpack_require__.e(/*! import() */ 24).then(__webpack_require__.bind(null, /*! ../views/Products/Index.vue */ "./resources/js/views/Products/Index.vue"));
   }
 }, {
   path: '/product/:category',
   name: 'category',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/Category/Index.vue */ "./resources/js/views/Category/Index.vue"));
+    return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../views/Category/Index.vue */ "./resources/js/views/Category/Index.vue"));
   }
 }, {
   path: '/products/:slug',
   name: 'products.show',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ../views/Products/Show.vue */ "./resources/js/views/Products/Show.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ../views/Products/Show.vue */ "./resources/js/views/Products/Show.vue"));
   }
 }, {
   path: '/products/:slug/pdf',
   name: 'products.pdf',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ../views/Products/Pdf.vue */ "./resources/js/views/Products/Pdf.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ../views/Products/Pdf.vue */ "./resources/js/views/Products/Pdf.vue"));
   },
   meta: {
     header: 'Products show in PDF',
@@ -31507,7 +31513,7 @@ var routes = [{
   path: '/summary',
   name: 'order.summary',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/Order/Summary.vue */ "./resources/js/views/Order/Summary.vue"));
+    return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../views/Order/Summary.vue */ "./resources/js/views/Order/Summary.vue"));
   }
 }, {
   path: '/about',
@@ -31526,14 +31532,14 @@ var routes = [{
   path: '/register',
   name: 'Register',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! ../views/User/Register.vue */ "./resources/js/views/User/Register.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(20)]).then(__webpack_require__.bind(null, /*! ../views/User/Register.vue */ "./resources/js/views/User/Register.vue"));
   },
   beforeEnter: guest
 }, {
   path: '/password/reset/:token/:email',
   name: 'Token',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(20)]).then(__webpack_require__.bind(null, /*! ../views/User/Token.vue */ "./resources/js/views/User/Token.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(21)]).then(__webpack_require__.bind(null, /*! ../views/User/Token.vue */ "./resources/js/views/User/Token.vue"));
   }
 }, {
   path: '/forgotpassword',
@@ -31548,74 +31554,72 @@ var routes = [{
     return __webpack_require__.e(/*! import() */ 26).then(__webpack_require__.bind(null, /*! ../views/User/Reset.vue */ "./resources/js/views/User/Reset.vue"));
   }
 }, {
+  // 这里涉及到分页, 未起作用
   path: '/users',
   name: 'Users.Index',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 24).then(__webpack_require__.bind(null, /*! ../views/User/Index.vue */ "./resources/js/views/User/Index.vue"));
+    return __webpack_require__.e(/*! import() */ 25).then(__webpack_require__.bind(null, /*! ../views/User/Index.vue */ "./resources/js/views/User/Index.vue"));
   },
   beforeEnter: auth
 }, {
   path: '/user/:user',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../views/User/Show.vue */ "./resources/js/views/User/Show.vue"));
+    return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../views/User/Show.vue */ "./resources/js/views/User/Show.vue"));
   },
   children: [{
     path: '/user/:user/profile',
     name: 'UserProfile',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 25).then(__webpack_require__.bind(null, /*! ../views/User/Profile.vue */ "./resources/js/views/User/Profile.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! ../views/User/Profile.vue */ "./resources/js/views/User/Profile.vue"));
     }
   }, {
     path: '/user/:user/address',
     name: 'UserAddress',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/User/Address.vue */ "./resources/js/views/User/Address.vue"));
+      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../views/User/Address.vue */ "./resources/js/views/User/Address.vue"));
     }
   }, {
     path: '/user/:user/order',
     name: 'UserOrder',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/User/Order.vue */ "./resources/js/views/User/Order.vue"));
+      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../views/User/Order.vue */ "./resources/js/views/User/Order.vue"));
     }
-  }, {
-    path: '/',
-    redirect: '/user/profile'
   }]
 }, {
   path: '/user/:user/address/:address/edit',
   name: 'AddressEdit',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(16)]).then(__webpack_require__.bind(null, /*! ../views/Invoiceaddress/Edit.vue */ "./resources/js/views/Invoiceaddress/Edit.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ../views/Invoiceaddress/Edit.vue */ "./resources/js/views/Invoiceaddress/Edit.vue"));
   }
 }, {
   path: '/user/:user/address/create',
   name: 'AddressCreate',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(15)]).then(__webpack_require__.bind(null, /*! ../views/Invoiceaddress/Create.vue */ "./resources/js/views/Invoiceaddress/Create.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../views/Invoiceaddress/Create.vue */ "./resources/js/views/Invoiceaddress/Create.vue"));
   }
 }, {
   path: '/user/:user/caddress/:address/edit',
   name: 'CaddressEdit',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! ../views/Consigneeaddress/Edit.vue */ "./resources/js/views/Consigneeaddress/Edit.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ../views/Consigneeaddress/Edit.vue */ "./resources/js/views/Consigneeaddress/Edit.vue"));
   }
 }, {
   path: '/user/:user/caddress/create',
   name: 'CaddressCreate',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! ../views/Consigneeaddress/Create.vue */ "./resources/js/views/Consigneeaddress/Create.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../views/Consigneeaddress/Create.vue */ "./resources/js/views/Consigneeaddress/Create.vue"));
   }
 }, {
   path: '/user/:user/order/:order',
   name: 'OrderReview',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ../views/Order/Show.vue */ "./resources/js/views/Order/Show.vue"));
+    return __webpack_require__.e(/*! import() */ 23).then(__webpack_require__.bind(null, /*! ../views/Order/Show.vue */ "./resources/js/views/Order/Show.vue"));
   }
 }, {
   path: '/user/:user/order/:order/packinglist',
   name: 'OrderPacking',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../views/Order/Package.vue */ "./resources/js/views/Order/Package.vue"));
+    return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/Order/Package.vue */ "./resources/js/views/Order/Package.vue"));
   },
   meta: {
     header: 'Packing List',
@@ -31625,7 +31629,7 @@ var routes = [{
   path: '/user/:user/order/:order/invoice',
   name: 'OrderInvoice',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../views/Order/Invoice.vue */ "./resources/js/views/Order/Invoice.vue"));
+    return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../views/Order/Invoice.vue */ "./resources/js/views/Order/Invoice.vue"));
   },
   meta: {
     header: 'Commercial Invoice',
@@ -31635,7 +31639,7 @@ var routes = [{
   path: '/user/:user/order/:order/proforma',
   name: 'Proforma',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../views/Order/Proforma.vue */ "./resources/js/views/Order/Proforma.vue"));
+    return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/Order/Proforma.vue */ "./resources/js/views/Order/Proforma.vue"));
   },
   meta: {
     header: 'Proforma Invoice',
@@ -31664,7 +31668,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 var state = {
-  userInfo: null
+  // 包含用户的订单, 地址信息
+  userInfo: ''
 };
 var getters = {
   userOrders: function userOrders(state) {
@@ -31722,16 +31727,12 @@ var mutations = {
   }
 };
 var actions = {
-  getUserData: function getUserData(_ref5, data) {
+  deleteUserInvoiceAddressData: function deleteUserInvoiceAddressData(_ref5, payload) {
     var commit = _ref5.commit;
-    commit('setUserData', data);
-  },
-  deleteUserInvoiceAddressData: function deleteUserInvoiceAddressData(_ref6, payload) {
-    var commit = _ref6.commit;
     commit('deleteInvoiceAddressData', payload);
   },
-  deleteUserConsigneeAddressData: function deleteUserConsigneeAddressData(_ref7, payload) {
-    var commit = _ref7.commit;
+  deleteUserConsigneeAddressData: function deleteUserConsigneeAddressData(_ref6, payload) {
+    var commit = _ref6.commit;
     commit('deleteConsigneeAddressData', payload);
   }
 };
@@ -31803,7 +31804,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     addToCart: function addToCart(state, _ref) {
       var sku = _ref.sku,
-          name = _ref.name;
+          name = _ref.name,
+          price = _ref.price;
       sku.name = name;
       var skuInCartIndex = state.cart.findIndex(function (item) {
         return item.id === sku.id;
@@ -31811,6 +31813,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
       if (skuInCartIndex !== -1) {
         state.cart[skuInCartIndex].quantity++;
+        state.cart[skuInCartIndex].price = sku.price;
         localStorage.setItem('cle_shop', JSON.stringify(state.cart));
         return;
       }

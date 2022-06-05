@@ -11,8 +11,12 @@ Route::namespace('Api')->group(function() {
 
     Route::post('/paypal', 'UserController@paypal');
     Route::post('/stripe', 'UserController@stripe');
-    //用户创建订单
+    // 用户创建订单
     Route::post('/user/{user}/bank', 'UserController@bank');
+    // 用户信息更新
+    Route::put('/user/{user}/update', 'UserController@update');
+    Route::get('/user/{user}/get', 'UserController@get');
+
     // invoiceAddress 
     Route::post('/user/{user}/invoiceaddress/create', 'InvoiceAddController@create');
     Route::get('/user/{user}/invoiceaddress/{address}/show', 'InvoiceAddController@show');

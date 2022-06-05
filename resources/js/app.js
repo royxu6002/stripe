@@ -1,4 +1,5 @@
-require('./bootstrap');
+//  这里已经包含了 axios, jquery
+require('./bootstrap'); 
 require('./css/iconfont');
 
 import Vue from "vue";

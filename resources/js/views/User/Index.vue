@@ -1,6 +1,7 @@
 <template>
     <div class="container col-8 offset-2">
         <h4>this is user index page</h4>
+        <!-- 该页面涉及到分页, 未设计 -->
         <div v-if="loading" class="loading"> 
             loading data...
         </div>

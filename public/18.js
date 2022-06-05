@@ -275,11 +275,11 @@ __webpack_require__.r(__webpack_exports__);
     // 不支持分页
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/users');
   },
-  find: function find() {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/".concat(id));
+  find: function find(id) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/user/{id}");
   },
-  update: function update() {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/users/".concat(id), data);
+  update: function update(id, data) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/user/".concat(id, "/update"), data);
   },
   login: function login(data) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/login', data);

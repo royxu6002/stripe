@@ -1,8 +1,8 @@
 <template>
-    <div class="container register-page col-lg-8 col-md-8 col-sm-12 col-xs-12">
+    <div class="container card shadow register-page col-lg-8 col-md-8 col-sm-12 col-xs-12">
         <h4 class="mt-3 mb-3 ml-3">Whom to receive the goods</h4>
        <div class="billing-details-wrap">
-                <div class="form-group col-12">
+                <div class="form-group col-6">
                     <label>First Name <span class="text-danger">*</span></label>
                     <div v-if="errors">
                         <p 
@@ -19,7 +19,7 @@
                         name="first_name"
                         v-model="customer.first_name">
                 </div>
-                <div class="form-group col-12">
+                <div class="form-group col-6">
                     <label for="last_name">Last name <span class="text-danger">*</span></label>
                     <div v-if="errors">
                         <p 
@@ -48,7 +48,7 @@
                         v-model="customer.company_name">
                 </div>
 
-                <div class="form-group col-12">
+                <div class="form-group col-6">
                     <label for="phone">Phone <span class="text-danger">*</span></label>
                     <div v-if="errors">
                         <p 
@@ -66,7 +66,7 @@
                     <span class="form-text text-muted">Need phone contact for goods collection</span>
                 </div>
         
-                <div class="form-group col-12">
+                <div class="form-group col-6">
                     <label for="address">Address <span class="text-danger">*</span></label>
                     <div v-if="errors">
                         <p 
@@ -83,7 +83,7 @@
                         v-model="customer.address">
                 </div>
 
-                <div class="form-group col-12">
+                <div class="form-group col-6">
                     <label for="city">City <span class="text-danger">*</span></label>
                     <div v-if="errors">
                         <p 
@@ -100,7 +100,7 @@
                         v-model="customer.city">
                 </div>
 
-                <div class="form-group col-12">
+                <div class="form-group col-6">
                     <label for="state">State <span class="text-danger">*</span></label>
                     <div v-if="errors">
                         <p 
@@ -117,7 +117,7 @@
                         v-model="customer.state">
                 </div>
 
-                <div class="form-group col-12">
+                <div class="form-group col-6">
                     <label for="zip_code">Zip Code <span class="text-danger">*</span></label>
                     <div v-if="errors">
                         <p 
@@ -134,7 +134,7 @@
                         v-model="customer.zip_code">
                 </div>
 
-                <div class="form-group col-12">
+                <div class="form-group col-6">
                     <label for="country">Country <span class="text-danger">*</span></label>
                     <div v-if="errors">
                         <p 
@@ -197,3 +197,10 @@ import apiUser from "../../api/User";
     },
   }
 </script>
+<style scoped>
+.billing-details-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+</style>

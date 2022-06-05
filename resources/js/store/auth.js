@@ -1,6 +1,7 @@
 import axios from "axios";
 const state = {
-    userInfo: null,
+    // 包含用户的订单, 地址信息
+    userInfo: '', 
 }
 const getters = {
     userOrders(state) {
@@ -15,7 +16,7 @@ const getters = {
         let i = state.userInfo.consigneeaddresses.length;
         let p = i - 1;
         return state.userInfo.consigneeaddresses[p].id; 
-    }
+    },
 };
 const mutations = {
     setUserData(state, user) {
@@ -46,17 +47,12 @@ const mutations = {
     }
 };
 const actions = {
-    getUserData({commit}, data) {
-        commit('setUserData', data);
-    },
     deleteUserInvoiceAddressData({commit}, payload) {
         commit('deleteInvoiceAddressData', payload);
     },
     deleteUserConsigneeAddressData({commit}, payload) {
         commit('deleteConsigneeAddressData', payload);
     }
-
-
 };
 
 

@@ -34,12 +34,13 @@ export default new Vuex.Store({
         SET_CART(state, cart) {
             state.cart = cart
         },
-        addToCart(state, {sku, name}) {
+        addToCart(state, {sku, name, price}) {
             sku.name = name;
             let skuInCartIndex = state.cart.findIndex(item => item.id === sku.id);
 
             if (skuInCartIndex !== -1) {
                 state.cart[skuInCartIndex].quantity++;
+                state.cart[skuInCartIndex].price = sku.price
                 localStorage.setItem('cle_shop', JSON.stringify(state.cart));
                 return;
             }

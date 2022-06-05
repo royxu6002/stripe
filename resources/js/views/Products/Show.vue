@@ -104,7 +104,7 @@
                 <div class="mt-4">
                      <button 
                         class="btn btn-primary btn-block add-cart btn-lg"
-                        @click="addToCart(product[0].skus[skuIndex], product[0].name)">
+                        @click="addToCart(product[0].skus[skuIndex], product[0].name )">
                             ADD TO CART
                     </button>
                 </div>
@@ -153,12 +153,12 @@ export default {
             this.skuIndex = index;
             this.skuImage = sku.image[0];
         },
-        addToCart(sku, name) {
+        addToCart(sku, name, price) {
             if(!this.skuId) {
                 alert('Please select a SKU to add to cart');
                 return;
             }
-            this.$store.commit('addToCart', {'sku': sku, 'name': name})
+            this.$store.commit('addToCart', { 'sku': sku, 'name': name })
         },
         changeThumbnail(i) {
             this.position = i;

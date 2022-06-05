@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[19],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[28],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/User/Profile.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************!*\
@@ -13,20 +13,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 var _this3 = undefined;
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -571,14 +557,9 @@ var render = function() {
                               error,
                               index
                             ) {
-                              return _c(
-                                "div",
-                                {
-                                  key: index,
-                                  staticClass: "alert alert-warning"
-                                },
-                                [_vm._v(_vm._s(error))]
-                              )
+                              return _c("div", { key: index }, [
+                                _vm._v(_vm._s(error))
+                              ])
                             }),
                             0
                           )
@@ -628,14 +609,9 @@ var render = function() {
                         ? _c(
                             "div",
                             _vm._l(_vm.errors.phone, function(error, index) {
-                              return _c(
-                                "div",
-                                {
-                                  key: index,
-                                  staticClass: "alert alert-warning"
-                                },
-                                [_vm._v(_vm._s(error))]
-                              )
+                              return _c("div", { key: index }, [
+                                _vm._v(_vm._s(error))
+                              ])
                             }),
                             0
                           )
@@ -814,14 +790,9 @@ var render = function() {
                         ? _c(
                             "div",
                             _vm._l(_vm.errors.address, function(error, index) {
-                              return _c(
-                                "div",
-                                {
-                                  key: index,
-                                  staticClass: "alert alert-warning"
-                                },
-                                [_vm._v(_vm._s(error))]
-                              )
+                              return _c("div", { key: index }, [
+                                _vm._v(_vm._s(error))
+                              ])
                             }),
                             0
                           )
@@ -871,14 +842,9 @@ var render = function() {
                         ? _c(
                             "div",
                             _vm._l(_vm.errors.city, function(error, index) {
-                              return _c(
-                                "div",
-                                {
-                                  key: index,
-                                  staticClass: "alert alert-warning"
-                                },
-                                [_vm._v(_vm._s(error))]
-                              )
+                              return _c("div", { key: index }, [
+                                _vm._v(_vm._s(error))
+                              ])
                             }),
                             0
                           )
@@ -922,14 +888,9 @@ var render = function() {
                         ? _c(
                             "div",
                             _vm._l(_vm.errors.state, function(error, index) {
-                              return _c(
-                                "div",
-                                {
-                                  key: index,
-                                  staticClass: "alert alert-warning"
-                                },
-                                [_vm._v(_vm._s(error))]
-                              )
+                              return _c("div", { key: index }, [
+                                _vm._v(_vm._s(error))
+                              ])
                             }),
                             0
                           )
@@ -979,14 +940,9 @@ var render = function() {
                         ? _c(
                             "div",
                             _vm._l(_vm.errors.zip_code, function(error, index) {
-                              return _c(
-                                "div",
-                                {
-                                  key: index,
-                                  staticClass: "alert alert-warning"
-                                },
-                                [_vm._v(_vm._s(error))]
-                              )
+                              return _c("div", { key: index }, [
+                                _vm._v(_vm._s(error))
+                              ])
                             }),
                             0
                           )
@@ -1034,14 +990,9 @@ var render = function() {
                         ? _c(
                             "div",
                             _vm._l(_vm.errors.country, function(error, index) {
-                              return _c(
-                                "div",
-                                {
-                                  key: index,
-                                  staticClass: "alert alert-warning"
-                                },
-                                [_vm._v(_vm._s(error))]
-                              )
+                              return _c("div", { key: index }, [
+                                _vm._v(_vm._s(error))
+                              ])
                             }),
                             0
                           )

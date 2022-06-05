@@ -7,11 +7,11 @@ export default {
         // 不支持分页
         return axios.get('/api/users');
     },
-    find() {
-        return axios.get(`/api/users/${id}`);
+    find(id) {
+        return axios.get(`/api/user/{id}`);
     },
-    update() {
-        return axios.put(`/api/users/${id}`, data);
+    update(id, data) {
+        return axios.put(`/api/user/${id}/update`, data);
     },
     login(data) {
         return axios.post('/api/login', data);

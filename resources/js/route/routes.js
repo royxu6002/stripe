@@ -90,6 +90,7 @@ const routes =  [
         component: () => import('../views/User/Reset.vue'),
     },
     {
+        // 这里涉及到分页, 未起作用
         path: '/users',
         name: 'Users.Index',
         component: () => import('../views/User/Index.vue'),
@@ -114,10 +115,6 @@ const routes =  [
                 name: 'UserOrder',
                 component: () => import('../views/User/Order.vue'),
             },
-            {
-                path: '/',
-                redirect: '/user/profile'
-            }
         ]
     },
     {
