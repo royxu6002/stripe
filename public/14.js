@@ -249,7 +249,7 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "row d-flex flex-row-reverse justify-content-around align-items-center"
+                    "row d-flex flex-row-reverse justify-content-between align-items-center"
                 },
                 [
                   _c("div", { staticClass: "icon rounded-circle shadow" }, [
