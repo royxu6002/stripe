@@ -7,7 +7,7 @@
             <div class="col-md-6 col-12">
                 <div class="mb-4 card">
                     <div class="p-3 card-body">
-                        <div class="row d-flex flex-row-reverse justify-content-between align-items-center">
+                        <div class="d-flex flex-row-reverse justify-content-between align-items-center">
                             <div class="icon rounded-circle shadow">
                                     <svg t="1654049583237" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1317" width="150" height="150"><path d="M896 416H128c-35.2 0-64-28.8-64-64V192c0-70.4 57.6-128 128-128h640c70.4 0 128 57.6 128 128v160c0 35.2-28.8 64-64 64z m-16-48c0-8.837-7.163-16-16-16H160c-8.837 0-16 7.163-16 16s7.163 16 16 16h704c8.837 0 16-7.163 16-16z" p-id="1318"></path><path d="M768 960H256c-70.4 0-128-57.6-128-128V384h768v448c0 70.4-57.6 128-128 128z m32-128v-96c0-17.6-14.4-32-32-32H384c-17.6 0-32 14.4-32 32v96c0 17.6 14.4 32 32 32h384c17.6 0 32-14.4 32-32z" p-id="1319"></path>
                                     </svg>
