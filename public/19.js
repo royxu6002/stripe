@@ -11,8 +11,7 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _api_User__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api/User */ "./resources/js/api/User.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-var _this3 = undefined;
-
+//
 //
 //
 //
@@ -320,20 +319,7 @@ var _this3 = undefined;
   name: "UserProfile",
   data: function data() {
     return {
-      profile: {
-        first_name: '',
-        last_name: '',
-        phone: '',
-        email: '',
-        about: '',
-        position: '',
-        company: '',
-        address: '',
-        city: '',
-        state: '',
-        zip_code: '',
-        country: ''
-      },
+      profile: {},
       errors: ''
     };
   },
@@ -364,20 +350,13 @@ var _this3 = undefined;
 
       _this2.profile = JSON.parse(JSON.stringify(res.data));
       var nameGroup = res.data.name.split(' ');
-      _this2.profile.first_name = (_nameGroup$ = nameGroup[0]) !== null && _nameGroup$ !== void 0 ? _nameGroup$ : '';
-      _this2.profile.last_name = (_nameGroup$2 = nameGroup[1]) !== null && _nameGroup$2 !== void 0 ? _nameGroup$2 : '';
-      return;
+
+      _this2.$set(_this2.profile, 'first_name', (_nameGroup$ = nameGroup[0]) !== null && _nameGroup$ !== void 0 ? _nameGroup$ : '');
+
+      _this2.$set(_this2.profile, 'last_name', (_nameGroup$2 = nameGroup[1]) !== null && _nameGroup$2 !== void 0 ? _nameGroup$2 : '');
     })["catch"](function (err) {
       return console.error(err);
     });
-  },
-  watch: {
-    'profile.first_name': function profileFirst_name(value) {
-      _this3.profile.first_name = value;
-    },
-    'profile.last_name': function profileLast_name(value) {
-      _this3.profile.last_name = value;
-    }
   }
 });
 
@@ -426,7 +405,7 @@ var render = function() {
                     _vm._v(
                       "\n                " +
                         _vm._s(_vm.profile.first_name) +
-                        "  " +
+                        " " +
                         _vm._s(_vm.profile.last_name) +
                         "\n              "
                     )
@@ -543,6 +522,7 @@ var render = function() {
                           staticClass: "form-control form-control-alternative",
                           attrs: {
                             alternative: "",
+                            value: "text paragraph",
                             placeholder: "First name",
                             "aria-describedby": "addon-right addon-left"
                           },

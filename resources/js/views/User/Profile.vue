@@ -18,7 +18,7 @@
             <div class="card-body pt-sm-3 pt-md-4">
               <div class="text-center">
                 <h3>
-                  {{ profile.first_name }}  {{ profile.last_name }}
+                  {{ profile.first_name }} {{ profile.last_name }}
                 </h3>
                 <div class="h5 mt-4">
                   {{ profile.position }}
@@ -64,6 +64,7 @@
                         <input
                           alternative=""
                           v-model="profile.first_name"
+                          value="text paragraph"
                           placeholder="First name"
                           class="form-control form-control-alternative"
                           aria-describedby="addon-right addon-left"
@@ -308,18 +309,6 @@ export default {
   data() {
     return {
       profile: {
-        first_name: '',
-        last_name : '',
-        phone     : '',
-        email     : '',
-        about     : '',
-        position  : '',
-        company   : '',
-        address   : '',
-        city      : '',
-        state     : '',
-        zip_code  : '',
-        country   : '',   
       },
       errors: '',
     };
@@ -346,20 +335,11 @@ export default {
     axios.get('/api/user/'+this.$route.params.user+'/get')
       .then(res => {
         this.profile = JSON.parse(JSON.stringify(res.data));
-        const nameGroup =  res.data.name.split(' ');
-        this.profile.first_name = nameGroup[0] ?? '';
-        this.profile.last_name = nameGroup[1] ?? '';
-        return;
+        let nameGroup = res.data.name.split(' ');
+        this.$set(this.profile, 'first_name', nameGroup[0] ?? '');
+        this.$set(this.profile, 'last_name', nameGroup[1] ?? '');
       })
       .catch(err => console.error(err))
   },
-  watch: {
-    'profile.first_name': (value) => {
-      this.profile.first_name =  value;
-    },
-    'profile.last_name': (value) => {
-      this.profile.last_name = value;
-    }
-  }
-};
+}
 </script>
