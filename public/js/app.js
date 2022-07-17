@@ -31525,27 +31525,27 @@ var routes = [{
   path: '/login',
   name: 'Login',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(28), __webpack_require__.e(18)]).then(__webpack_require__.bind(null, /*! ../views/User/Login.vue */ "./resources/js/views/User/Login.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(18)]).then(__webpack_require__.bind(null, /*! ../views/User/Login.vue */ "./resources/js/views/User/Login.vue"));
   },
   beforeEnter: guest
 }, {
   path: '/register',
   name: 'Register',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(28), __webpack_require__.e(20)]).then(__webpack_require__.bind(null, /*! ../views/User/Register.vue */ "./resources/js/views/User/Register.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(20)]).then(__webpack_require__.bind(null, /*! ../views/User/Register.vue */ "./resources/js/views/User/Register.vue"));
   },
   beforeEnter: guest
 }, {
   path: '/password/reset/:token/:email',
   name: 'Token',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(28), __webpack_require__.e(21)]).then(__webpack_require__.bind(null, /*! ../views/User/Token.vue */ "./resources/js/views/User/Token.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(21)]).then(__webpack_require__.bind(null, /*! ../views/User/Token.vue */ "./resources/js/views/User/Token.vue"));
   }
 }, {
   path: '/forgotpassword',
   name: 'Forgot',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(28), __webpack_require__.e(17)]).then(__webpack_require__.bind(null, /*! ../views/User/Forgot.vue */ "./resources/js/views/User/Forgot.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(17)]).then(__webpack_require__.bind(null, /*! ../views/User/Forgot.vue */ "./resources/js/views/User/Forgot.vue"));
   }
 }, {
   path: '/resetpassword',
@@ -31570,7 +31570,7 @@ var routes = [{
     path: '/user/:user/profile',
     name: 'UserProfile',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(28), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! ../views/User/Profile.vue */ "./resources/js/views/User/Profile.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! ../views/User/Profile.vue */ "./resources/js/views/User/Profile.vue"));
     }
   }, {
     path: '/user/:user/address',
@@ -31589,25 +31589,25 @@ var routes = [{
   path: '/user/:user/address/:address/edit',
   name: 'AddressEdit',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(28), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ../views/Invoiceaddress/Edit.vue */ "./resources/js/views/Invoiceaddress/Edit.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ../views/Invoiceaddress/Edit.vue */ "./resources/js/views/Invoiceaddress/Edit.vue"));
   }
 }, {
   path: '/user/:user/address/create',
   name: 'AddressCreate',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(28), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../views/Invoiceaddress/Create.vue */ "./resources/js/views/Invoiceaddress/Create.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../views/Invoiceaddress/Create.vue */ "./resources/js/views/Invoiceaddress/Create.vue"));
   }
 }, {
   path: '/user/:user/caddress/:address/edit',
   name: 'CaddressEdit',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(28), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ../views/Consigneeaddress/Edit.vue */ "./resources/js/views/Consigneeaddress/Edit.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ../views/Consigneeaddress/Edit.vue */ "./resources/js/views/Consigneeaddress/Edit.vue"));
   }
 }, {
   path: '/user/:user/caddress/create',
   name: 'CaddressCreate',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(28), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../views/Consigneeaddress/Create.vue */ "./resources/js/views/Consigneeaddress/Create.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../views/Consigneeaddress/Create.vue */ "./resources/js/views/Consigneeaddress/Create.vue"));
   }
 }, {
   path: '/user/:user/order/:order',
