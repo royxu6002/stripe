@@ -79,9 +79,6 @@
         </div>
 
         <div class="container mt-4">
-      
-            
-            
             <table class="table">
                 <tr style="font-weight: bold">
                     <td>Item</td>
@@ -127,7 +124,7 @@
         </table>
         </div>
 
-        <div class="invoice-terms">
+        <div class="invoice-terms container">
             <table align="right" cellpadding="10px">
                     <tr align="right"> 
                         <td>Hereby confirmed by:</td>

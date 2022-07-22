@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="container row">
+        <div class="container row mx-auto">
            
             <div v-if="order[0].invoice_address_id" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 
@@ -76,7 +76,7 @@
 
         </div>
 
-        <div class="container row">
+        <div class="container row mx-auto">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <h5>Dear  {{userInfo.name}}, Thanks for your order.</h5>
                 <div>Purchase order ID:  {{order[0].id}}</div>

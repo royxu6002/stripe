@@ -160,9 +160,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'OrderInvoice',
@@ -686,7 +683,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "invoice-terms" }, [
+    return _c("div", { staticClass: "invoice-terms container" }, [
       _c("table", { attrs: { align: "right", cellpadding: "10px" } }, [
         _c("tr", { attrs: { align: "right" } }, [
           _c("td", [_vm._v("Hereby confirmed by:")])

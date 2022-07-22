@@ -68,6 +68,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'category',
@@ -176,50 +178,6 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        {
-          staticClass: "mb-4",
-          staticStyle: {
-            "border-top": "1px solid rgb(244, 244, 244)",
-            "border-bottom": "1px solid rgb(244, 244, 244)",
-            "line-height": "40px"
-          }
-        },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _vm._l(_vm.categories, function(category, index) {
-            return _c(
-              "span",
-              { key: index, staticStyle: { "margin-left": "20px" } },
-              [
-                _c(
-                  "router-link",
-                  {
-                    attrs: {
-                      to: {
-                        name: "category",
-                        params: { category: category.slug }
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(category.name) +
-                        "\n                    "
-                    )
-                  ]
-                )
-              ],
-              1
-            )
-          })
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
         { staticClass: "row" },
         _vm._l(_vm.productsFilteredBy, function(product, index) {
           return _c(
@@ -277,14 +235,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("strong", [_c("span", [_vm._v("Category:")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

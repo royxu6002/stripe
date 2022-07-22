@@ -14,10 +14,9 @@
     </head>
 
     <body class="antialiased">
-        <div class="container mx-auto">
-            <div id="app"> 
+            <div id="app" class="wsmenucontainer"> 
             </div>
-        </div>
+
         <script src="{{ mix('js/app.js') }}"></script>
         <script>
             var _hmt = _hmt || [];

@@ -23,6 +23,7 @@ const routes =  [
         redirect: '/home',
     },
     {
+        // 增加搜索功能;
         path: '/products',
         name: 'products.index',
         component: () => import('../views/Products/Index.vue'),

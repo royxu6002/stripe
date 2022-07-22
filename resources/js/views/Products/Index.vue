@@ -25,7 +25,7 @@
     <!-- 这是链接 /products 的展示页面, 目录展示页面在 文件夹 Category/Index.vue 下 -->
     <!-- begin the loop v-for; -->
     <div class="col-lg-3 col-md-4 col-sm-6 mb-4"
-      v-for="product in productsFilteredBy"
+      v-for="product in productsFilteredBySearch"
       :key="product.id"
     >
       <div class="card h-100">
@@ -87,6 +87,10 @@ export default {
     computed: {
         ...mapGetters(['productsFilteredBy']),
         ...mapState(['categories']),
+        productsFilteredBySearch() {
+          return this.$store.state.products.filter(
+            (product) => JSON.stringify(product.categories).toLowerCase().indexOf(this.$store.state.menu.searchWord) > -1 || JSON.stringify(product.name).toLowerCase().indexOf(this.$store.state.menu.searchWord) > -1 || JSON.stringify(product.description).toLowerCase().indexOf(this.$store.state.menu.searchWord) >-1);
+        },
     }
 }
 </script>

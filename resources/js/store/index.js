@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import auth from "./auth";
+import menu from "./menu";
+
 import axios from "axios";
 import createPersistedState from 'vuex-persistedstate';
 
@@ -100,6 +102,7 @@ export default new Vuex.Store({
     },
     modules: {
         auth,
+        menu,
     },
     plugins: [createPersistedState({
         storage: window.sessionStorage

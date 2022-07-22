@@ -109,7 +109,7 @@
         </table>
         </div>
 
-        <div class="invoice-terms">
+        <div class="invoice-terms container">
             <table align="center" cellpadding="10px">
                 <tr>
                     <td valign="top" style="font-weight: bold;">TERMS OF PACKING:</td>

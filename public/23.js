@@ -216,7 +216,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "container row" }, [
+    _c("div", { staticClass: "container row mx-auto" }, [
       _vm.order[0].invoice_address_id
         ? _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12 col-xs-12" }, [
             _c("h4", { staticClass: "mt-3" }, [_vm._v("Bill To:")]),
@@ -459,7 +459,7 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "container row" }, [
+    _c("div", { staticClass: "container row mx-auto" }, [
       _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12 col-xs-12" }, [
         _c("h5", [
           _vm._v(

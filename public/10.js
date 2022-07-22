@@ -677,7 +677,7 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "invoice-terms" }, [
+    _c("div", { staticClass: "invoice-terms container" }, [
       _c("table", { attrs: { align: "center", cellpadding: "10px" } }, [
         _c("tr", [
           _c(

@@ -4,18 +4,20 @@
   <!-- Page Heading -->
     <span  style="line-height: 28px; font-size: 16px;">All Categories ></span>
     <span> View all {{$route.params.category}} products</span>
-     <div class="mb-4" style="border-top: 1px solid rgb(244, 244, 244);border-bottom: 1px solid rgb(244, 244, 244); line-height: 40px; ">
-            <strong>
-            <span>Category:</span>
-            </strong>
-             <span style="margin-left: 20px;"
-                    v-for="(category, index) in categories"
-                    :key="index">
-                    <router-link :to="{name: 'category', params: {category: category.slug}}">
-                        {{ category.name }}
-                    </router-link>
-            </span>
-        </div>
+
+    <!-- <div class="mb-4" style="border-top: 1px solid rgb(244, 244, 244);border-bottom: 1px solid rgb(244, 244, 244); line-height: 40px; ">
+          <strong>
+          <span>Category:</span>
+          </strong>
+
+          <span style="margin-left: 20px;"
+                  v-for="(category, index) in categories"
+                  :key="index">
+                  <router-link :to="{name: 'category', params: {category: category.slug},}">
+                      {{ category.name }}
+                  </router-link>
+          </span>
+    </div> -->
 
   <div class="row">
     <!-- begin the loop v-for; -->

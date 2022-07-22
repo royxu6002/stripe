@@ -2129,13 +2129,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2198,20 +2191,405 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Header",
   data: function data() {
     return {
-      submenus: false
+      /** 电脑端: 在单独 department 切换 */
+      isActive: 1,
+
+      /** off-canvas 开关 */
+      iswsActive: false,
+
+      /** 移动端: 在单独 department 开关 */
+      isArrowActive: 1,
+
+      /** 移动端: 整个 department 显示与否*/
+      iswholeDartmentActive: false,
+      isaccountActive: false,
+      issearchActive: false,
+      searchWord: ''
     };
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(["SET_CATEGORY"])),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["categories"])),
+  methods: {
+    signOut: function signOut() {
+      sessionStorage.clear(); // {}, js 中 空对象和空是不等的;
+
+      this.$store.commit('auth/setUserData', '');
+      this.$router.replace('/login');
+    },
+    toggleClass: function toggleClass(x) {
+      this.isActive = x;
+    },
+    toggleSubmenu: function toggleSubmenu(x) {
+      if (this.isArrowActive == x) {
+        this.isArrowActive = -1;
+      } else {
+        this.isArrowActive = x;
+      }
+    },
+    switchSearch: function switchSearch(x) {
+      this.issearchActive = x;
+    },
+    submitSearch: function submitSearch() {
+      var i = this.searchWord.trim().toLowerCase();
+      this.$store.commit('menu/setsearchWord', i);
+      this.$router.replace({
+        name: 'products.index',
+        query: {
+          search: i
+        }
+      });
+    }
+  },
   watch: {
     $route: function $route(value) {
       if (value) {
-        this.submenus = false;
+        this.iswsActive = false;
       }
     }
   }
@@ -2228,10 +2606,90 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
+exports.push([module.i, "@import url(https://use.fontawesome.com/releases/v5.7.2/css/all.css);", ""]);
+exports.i(__webpack_require__(/*! -!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!./css/webslidemenu.css */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./resources/js/components/css/webslidemenu.css"), "");
+exports.i(__webpack_require__(/*! -!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!./css/fade-down.css */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./resources/js/components/css/fade-down.css"), "");
+exports.i(__webpack_require__(/*! -!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!./css/white-gry.css */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./resources/js/components/css/white-gry.css"), "");
+exports.i(__webpack_require__(/*! -!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!./css/demo.css */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./resources/js/components/css/demo.css"), "");
+
+// module
+exports.push([module.i, "\n.icon[data-v-1f42fb90] {\n  width: 2em;\n  height: 2em;\n  vertical-align: center;\n  fill: #4889f3;\n  overflow: hidden;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./resources/js/components/css/demo.css":
+/*!*******************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./resources/js/components/css/demo.css ***!
+  \*******************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
 
 
 // module
-exports.push([module.i, "\n.nav-container[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n}\n.nav-container-right[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n}\n.icon[data-v-1f42fb90] {\n  width: 2em;\n  height: 2em;\n  vertical-align: center;\n  fill: #4889f3;\n  overflow: hidden;\n}\n.nav-container-right ul[data-v-1f42fb90] {\n  list-style: none;\n}\n.nav-container-right ul li[data-v-1f42fb90] {\n  position: relative;\n}\n.nav-container-right ul li:hover a[data-v-1f42fb90] {\n  background-color: #3490dc;\n  color: #fff;\n}\n.nav-container-right ul li:hover .icon[data-v-1f42fb90] {\n  fill: rgb(254, 254, 255);\n}\n.submenu[data-v-1f42fb90] {\n  position: absolute;\n  width: 100%;\n  height: 0;\n  overflow: hidden;\n  z-index: 100;\n}\n.nav-container-right > ul > li:hover .submenu[data-v-1f42fb90] {\n  height: auto;\n}\n.submenu > ul[data-v-1f42fb90] {\n  list-style: none;\n  margin: 0 !important;\n  transform: translateY(-100%);\n  transition: all 1s ease;\n  padding: 0;\n  height: 0;\n}\n.nav-container-right > ul > li:hover .submenu > ul[data-v-1f42fb90] {\n  transform: translateY(0);\n}\n.submenu > ul > li[data-v-1f42fb90] {\n  float: left !important;\n  border-top: 1px solid rgb(255, 255, 255);\n  width: 100%;\n}\n.submenu > ul > li > a[data-v-1f42fb90] {\n  display: block;\n  background-color: #f3f6f8 !important;\n  color: #333 !important;\n  padding: 10px 20px;\n  text-decoration: none;\n  transition: all 1s ease-in-out;\n}\n.submenu > ul > li > a[data-v-1f42fb90]:hover {\n  background-color: #3490dc !important;\n  color: #fff !important;\n}\n", ""]);
+exports.push([module.i, "body {\n  background-color: #e9ebef;\n}\n.wrapper {\n  max-width: 1550px;\n  margin: 0 auto;\n  padding: 0;\n  min-width: 320px;\n}\n.header {\n  width: 100%;\n  display: block;\n  min-height: 214px;\n  padding-top: 0;\n}\n.headerwp {\n  max-width: 1300px;\n  margin: 0 auto;\n  padding: 0 25px;\n}\n.posrlt {\n  position: relative;\n}\n.headtoppart {\n  display: block;\n  width: 100%;\n  background-color: #f8f8f8;\n  height: 39px;\n  margin: 0 auto;\n  padding: 0;\n  min-width: 320px;\n}\n.headertopleft {\n  float: right;\n}\n.headertopright {\n  float: left;\n  text-align: left;\n}\n.headertopright a {\n  line-height: 39px;\n  color: #5f5f5f;\n  font-size: 13px;\n  padding: 0 12px;\n  display: inline-block;\n  float: left;\n}\n.headertopright a:first-child {\n  font-size: 14px;\n}\n.headertopright a:last-child {\n  font-size: 12px;\n}\n.headertopright a:hover {\n  background-color: #272B37;\n  -webkit-transition: all 0.3s ease-in-out;\n  -moz-transition: all 0.3s ease-in-out;\n  -o-transition: all 0.3s ease-in-out;\n  -ms-transition: all 0.3s ease-in-out;\n  transition: all 0.3s ease-in-out;\n}\n.headertopright a.facebookicon:hover {\n  background-color: #3b5998;\n  color: #fff;\n}\n.headertopright a.twittericon:hover {\n  background-color: #55acee;\n  color: #fff;\n}\n.headertopright a.linkedinicon:hover {\n  background-color: #0077b5;\n  color: #fff;\n}\n.headertopright a.googleicon:hover {\n  background-color: #dd4b39;\n  color: #fff;\n}\n.address {\n  padding: 10px 0 0 0;\n  font-size: 12px;\n  color: #b6b6b6;\n}\n.address a {\n  color: #838383;\n}\n.address span {\n  margin-right: 9px;\n  color: #838383;\n}\n.address i {\n  margin-right: 6px;\n  margin-left: 6px;\n  color: #5f5f5f;\n}\n.norlt {\n  position: static;\n}\n.menuwrapper {\n  position: relative;\n}\n.show-grid {\n  background-color: #fff;\n}\n.btn-border {\n  border: 2px solid;\n  border-radius: 40px;\n  display: inline-block;\n  font-size: 13px;\n  text-transform: uppercase;\n  -moz-user-select: none;\n  background-image: none;\n  text-align: center;\n  vertical-align: middle;\n  white-space: nowrap;\n  color: #fff;\n  padding: 15px 40px;\n}\n.btn-border:hover {\n  color: #fff;\n  text-decoration: none;\n  opacity: 0.9;\n}\n.btn-border:focus {\n  color: #fff;\n  text-decoration: none;\n  opacity: 0.9;\n}\n.moreoption {\n  width: 100%;\n  display: block;\n  margin-top: 290px;\n}\n.moreoption .boxheader {\n  border: solid 0;\n  padding-top: 25px;\n  padding-bottom: 10px;\n  font-size: 16px;\n  color: #717171;\n}\n.mobiletext02 {\n  display: none;\n}\n.buttoncolor {\n  color: #fff;\n  display: block;\n  font-size: 13px;\n  padding: 10px 15px;\n  text-decoration: none;\n  transition: background 0.3s linear 0s;\n  width: 12.5%;\n  height: 30px;\n  float: left;\n  text-align: center;\n  margin: 0px 0px;\n}\n.buttoncolor:hover {\n  color: #fff;\n  text-decoration: none;\n}\n.buttoncolor:focus {\n  color: #fff;\n  text-decoration: none;\n}\n.buttoncolor03 {\n  color: #fff;\n  display: block;\n  font-size: 13px;\n  padding: 10px 15px;\n  text-decoration: none;\n  transition: background 0.3s linear 0s;\n  width: 12.5%;\n  height: 30px;\n  float: left;\n  text-align: center;\n  margin: 0px 0px;\n}\n.buttoncolor03:hover {\n  color: #fff;\n  text-decoration: none;\n}\n.buttoncolor03:focus {\n  color: #fff;\n  text-decoration: none;\n}\n.headertlt {\n  width: 100%;\n  padding: 40px 0px 15px 0px;\n  letter-spacing: -0.5px;\n  font-size: 22px;\n  font-family: 'archivo_narrowregular';\n  color: #424242;\n}\n.colorlink01 {\n  width: 40%;\n  float: left;\n  margin: 0% 0% 0% 2%;\n}\n.colorlink02 {\n  width: 40%;\n  float: left;\n  margin: 0% 0% 0% 2%;\n}\n.colorlink03 {\n  width: 14%;\n  float: left;\n  margin: 0% 0% 0% 2%;\n}\n.buttoncolor02 {\n  color: #424242;\n  display: block;\n  font-size: 15px;\n  border-radius: 2px;\n  height: 30px;\n  padding: 10px 15px;\n  text-decoration: none;\n  transition: background 0.3s linear 0s;\n  width: 100%;\n  border-right: solid 5px #fff;\n  float: left;\n  text-align: center;\n  margin: 0% 0% 0% 0%;\n  background-color: #f2f2f2;\n  border: solid 1px #D9D9D9;\n  cursor: pointer;\n  text-align: center;\n  text-decoration: none;\n  width: 50%;\n  float: left;\n}\n.buttoncolor02:hover {\n  background-color: #424242;\n  color: #000;\n}\n.buttoncolor02.active {\n  background-color: #424242;\n  color: #fff;\n}\n.main-content {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 100%;\n  overflow-x: hidden;\n  overflow-y: scroll;\n  -webkit-overflow-scrolling: touch;\n}\n\n/* ========  Color Swicher CSS ============ */\n.swichermainbx {\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.swichermainleft {\n  width: 50%;\n  float: left;\n  margin-bottom: 25px;\n}\n.swichermainright {\n  width: 50%;\n  float: left;\n  margin-bottom: 25px;\n}\n.swichertxt02 {\n  font-size: 15px;\n  margin-bottom: 15px;\n}\n.wscolorcode:hover {\n  color: #fff;\n  text-decoration: none;\n}\n.wscolorcode {\n  width: 12.5%;\n  margin: 0px;\n  color: #fff;\n  float: left;\n  padding: 4px 12px 4px 12px;\n  margin: 0px;\n  height: 30px;\n  line-height: 22px;\n  background-color: #333;\n  font-size: 13px;\n  text-transform: uppercase;\n  text-align: center;\n  border-bottom: solid 2px #fff;\n}\n.wscolorcode.cblack {\n  width: 16.66%;\n}\n.wscolorcode.active {\n  border-bottom: solid 2px #333;\n  opacity: 1;\n}\n.wscolorcode.cblack.active {\n  border-bottom: solid 2px #da4b38;\n  opacity: 1;\n}\n.wscolorcode i {\n  font-size: 12px;\n  color: #fff;\n}\n.wscolorcode.cblue {\n  background-color: #1991eb;\n}\n.wscolorcode.corange {\n  background-color: #fb872b;\n}\n.wscolorcode.cred {\n  background-color: #d7412e;\n}\n.wscolorcode.cpink {\n  background-color: #eb65a0;\n}\n.wscolorcode.cgreen {\n  background-color: #80c133;\n}\n.wscolorcode.cpurple {\n  background-color: #967ADC;\n}\n.wscolorcode.cgry {\n  background-color: #ccc;\n}\n.wscolorcode.cyellow {\n  background-color: #ffd452;\n}\n.wscolorcode.grd-green {\n  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#49c4a4), to(#97b832));\n  background: -webkit-linear-gradient(left, #49c4a4, #97b832);\n  background: -moz-linear-gradient(left, #49c4a4, #97b832);\n  background: -o-linear-gradient(left, #49c4a4, #97b832);\n  background: -ms-linear-gradient(left, #49c4a4, #97b832);\n  background: linear-gradient(left, #49c4a4, #97b832);\n  background-color: #49c4a4;\n}\n.wscolorcode.grd-blue {\n  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#31c8b1), to(#4ec7ff));\n  background: -webkit-linear-gradient(left, #31c8b1, #4ec7ff);\n  background: -moz-linear-gradient(left, #31c8b1, #4ec7ff);\n  background: -o-linear-gradient(left, #31c8b1, #4ec7ff);\n  background: -ms-linear-gradient(left, #31c8b1, #4ec7ff);\n  background: linear-gradient(left, #31c8b1, #4ec7ff);\n  background-color: #4ec7ff;\n}\n.wscolorcode.grd-red {\n  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d90647), to(#eb402c));\n  background: -webkit-linear-gradient(left, #d90647, #eb402c);\n  background: -moz-linear-gradient(left, #d90647, #eb402c);\n  background: -o-linear-gradient(left, #d90647, #eb402c);\n  background: -ms-linear-gradient(left, #d90647, #eb402c);\n  background: linear-gradient(left, #d90647, #eb402c);\n  background-color: #d90647;\n}\n.wscolorcode.grd-light-green {\n  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#29bb92), to(#69cbb0));\n  background: -webkit-linear-gradient(left, #29bb92, #69cbb0);\n  background: -moz-linear-gradient(left, #29bb92, #69cbb0);\n  background: -o-linear-gradient(left, #29bb92, #69cbb0);\n  background: -ms-linear-gradient(left, #29bb92, #69cbb0);\n  background: linear-gradient(left, #29bb92, #69cbb0);\n  background-color: #29bb92;\n}\n.wscolorcode.grd-pink {\n  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c659a7), to(#fd67a0));\n  background: -webkit-linear-gradient(left, #c659a7, #fd67a0);\n  background: -moz-linear-gradient(left, #c659a7, #fd67a0);\n  background: -o-linear-gradient(left, #c659a7, #fd67a0);\n  background: -ms-linear-gradient(left, #c659a7, #fd67a0);\n  background: linear-gradient(left, #c659a7, #fd67a0);\n  background-color: #cc48d4;\n}\n.wscolorcode.grd-orange {\n  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff5183), to(#ff754b));\n  background: -webkit-linear-gradient(left, #ff5183, #ff754b);\n  background: -moz-linear-gradient(left, #ff5183, #ff754b);\n  background: -o-linear-gradient(left, #ff5183, #ff754b);\n  background: -ms-linear-gradient(left, #ff5183, #ff754b);\n  background: linear-gradient(left, #ff5183, #ff754b);\n  background-color: #ff5183;\n}\n.wscolorcode.grd-black {\n  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#383d41), to(#5d6069));\n  background: -webkit-linear-gradient(left, #383d41, #5d6069);\n  background: -moz-linear-gradient(left, #383d41, #5d6069);\n  background: -o-linear-gradient(left, #383d41, #5d6069);\n  background: -ms-linear-gradient(left, #383d41, #5d6069);\n  background: linear-gradient(left, #383d41, #5d6069);\n  background-color: #5d6069;\n}\n.wscolorcode.grd-gry {\n  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cccccc), to(#e4e4e4));\n  background: -webkit-linear-gradient(left, #cccccc, #e4e4e4);\n  background: -moz-linear-gradient(left, #cccccc, #e4e4e4);\n  background: -o-linear-gradient(left, #cccccc, #e4e4e4);\n  background: -ms-linear-gradient(left, #cccccc, #e4e4e4);\n  background: linear-gradient(left, #cccccc, #e4e4e4);\n  background-color: #cccccc;\n}\n\n/* End Color Swicher*/\n@media only screen and (min-width: 230px) and (max-width:991px) {\n.wrapper {\n    width: 100%;\n    margin: 0% 0%;\n}\n.header {\n    min-height: 75px;\n}\n.logo {\n    display: none;\n}\n.header {\n    box-shadow: none;\n    background-image: none;\n}\n.colorlink01 {\n    width: 92%;\n    margin: 0% 4%;\n}\n.colorlink02 {\n    width: 92%;\n    margin: 0% 4%;\n}\n.colorlink03 {\n    width: 92%;\n    margin: 0% 4%;\n}\n.buttoncolor02 {\n    width: 100%;\n    margin-bottom: 2%;\n}\n.buttoncolor {\n    width: 25%;\n}\n.buttoncolor03 {\n    width: 25%;\n}\n.moreoption {\n    width: 100%;\n    margin: 85px 0 0 0;\n    background-color: transparent;\n    border: none;\n    -webkit-box-shadow: none;\n    -moz-box-shadow: none;\n    box-shadow: none;\n}\n.headtoppart {\n    margin-top: 60px;\n    height: auto;\n    background-color: rgba(0, 0, 0, 0.2);\n}\n.topmenusearch {\n    margin: 0px 0 0;\n    width: 100%;\n}\n.topmenusearch input:focus {\n    width: 100%;\n}\n.posrlt {\n    width: 240px;\n    float: none;\n}\n.headerright {\n    width: 100%;\n    float: none;\n}\n.headertopleft {\n    float: none;\n    width: 96%;\n    margin: 0% 2%;\n}\n.headertopright {\n    float: none;\n    width: 96%;\n    margin: 0% 2%;\n}\n.address.clearfix:before,\n  .address.clearfix:after {\n    content: \"\";\n    display: table;\n}\n.address.clearfix:after {\n    clear: both;\n}\n.address.clearfix {\n    zoom: 1;\n}\n.headertopleft {\n    display: none;\n}\n.headerfull {\n    height: auto;\n}\n.headertopright a {\n    width: 25%;\n    text-align: center;\n    font-size: 15px;\n}\n.headertopright a:first-child {\n    font-size: 16px;\n}\n.headertopright a:last-child {\n    font-size: 13px;\n}\n\n  /* Color Swicher  Only */\n.swichermainbx {\n    width: 96%;\n    margin: 0% 2%;\n    display: block;\n    background-color: rgba(255, 255, 255, 0.3);\n    padding: 15px 25px;\n    border-radius: 14px;\n}\n.swichermainleft {\n    width: 98%;\n    margin: 1% 1%;\n}\n.swichermainright {\n    width: 98%;\n    margin: 1% 1%;\n}\n.wscolorcode {\n    width: 12.5%;\n}\n.swichertxt {\n    display: none;\n}\n.swichertxt02 span {\n    display: none;\n}\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./resources/js/components/css/fade-down.css":
+/*!************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./resources/js/components/css/fade-down.css ***!
+  \************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".wsmenu>.wsmenu-list>li>ul.sub-menu {\n  opacity: 0;\n  visibility: hidden;\n  -o-transform-origin: 0% 0%;\n  -ms-transform-origin: 0% 0%;\n  -moz-transform-origin: 0% 0%;\n  -webkit-transform-origin: 0% 0%;\n  -o-transition: -o-transform 0.3s, opacity 0.3s;\n  -ms-transition: -ms-transform 0.3s, opacity 0.3s;\n  -moz-transition: -moz-transform 0.3s, opacity 0.3s;\n  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;\n  transform-style: preserve-3d;\n  -o-transform-style: preserve-3d;\n  -moz-transform-style: preserve-3d;\n  -webkit-transform-style: preserve-3d;\n  transform: rotateX(-75deg);\n  -o-transform: rotateX(-75deg);\n  -moz-transform: rotateX(-75deg);\n  -webkit-transform: rotateX(-75deg);\n}\n.wsmenu>.wsmenu-list>li:hover>ul.sub-menu {\n  opacity: 1;\n  visibility: visible;\n  transform: rotateX(0deg);\n  -o-transform: rotateX(0deg);\n  -moz-transform: rotateX(0deg);\n  -webkit-transform: rotateX(0deg);\n}\n.wsmenu>.wsmenu-list>li>.wsmegamenu {\n  opacity: 0;\n  visibility: hidden;\n  -o-transform-origin: 0% 0%;\n  -ms-transform-origin: 0% 0%;\n  -moz-transform-origin: 0% 0%;\n  -webkit-transform-origin: 0% 0%;\n  -o-transition: -o-transform 0.3s, opacity 0.3s;\n  -ms-transition: -ms-transform 0.3s, opacity 0.3s;\n  -moz-transition: -moz-transform 0.3s, opacity 0.3s;\n  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;\n  transform-style: preserve-3d;\n  -o-transform-style: preserve-3d;\n  -moz-transform-style: preserve-3d;\n  -webkit-transform-style: preserve-3d;\n  transform: rotateX(-75deg);\n  -o-transform: rotateX(-75deg);\n  -moz-transform: rotateX(-75deg);\n  -webkit-transform: rotateX(-75deg);\n}\n.wsmenu>.wsmenu-list>li:hover>.wsmegamenu {\n  opacity: 1;\n  visibility: visible;\n  transform: rotateX(0deg);\n  -o-transform: rotateX(0deg);\n  -moz-transform: rotateX(0deg);\n  -webkit-transform: rotateX(0deg);\n}\n.wsmenu-list>li>.wsshoptabing {\n  opacity: 0;\n  visibility: hidden;\n  -o-transform-origin: 0% 0%;\n  -ms-transform-origin: 0% 0%;\n  -moz-transform-origin: 0% 0%;\n  -webkit-transform-origin: 0% 0%;\n  -o-transition: -o-transform 0.3s, opacity 0.3s;\n  -ms-transition: -ms-transform 0.3s, opacity 0.3s;\n  -moz-transition: -moz-transform 0.3s, opacity 0.3s;\n  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;\n  transform-style: preserve-3d;\n  -o-transform-style: preserve-3d;\n  -moz-transform-style: preserve-3d;\n  -webkit-transform-style: preserve-3d;\n  transform: rotateX(-75deg);\n  -o-transform: rotateX(-75deg);\n  -moz-transform: rotateX(-75deg);\n  -webkit-transform: rotateX(-75deg);\n}\n.wsmenu-list>li:hover .wsshoptabing {\n  opacity: 1;\n  visibility: visible;\n  transform: rotateX(0deg);\n  -o-transform: rotateX(0deg);\n  -moz-transform: rotateX(0deg);\n  -webkit-transform: rotateX(0deg);\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./resources/js/components/css/webslidemenu.css":
+/*!***************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./resources/js/components/css/webslidemenu.css ***!
+  \***************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/*\n * Plugin: Web Slide Navigation System\n * Demo Link: https://tagfold.com/webslide/\n * Author: TagFold\n * License: http://codecanyon.net/licenses/standard\n*/\n/* ======== Find Below Table of Content Points to Go Relevant Section  =========\n[Table of contents DESKTOP]\nDesktop Base CSS\nDesktop Main Menu CSS\n- Main Search Bar CSS\n- My Account Dropdown\n- Main Menu Cart Icon\nDesktop Tabing Mega Menus CSS\n- Tabing Leftside\n- Tabing Rightside\n- Mega Menu Content Formatting\n- Brand Mega Menu\nDesktop Mega Menus CSS\nDesktop Half Menus CSS\nDesktop Extra CSS\n\n[Table of contents MOBILE ]\nMobile Menu Change Brake Point\nMobile Base CSS\nMobile Main Menu CSS\nMobile Dropdown CSS\nMobile Mega Menu CSS\nMobile Header CSS\n -> Mobile Search Bar\n -> Mobile Toggle Menu icon (X ICON)\nMobile Overlay/Drawer CSS\nMobile Sub Menu Expander Arrows\nExtra @Media Query\n===============================================================================*/\n/* ================== Desktop Base CSS  ================== */\n.wsmenu html,\n.wsmenu body,\n.wsmenu iframe,\n.wsmenu h1,\n.wsmenu h2,\n.wsmenu h3,\n.wsmenu h4,\n.wsmenu h5,\n.wsmenu h6 {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font: inherit;\n  vertical-align: baseline;\n  font-weight: normal;\n  font-size: 12px;\n  line-height: 18px;\n  font-family: Helvetica, sans-serif;\n  -webkit-font-smoothing: subpixel-antialiased;\n  font-smoothing: antialiased;\n  font-smooth: antialiased;\n  -webkit-text-size-adjust: 100%;\n  -ms-text-size-adjust: 100%;\n  -webkit-font-smoothing: subpixel-antialiased;\n  font-smoothing: subpixel-antialiased;\n  font-smooth: subpixel-antialiased;\n}\n.wsmenu .cl {\n  clear: both;\n}\n.wsmenu img,\nobject,\nembed,\nvideo {\n  border: 0 none;\n  max-width: 100%;\n}\n.wsmenu a:focus {\n  outline: none;\n}\n.wsmenu:before,\n.wsmenu:after {\n  content: \"\";\n  display: table;\n}\n.wsmenu:after {\n  clear: both;\n}\n\n/* ================== Desktop Main Menu CSS ================== */\n.headerfull {\n  width: 100%;\n  height: 60px;\n  position: relative;\n  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);\n  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);\n  box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);\n}\n.smllogo {\n  padding: 15px 0px 0 30px;\n  margin: 0;\n  float: left;\n  width: 10%;\n}\n.smllogo a {\n  display: block;\n  float: left;\n  padding: 0;\n}\n.wsmain {\n  width: 100%;\n  margin: 0 auto;\n  padding: 0 25px;\n  max-width: 1300px;\n}\n.wsmenu {\n  width: 90%;\n  float: left;\n  font-family: Helvetica, sans-serif;\n  color: #fff;\n  position: relative;\n  font-size: 13px;\n  padding: 0;\n  display: block;\n  margin: 0;\n  border-left: 1px solid rgba(0, 0, 0, 0.1);\n}\n.wsmenu>.wsmenu-list {\n  text-align: left;\n  margin: 0 auto;\n  width: 100%;\n  display: block;\n  padding: 0;\n  position: relative;\n}\n.wsmenu>.wsmenu-list>li {\n  display: block;\n  float: left;\n  padding: 0;\n  margin: 0;\n}\n.wsmenu>.wsmenu-list>li>.navtext {\n  line-height: 16px;\n  text-align: right;\n  padding: 14px 20px;\n  margin: 0px;\n}\n.wsmenu>.wsmenu-list>li>a {\n  display: block;\n  text-decoration: none;\n  position: relative;\n}\n.wsmenu>.wsmenu-list>li>.navtext>span+span:after {\n  display: inline-block;\n  font-style: normal;\n  font-variant: normal;\n  text-rendering: auto;\n  -webkit-font-smoothing: antialiased;\n\n  content: \"\\F078\";\n  font-family: \"Font Awesome 5 Free\";\n  font-weight: 900;\n  font-size: 9px;\n  line-height: 10px;\n  margin-left: 0px;\n  position: relative;\n  right: -7px;\n  text-align: right;\n  top: 1px;\n}\n.wsmenu>.wsmenu-list>li>.navtext>span {\n  display: block;\n  font-size: 11px;\n  text-align: left;\n  white-space: nowrap;\n  width: 100%;\n  line-height: 16px;\n}\n.wsmenu>.wsmenu-list>li>.navtext>span+span {\n  white-space: nowrap;\n  font-size: 12px;\n  font-weight: bold;\n}\n.wsmenu>.wsmenu-list>li a:hover .arrow:after {\n  border-top-color: #b3b3b3\n}\n.wsmenu>.wsmenu-list>li a.active .arrow:after {\n  border-top-color: #b3b3b3\n}\n.wsmenu>.wsmenu-list>li:hover>a .arrow:after {\n  border-top-color: #b3b3b3\n}\n\n/* Main Search Bar CSS*/\n.wsmenu>.wsmenu-list>li.wssearchbar {\n  width: 40%;\n  float: left;\n  padding-left: 15px;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch {\n  float: right;\n  width: 100%;\n  height: 42px;\n  position: relative;\n  margin: 9px 0 0 0;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch>.searchicon {\n  -webkit-transition: all 0.7s ease 0s;\n  -moz-transition: all 0.7s ease 0s;\n  -o-transition: all 0.7s ease 0s;\n  transition: all 0.7s ease 0s;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch>input {\n  width: 100%;\n  position: relative;\n  float: right;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  border: 0;\n  padding: 0;\n  margin: 0;\n  text-indent: 15px;\n  font-size: 12px;\n  height: 42px;\n  z-index: 2;\n  outline: none;\n  color: #7d7d7d;\n  -webkit-transition: all 0.7s ease 0s;\n  -moz-transition: all 0.7s ease 0s;\n  -o-transition: all 0.7s ease 0s;\n  transition: all 0.7s ease 0s;\n  -webkit-border-radius: 2px;\n  -moz-border-radius: 2px;\n  border-radius: 2px;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch>input:focus~.btnstyle {\n  color: #fff;\n  opacity: 0.9;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch>input:focus~.searchicon {\n  opacity: 1;\n  z-index: 3;\n  color: #FFFFFF;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch>.btnstyle {\n  top: 0px;\n  position: absolute;\n  right: 0;\n  bottom: 0;\n  width: 49px;\n  line-height: 30px;\n  z-index: 1;\n  cursor: pointer;\n  color: #fff;\n  z-index: 1000;\n  border: solid 0px;\n  -webkit-transition: all 0.7s ease 0s;\n  -moz-transition: all 0.7s ease 0s;\n  -o-transition: all 0.7s ease 0s;\n  transition: all 0.7s ease 0s;\n  -webkit-border-radius: 0px 2px 2px 0px;\n  -moz-border-radius: 0px 2px 2px 0px;\n  border-radius: 0px 2px 2px 0px;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch>.btnstyle>i {\n  line-height: 38px;\n  margin: 0;\n  padding: 0;\n  text-align: center;\n  color: #9c9c9c;\n}\n\n/* My Account Dropdown */\n.wsmenu>.wsmenu-list>li>ul.sub-menu {\n  position: absolute;\n  top: 60px;\n  z-index: 1000;\n  margin: 0;\n  padding: 0;\n  min-width: 190px;\n  background-color: #fff;\n  border: solid 1px #eeeeee;\n}\n.wsmenu>.wsmenu-list>li>ul.sub-menu>li {\n  position: relative;\n  margin: 0;\n  padding: 0;\n  display: block;\n}\n.wsmenu>.wsmenu-list>li>ul.sub-menu>li>a {\n  background-image: none;\n  color: #666666;\n  border-right: 0 none;\n  text-align: left;\n  display: block;\n  line-height: 22px;\n  padding: 8px 12px;\n  text-transform: none;\n  font-size: 13px;\n  letter-spacing: normal;\n  border-right: 0px solid;\n}\n.wsmenu>.wsmenu-list>li>ul.sub-menu>li>a:hover {\n  text-decoration: none;\n}\n.wsmenu>.wsmenu-list>li>ul.sub-menu>li>a>i {\n  margin-right: 9px;\n  font-size: 14px;\n}\n.wsmenu>.wsmenu-list>li.wsshopmyaccount {\n  float: right;\n}\n.wsmenu>.wsmenu-list>li.wsshopmyaccount>a {\n  display: block;\n  padding: 0 24px 0 24px;\n  line-height: 59px;\n  text-decoration: none;\n  position: relative;\n}\n.wsmenu>.wsmenu-list>.wsshopmyaccount>a i {\n  display: inline-block;\n  font-size: 13px;\n  line-height: inherit;\n  margin-right: 11px;\n  vertical-align: middle;\n}\n\n/* Main Menu Cart Icon*/\n.wsmenu>.wsmenu-list>li.wscarticon {\n  float: right;\n  clear: right;\n}\n.wsmenu>.wsmenu-list>li.wscarticon>a {\n  display: block;\n  color: #828181;\n  padding: 0 26px 0 22px;\n  line-height: 59px;\n  text-decoration: none;\n  position: relative;\n}\n.wsmenu>.wsmenu-list>li.wscarticon .hidetxt {\n  display: none;\n}\n.wsmenu>.wsmenu-list>li.wscarticon a {\n  padding: 0 27px 0 23px;\n  text-align: center;\n  border-left: 1px solid rgba(0, 0, 0, 0.1);\n  border-right: 1px solid rgba(0, 0, 0, 0.1);\n}\n.wsmenu>.wsmenu-list>li.wscarticon a i {\n  font-size: 16px;\n}\n.wsmenu>.wsmenu-list>li.wscarticon em.roundpoint {\n  position: absolute;\n  top: 14px;\n  right: 21px;\n  width: 17px;\n  height: 17px;\n  background-color: #DA4B38;\n  -webkit-border-radius: 50%;\n  -moz-border-radius: 50%;\n  border-radius: 50%;\n  font-size: 9px;\n  text-align: center;\n  font-style: normal;\n  line-height: 16px;\n  color: #fff;\n}\n.wsmenu>.wsmenu-list>li.wscarticon i {\n  display: inline-block;\n  font-size: 13px;\n  line-height: inherit;\n  margin-right: 2px;\n  color: #7b7b7b;\n}\n\n/* ================== Desktop Tabing Mega Menus CSS  ================== */\n/* Tabing Leftside */\n.wsmenu>.wsmenu-list>li>.wsshoptabing {\n  width: 100%;\n  text-align: left;\n  margin: 0px;\n  padding: 0px;\n  position: absolute;\n  top: 60px;\n  background-color: #f8f8f8;\n  left: 0;\n  border-bottom: solid 2px #376cb7;\n  border-top: solid 0px;\n  z-index: 101;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp {\n  width: 100%;\n  display: block;\n  position: relative;\n  background-color: #f5f5f5;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing.wtsdepartmentmenu {\n  background: #fff;\n  border-bottom: solid 1px #d1d3d4;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem {\n  display: block;\n  margin: 0px;\n  padding: 0px;\n  font-size: 12px;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li:before,\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li:after {\n  content: \"\";\n  display: table;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li:after {\n  clear: both;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li {\n  width: 100%;\n  list-style: none;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li>a {\n  display: block;\n  padding: 15px 11px;\n  font-size: 13px;\n  color: #606060;\n  border-bottom: solid 1px #e5e5e5;\n  width: 23%;\n  float: left;\n  position: relative;\n  border-left: 3px solid #fff;\n  background-color: #fff;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li:hover a {\n  text-decoration: none;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li:hover>a {\n  text-decoration: none;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li>a>i {\n  color: #848484;\n  margin-right: 5px;\n  text-align: center;\n  width: 24px;\n  font-size: 16px;\n}\n\n/* Tabing Rightside */\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li>.wstitemright {\n  opacity: 0;\n  visibility: hidden;\n  position: absolute;\n  right: 0;\n  top: 0;\n  background-color: #f5f5f5;\n  color: #000;\n  display: block;\n  float: left;\n  padding: 10px 8px 0px 8px;\n  width: 77%;\n  min-height: 200px;\n}\n.wsmenu>.wsmenu-list>li:hover>.wsshoptabing>.wsshopwp>.wstabitem>li.wsshoplink-active>.wstitemright {\n  opacity: 1;\n  visibility: visible;\n}\n\n/* Mega Menu Content Formatting */\n.carousel-caption {\n  width: 100%;\n  display: block;\n  text-align: center;\n  right: 0;\n  left: 0;\n  margin: 0;\n  padding: 0;\n  bottom: 0;\n}\n.carousel-caption h3 {\n  width: 100%;\n  display: block;\n  padding: 7px 0px;\n  background-color: rgba(0, 0, 0, 0.5);\n}\n.wsmenu>.wsmenu-list>li .wstbootslider {\n  float: right;\n  margin-top: 8px;\n}\n.wsmenu>.wsmenu-list>li .wstmegamenucolr {\n  display: block;\n  float: right;\n  margin-top: 8px;\n}\n.wsmenu>.wsmenu-list>li .wstheading {\n  width: 100%;\n  display: block;\n  padding: 10px 0px 6px 0px;\n  font-size: 12px;\n  font-weight: bold;\n  color: #333333;\n  border-bottom: solid 1px #d9d9d9;\n  margin-bottom: 12px;\n  text-transform: uppercase;\n}\n.wsmenu>.wsmenu-list>li .wstliststy01 {\n  padding: 0px 0px 8px 0px;\n  margin: 0px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy01 li {\n  width: 33.33%;\n  float: left;\n  line-height: 23px;\n  font-size: 14px;\n  list-style: none;\n  padding: 0px 0px 0px 0px;\n  margin: 0px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy01 li a {\n  color: #6e6e6e;\n  font-size: 12px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy01 li a:hover {\n  color: #000;\n  text-decoration: none;\n}\n.wsmenu>.wsmenu-list>li .wstliststy02 {\n  padding: 5px 0px 10px 0px;\n  margin: 0px;\n  text-align: left;\n}\n.wsmenu>.wsmenu-list>li .wstliststy02 li {\n  width: 100%;\n  list-style: none;\n  line-height: 25px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy02 li a {\n  color: #6e6e6e;\n  font-size: 12px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy02 li a:hover {\n  color: #000;\n  text-decoration: none;\n}\n.wsmenu>.wsmenu-list>li .wstliststy02 li.wstheading {\n  line-height: normal;\n  padding-left: 0px;\n  margin-top: 0px;\n  text-transform: none;\n}\n.wsmenu>.wsmenu-list>li .wstliststy02 li a .wstcount {\n  font-size: 10px;\n  color: #adadad;\n}\n.wsmenu>.wsmenu-list>li .wstliststy06 li.wstheading {\n  line-height: normal;\n  padding-left: 0px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy06 {\n  padding: 0px 0px 0px 0px;\n  margin: 0px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy06 li {\n  width: 100%;\n  list-style: none;\n  line-height: 24px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy06 li a {\n  color: #6e6e6e;\n  font-size: 12px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy06 li a:hover {\n  color: #000;\n  text-decoration: none;\n}\n.wsmenu>.wsmenu-list>li .wstliststy06 li.wstheading {\n  line-height: normal;\n}\n.wsmenu>.wsmenu-list>li .wstliststy06 li a .wstcount {\n  font-size: 10px;\n  color: #adadad;\n}\n.wsmenu>.wsmenu-list>li .wstliststy03 {\n  width: 100%;\n  padding: 0px 0px 8px 0px;\n  margin: 0px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy03 li {\n  width: 33.33%;\n  float: left;\n  line-height: 23px;\n  font-size: 14px;\n  list-style: none;\n  padding: 0px 0px 0px 0px;\n  margin: 0px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy03 li a {\n  color: #6e6e6e;\n  font-size: 12px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy03 li a:hover {\n  color: #000;\n  text-decoration: none;\n}\n.wsmenu>.wsmenu-list>li .wstliststy04 {\n  padding: 14px 0px 0px 0px;\n  margin: 0px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy04 li {\n  width: 100%;\n  list-style: none;\n  line-height: 22px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy04 li a {\n  color: #6e6e6e;\n  font-size: 12px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy04 li a:hover {\n  color: #000;\n  text-decoration: none;\n}\n.wsmenu>.wsmenu-list>li .wstliststy04 li.wstheading {\n  line-height: normal;\n  text-align: center;\n  padding: 12px 0px;\n  font-size: 13px;\n  margin-bottom: 12px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy04 li a .wstcount {\n  font-size: 10px;\n  color: #adadad;\n}\n.wsmenu>.wsmenu-list>li .wstliststy05 {\n  padding: 10px 0px 0px 0px;\n  margin: 0px;\n}\n.wsmenu>.wsmenu-list>li .wstmegamenucolr03 {\n  padding-top: 10px;\n  padding-left: 20px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy05 li {\n  width: 100%;\n  list-style: none;\n  line-height: 22px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy05 li a {\n  color: #6e6e6e;\n  font-size: 12px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy05 li a:hover {\n  color: #000;\n  text-decoration: none;\n}\n.wsmenu>.wsmenu-list>li .wstliststy05 li.wstheading {\n  line-height: normal;\n}\n.wsmenu>.wsmenu-list>li .wstliststy05 li a .wstcount {\n  font-size: 10px;\n  color: #adadad;\n}\n.wsmenu>.wsmenu-list>li .wstmorebtn {\n  border-radius: 2px;\n  color: #9b9b9b;\n  display: inline-block;\n  float: right;\n  font-size: 10px;\n  font-weight: normal;\n  letter-spacing: 0;\n  padding: 1px 7px;\n  text-align: right;\n  text-transform: none;\n}\n.wsmenu>.wsmenu-list>li .wstmenutag {\n  height: 18px;\n  line-height: 18px;\n  text-align: center;\n  font-size: 11px;\n  color: #fff;\n  border-radius: 2px;\n  position: relative;\n  font-family: Arial, Helvetica, sans-serif;\n  font-weight: normal;\n  padding: 1px 6px 1px 6px;\n  margin-left: 6px;\n  text-transform: none;\n  letter-spacing: -0.0px;\n}\n.wsmenu>.wsmenu-list>li .wstmenutag:after {\n  -moz-border-bottom-colors: none;\n  -moz-border-left-colors: none;\n  -moz-border-right-colors: none;\n  -moz-border-top-colors: none;\n  border-image: none;\n  border-style: solid;\n  border-width: 3px;\n  content: \"\";\n  left: -6px;\n  margin-top: 0px;\n  position: absolute;\n  top: 4px;\n  z-index: 1;\n}\n.wsmenu>.wsmenu-list>li .wstmenutag.redtag {\n  background-color: #fe7b8f;\n}\n.wsmenu>.wsmenu-list>li .wstmenutag.redtag:after {\n  border-color: transparent #fe7b8f transparent transparent;\n}\n.wsmenu>.wsmenu-list>li .wstmenutag.greentag {\n  background-color: #00c853;\n}\n.wsmenu>.wsmenu-list>li .wstmenutag.greentag:after {\n  border-color: transparent #00c853 transparent transparent;\n}\n.wsmenu>.wsmenu-list>li .wstmenutag.bluetag {\n  background-color: #4fc3f7;\n}\n.wsmenu>.wsmenu-list>li .wstmenutag.bluetag:after {\n  border-color: transparent #4fc3f7 transparent transparent;\n}\n.wsmenu>.wsmenu-list>li .wstmenutag.orangetag {\n  background-color: #FE7000;\n}\n.wsmenu>.wsmenu-list>li .wstmenutag.orangetag:after {\n  border-color: transparent #FE7000 transparent transparent;\n}\n.wsmenu>.wsmenu-list>li .kitchenmenuimg {\n  background-image: url();\n  background-position: bottom right;\n  background-repeat: no-repeat;\n}\n.wsmenu>.wsmenu-list>li .computermenubg {\n  background-image: url();\n  background-position: bottom right;\n  background-repeat: no-repeat;\n}\n.wsmenu>.wsmenu-list>li .wstpngsml {\n  padding-left: 18px;\n}\n.wsmenu>.wsmenu-list>li .wstfullwtag {\n  width: 100%;\n  display: block;\n  border-bottom: solid 1px #e5e5e5;\n  background-color: #f5f5f5;\n}\n\n/* Brand Mega Menu */\n.wsmenu>.wsmenu-list>li .wstbrandbottom {\n  width: 100%;\n  background-color: #fff;\n  display: block;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  visibility: hidden;\n  padding: 9px 6px;\n}\n.wsmenu-list>li:hover>.wtsbrandmenu>.wsshoptabingwp>.wstabitem02>li.wsshoplink-active>.wstbrandbottom {\n  opacity: 1;\n  visibility: visible;\n}\n.wsmenu>.wsmenu-list>li .wstabitem02 {\n  width: 100%;\n  padding: 0px;\n  margin: 0px 0px;\n  list-style: none;\n  display: table;\n}\n.wsmenu>.wsmenu-list>li .wstabitem02>li {\n  display: table-cell;\n  list-style: outside none none;\n  text-align: center;\n}\n.wsmenu>.wsmenu-list>li .wstabitem02>li>a {\n  display: block;\n  padding: 14px 0px;\n  font-size: 13px;\n  color: #717171;\n  background-color: #f5f5f5;\n  border-bottom: 1px solid #e5e5e5;\n  position: relative;\n}\n.wsmenu>.wsmenu-list>li .wstabitem02>.wsshoplink-active>a:after {\n  position: absolute;\n  content: '';\n  top: 42px;\n  right: 50%;\n  width: 13px;\n  height: 13px;\n  transform: rotate(225deg);\n  -webkit-transform: rotate(225deg);\n  -moz-transform: rotate(225deg);\n  -o-transform: rotate(225deg);\n  -ms-transform: rotate(225deg);\n  border-right: 1px solid #dbdbdb;\n  border-bottom: 1px solid #dbdbdb;\n  z-index: 100;\n  background-color: #ffffff;\n}\n.wsmenu>.wsmenu-list>li .wstabitem02>li:hover a {\n  text-decoration: none;\n  -webkit-border-radius: 4px 0px 0px 4px;\n  -moz-border-radius: 4px 0px 0px 4px;\n  border-radius: 4px 0px 0px 4px;\n}\n.wsmenu>.wsmenu-list>li .wstabitem02>.wsshoplink-active>a {\n  text-decoration: none;\n  -webkit-border-radius: 4px 0px 0px 4px;\n  -moz-border-radius: 4px 0px 0px 4px;\n  border-radius: 4px 0px 0px 4px;\n  background-color: #f5f5f5;\n  color: #333;\n}\n.wsmenu>.wsmenu-list>li .wstabitem02>.wsshoplink-active>a>i {\n  opacity: 1;\n}\n.wsmenu>.wsmenu-list>li .wstabitem02>li:hover a {\n  text-decoration: none;\n  -webkit-border-radius: 4px 0px 0px 4px;\n  -moz-border-radius: 4px 0px 0px 4px;\n  border-radius: 4px 0px 0px 4px;\n}\n.wsmenu>.wsmenu-list>li .wstabitem02>li>a i {\n  margin-right: 5px;\n  text-align: center;\n  width: 25px;\n  font-size: 17px;\n  opacity: 0.5;\n}\n.wsmenu>.wsmenu-list>li .brandcolor01 {\n  color: #424242;\n}\n.wsmenu>.wsmenu-list>li .brandcolor02 {\n  color: #00bcf2;\n}\n.wsmenu>.wsmenu-list>li .brandcolor03 {\n  color: #00aff0;\n}\n.wsmenu>.wsmenu-list>li .brandcolor04 {\n  color: #003087;\n}\n.wsmenu>.wsmenu-list>li .brandcolor05 {\n  color: #a82400;\n}\n.wsmenu>.wsmenu-list>li .brandcolor06 {\n  color: #ff3300;\n}\n.wsmenu>.wsmenu-list>li .brandcolor07 {\n  color: #7ac142;\n}\n.wsmenu>.wsmenu-list>li .brandcolor08 {\n  color: #ef4056;\n}\n\n/* ================== Desktop Mega Menus CSS  ================== */\n.wsmenu>.wsmenu-list>li>.wsmegamenu {\n  width: 100%;\n  left: 0px;\n  position: absolute;\n  top: 60px;\n  color: #000;\n  z-index: 1000;\n  margin: 0px;\n  text-align: left;\n  padding: 14px 5px;\n  font-size: 15px;\n  border: solid 1px #eeeeee;\n  background-color: #fff;\n}\n.wsmenu>.wsmenu-list>li>.wsmegamenu .title {\n  border-bottom: 1px solid #CCC;\n  font-size: 14px;\n  padding: 9px 5px 9px 0px;\n  font-size: 17px;\n  color: #424242;\n  margin: 0px 0px 7px 0px;\n  text-align: left;\n  height: 39px;\n}\n.wsmenu>.wsmenu-list>li>.wsmegamenu .link-list li {\n  display: block;\n  text-align: center;\n  white-space: nowrap;\n  text-align: left;\n}\n.wsmenu>.wsmenu-list>li>.wsmegamenu .link-list li a {\n  line-height: 18px;\n  border-right: none;\n  text-align: left;\n  padding: 6px 0px;\n  background: #fff;\n  background-image: none;\n  color: #666666;\n  border-right: 0 none;\n  display: block;\n  background-color: #fff;\n  color: #424242;\n}\n.wsmenu>.wsmenu-list>li>.wsmegamenu li i {\n  margin-right: 5px;\n  text-align: center;\n  width: 18px;\n}\n.wsmenu>.wsmenu-list>li>.wsmegamenu li a:hover {\n  background: transparent;\n  text-decoration: underline;\n}\n.wsmenu>.wsmenu-list>li>.wsmegamenu .link-list li i {\n  font-size: 11px;\n}\n.wsmenu>.wsmenu-list>li>.wsmegamenu li i {\n  margin-right: 5px;\n  text-align: center;\n  width: 18px;\n}\n.wsmenu>.wsmenu-list>li>.wsmegamenu .mrgtop {\n  margin-top: 15px;\n}\n.wsmenu>.wsmenu-list>li>.wsmegamenu .show-grid div {\n  padding-bottom: 10px;\n  padding-top: 10px;\n  background-color: #dbdbdb;\n  border: 1px solid #e7e7e7;\n  color: #6a6a6a;\n  margin: 2px 0px;\n  font-size: 13px;\n}\n\n/* ================== Desktop Half Menus CSS  ================== */\n.wsmenu>.wsmenu-list>li>.wsmegamenu.halfmenu {\n  width: 40%;\n  right: auto;\n  left: auto;\n}\n.wsmenu>.wsmenu-list>li>.wsmegamenu.halfdiv {\n  width: 35%;\n  right: 0px;\n  left: auto;\n}\n\n/* ================== Desktop Extra CSS ================== */\n.wsmobileheader {\n  display: none;\n}\n.overlapblackbg {\n  opacity: 0;\n  visibility: hidden;\n}\n.wsmenu .wsmenu-click {\n  display: none;\n}\n.wsmenu .wsmenu-click02 {\n  display: none;\n}\n.wsmenu .wsmenu-click03 {\n  display: none;\n}\n.hometext {\n  display: none;\n}\n\n/*==============================================================================\n                              Start Mobile CSS\n===============================================================================*/\n/* ================== Mobile Menu Change Brake Point ================== */\n@media only screen and (max-width: 991px) {\n\n  /* ================== Mobile Base CSS ================== */\nhtml {\n    overflow: hidden;\n    height: 100%;\n    -webkit-overflow-scrolling: touch;\n}\nbody {\n    height: 100%;\n    overflow-y: auto;\n    overflow-x: hidden;\n}\ndiv.wsactive {\n    overflow: hidden;\n}\n\n\n  /* ================== Mobile Main Menu CSS ================== */\n.smllogo {\n    display: none;\n}\n.wsmain {\n    margin: 0px;\n    background-color: transparent;\n}\n.wsmenu {\n    width: 100%;\n    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n    left: 0;\n    overflow-y: hidden;\n    padding: 0;\n    top: 0;\n    visibility: hidden;\n    position: fixed;\n    margin: 0px;\n    border-left: none;\n}\n.wsmenu>.wsmenu-list {\n    height: auto;\n    min-height: 100%;\n    width: 260px;\n    background: #fff;\n    padding-bottom: 0;\n    margin-left: -260px;\n    display: block;\n    text-align: center;\n    -webkit-transition: all 0.25s ease-in-out;\n    -moz-transition: all 0.25s ease-in-out;\n    -o-transition: all 0.25s ease-in-out;\n    -ms-transition: all 0.25s ease-in-out;\n    transition: all 0.25s ease-in-out;\n    position: static;\n}\n.wsmenu>.wsmenu-list>li {\n    width: 100%;\n    display: block;\n    float: none;\n    border-right: none;\n    background-color: transparent;\n    position: relative;\n    white-space: inherit;\n}\n@supports (-webkit-overflow-scrolling: touch) {\n.wsmenu>.wsmenu-list>li:last-child {\n      padding-bottom: 110px;\n}\n}\n.wsmenu>.wsmenu-list>li>a {\n    padding: 9px 32px 9px 18px;\n    font-size: 14px;\n    text-align: left;\n    border-right: solid 0px;\n    background-color: transparent;\n    color: #666666;\n    line-height: 25px;\n    border-bottom: 1px solid;\n    position: static;\n}\n.wsmenu>.wsmenu-list>li>.navtext {\n    padding-left: 18px;\n}\n.wsmenu>.wsmenu-list>li.wscarticon a {\n    padding-left: 18px;\n}\n.wsmenu>.wsmenu-list>li.wsshopmyaccount>a {\n    padding-left: 18px;\n}\n.wsmenu>.wsmenu-list>li>a>i {\n    font-size: 16px;\n    color: #bfbfbf;\n}\n.wsmenu>.wsmenu-list>li.wscarticon a i {\n    margin-right: 7px;\n    font-size: 15px;\n}\n.wsmenu>.wsmenu-list>li>a .wsarrow:after {\n    display: none;\n}\n.wsmenu>.wsmenu-list>li.wscarticon em.roundpoint {\n    display: inline-block;\n    right: auto;\n    left: 27px;\n}\n.wsmenu>.wsmenu-list>li:hover>a {\n    background-color: rgba(0, 0, 0, 0.08);\n    text-decoration: none;\n}\n.wsmenu>.wsmenu-list>li>a>.hometext {\n    display: inline-block;\n}\n.wsmenu>.wsmenu-list>li.wscarticon .hidetxt {\n    display: inline-block;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar {\n    display: none;\n}\n.wsmenu>.wsmenu-list>li.wscarticon {\n    float: none;\n}\n.wsmenu>.wsmenu-list>li.wsshopmyaccount {\n    float: none;\n}\n.wsmenu>.wsmenu-list>li.wscarticon a {\n    text-align: left;\n    font-size: 13px;\n}\n\n  /* ================== Mobile Dropdown CSS ================== */\n.wsmenu>.wsmenu-list>li>ul.sub-menu {\n    display: none;\n    position: relative;\n    top: 0px;\n    background-color: #fff;\n    border-bottom: solid 1px #ccc;\n    padding: 0px;\n    opacity: 1;\n    visibility: visible;\n    -webkit-transform: none;\n    -moz-transform: none;\n    -ms-transform: none;\n    -o-transform: none;\n    transform: none;\n    -webkit-transition: inherit;\n    -moz-transition: inherit;\n    transition: inherit;\n    -webkit-transform-style: flat;\n}\n.wsmenu>.wsmenu-list>li>ul.sub-menu>li>a {\n    line-height: 20px;\n    font-size: 13px;\n    padding: 13px 0px 13px 16px;\n    color: #6e6e6e;\n    border-bottom: solid 1px rgba(0, 0, 0, 0.13);\n}\n.wsmenu>.wsmenu-list>li>ul.sub-menu>li span+a {\n    padding-right: 30px;\n}\n.wsmenu>.wsmenu-list>li>ul.sub-menu>li>a:hover {\n    background-color: #e7e7e7;\n    color: #666666;\n    text-decoration: underline;\n}\n.wsmenu>.wsmenu-list>li>ul.sub-menu li:hover>a {\n    background-color: #e7e7e7;\n    color: #666666;\n}\n\n  /* ================== Mobile Mega Menu CSS  ================== */\n.wsmenu>.wsmenu-list>li>.wsmegamenu {\n    background-color: #fff;\n    padding-top: 5px;\n    color: #666666;\n    display: none;\n    position: relative;\n    top: 0px;\n    padding: 8px 0px 8px 0px;\n    border: solid 0px;\n    opacity: 1;\n    visibility: visible;\n    transform: none;\n    -o-transform: none;\n    -moz-transform: none;\n    -webkit-transform: none;\n    border-bottom: 1px solid rgba(0, 0, 0, 0.13);\n    -webkit-transform-style: flat;\n}\n.wsmenu>.wsmenu-list>li>.wsmegamenu.halfmenu {\n    width: 100%;\n}\n.wstabitem02>.wsshoplink-active>a:after {\n    display: none;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li {\n    position: relative;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li>a {\n    width: 100%;\n    margin: 0px;\n    float: none;\n    font-size: 12px;\n    padding: 14px 11px 14px 11px;\n    font-weight: bold;\n}\n.wsmenu>.wsmenu-list>li .wstheading {\n    font-weight: normal;\n    padding-left: 0px;\n    padding-right: 0px;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li>.wstitemright {\n    width: 100%;\n    position: static;\n    top: 0px;\n    min-height: inherit;\n    padding: 10px 0px;\n    opacity: 1;\n    visibility: visible;\n    display: none;\n    background-color: #fff;\n    border-bottom: 1px solid rgba(0, 0, 0, 0.13);\n}\n.wsmenu>.wsmenu-list>li .wstbootslider {\n    width: auto;\n}\n.wsmenu>.wsmenu-list>li .wstmegamenucolr {\n    width: auto;\n}\n.wsmenu>.wsmenu-list>li .wstliststy01>li {\n    width: 100%;\n    padding: 0px;\n    margin: 0px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy02 {\n    width: 100%;\n    padding: 0px;\n    margin: 0px 0px 15px 0px;\n}\n.wsmenu>.wsmenu-list>li .wstliststy03 li {\n    width: 100%;\n}\n.wsmenu>.wsmenu-list>li .wstliststy05 {\n    width: 100%;\n    padding: 0px;\n    margin-bottom: 10px;\n}\n.wsmenu>.wsmenu-list>li .kitchenmenuimg {\n    background-image: none;\n}\n.wsmenu>.wsmenu-list>li .computermenubg {\n    background-image: none;\n}\n.wsmenu>.wsmenu-list>li .wstbrandbottom {\n    width: 100%;\n    position: static;\n    top: 0px;\n    min-height: inherit;\n    padding: 10px 5px 15px 5px;\n    opacity: 1;\n    visibility: visible;\n    display: none;\n    border-bottom: 1px solid rgba(0, 0, 0, 0.13);\n}\n.wsmenu>.wsmenu-list>li .wstabitem02 {\n    display: block;\n}\n.wsmenu>.wsmenu-list>li .wstabitem02>li {\n    position: relative;\n    text-align: left;\n    display: block;\n}\n.wsmenu>.wsmenu-list>li .wstabitem02>li>a {\n    padding: 13px 11px;\n}\n.wsmenu>.wsmenu-list>li .wstabitem02>li>a {\n    background-color: #fff;\n}\n.wsmenu>.wsmenu-list>li .wstheading {\n    padding-left: 0px;\n}\n.wsmenu-list>li>.navtext {\n    margin: 0px;\n}\n.wsmenu .wsmenu-list>li .wsshoptabingwp {\n    background-color: #fff;\n    padding-left: 0px;\n    padding-right: 0px;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing {\n    background-color: #ffffff;\n    color: #666666;\n    display: none;\n    position: relative;\n    top: 0px;\n    padding: 0px;\n    border: solid 0px;\n    opacity: 1;\n    visibility: visible;\n    transform: none;\n    -o-transform: none;\n    -moz-transform: none;\n    -webkit-transform: none;\n    -webkit-transform-style: flat;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem {\n    width: 100%;\n    background-color: #fff;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li>a:after {\n    border: none;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li>a i {\n    display: none;\n}\n\n  /* ================== Mobile Header CSS ================== */\n.wsmobileheader {\n    width: 100%;\n    display: block;\n    position: fixed;\n    top: 0;\n    left: 0;\n    z-index: 10002;\n    height: 60px;\n    background-color: #eaecf0;\n    text-align: center;\n    -webkit-transition: all 0.25s ease-in-out;\n    -moz-transition: all 0.25s ease-in-out;\n    -o-transition: all 0.25s ease-in-out;\n    -ms-transition: all 0.25s ease-in-out;\n    transition: all 0.25s ease-in-out;\n    box-shadow: 0 0 1px rgba(0, 0, 0, .3);\n}\n.wsactive .wsmobileheader {\n    margin-left: 260px;\n    -webkit-transition: all 0.25s ease-in-out;\n    -moz-transition: all 0.25s ease-in-out;\n    -o-transition: all 0.25s ease-in-out;\n    -ms-transition: all 0.25s ease-in-out;\n    transition: all 0.25s ease-in-out;\n}\n.wsmobileheader>.smllogo {\n    display: block;\n    width: 80px;\n    margin: 7px auto 0px auto;\n    float: none;\n    padding-left: 0px;\n}\n.mobiletext {\n    display: inline-block;\n}\n\n  /*Mobile Search Bar*/\n.wsmobileheader .wssearch {\n    background-color: transparent;\n    z-index: 1000;\n    position: absolute;\n    top: 0px;\n    right: 0px;\n    padding: 18px 22px;\n    cursor: pointer;\n}\n.wsmobileheader .wssearch i {\n    font-size: 18px;\n    color: #9196a0;\n}\n.wsmobileheader .wssearchform {\n    display: none;\n    position: absolute;\n    width: calc((100% - 30px) - 23px);\n    height: 50px;\n    line-height: 44px;\n    top: 0px;\n    left: 0;\n    padding: 13px 15px;\n    cursor: default;\n}\n.wsmobileheader .wssearch.wsopensearch {\n    width: 100%;\n    background-color: #000;\n}\n.wsmobileheader .wssearch.wsopensearch .wssearchform {\n    display: block;\n}\n.wsmobileheader .wssearchform form {\n    width: 100%;\n    /* calc((100% - 10px) - 45px); */\n    display: block;\n    position: relative;\n}\n.wsmobileheader .wssearchform form:before {\n    content: \"\\F002\";\n    font-family: \"Font Awesome 5 Free\";\n    font-weight: 900;\n    left: 12px;\n    position: absolute;\n    top: 0;\n    color: #777777;\n    height: 34px;\n    line-height: 36px;\n    font-size: 15px\n}\n.wsmobileheader .wssearchform input {\n    width: 100%;\n    height: 34px;\n    -webkit-border-radius: 2px;\n    -moz-border-radius: 2px;\n    border-radius: 2px;\n    border: solid 0px;\n    text-indent: 33px;\n    margin: 0px;\n    line-height: 18px;\n    padding: 0px;\n    display: block;\n}\n.wsmobileheader .wssearch.wsopensearch {\n    left: 0px;\n    right: auto;\n    width: 100%;\n    height: 60px;\n}\n.wsmobileheader .wssearch i.wsclosesearch {\n    display: none;\n}\n.wsmobileheader .wssearch.wsopensearch i.wsclosesearch {\n    display: inline-block;\n    float: right;\n    font-size: 23px;\n}\n.wsmobileheader .wssearch.wsopensearch i.wsopensearch {\n    display: none;\n}\n\n  /* Mobile Toggle Menu icon (X ICON) */\n.wsanimated-arrow {\n    position: absolute;\n    left: 0;\n    top: 0;\n    z-index: 102;\n    -webkit-transition: all 0.4s ease-in-out;\n    -moz-transition: all 0.4s ease-in-out;\n    -o-transition: all 0.4s ease-in-out;\n    -ms-transition: all 0.4s ease-in-out;\n    transition: all 0.4s ease-in-out;\n}\n.wsanimated-arrow {\n    cursor: pointer;\n    padding: 16px 35px 16px 0px;\n    margin: 12px 0 0 15px;\n}\n.wsanimated-arrow span,\n  .wsanimated-arrow span:before,\n  .wsanimated-arrow span:after {\n    cursor: pointer;\n    height: 2px;\n    width: 17px;\n    background: #9196a0;\n    position: absolute;\n    display: block;\n    content: '';\n}\n.wsanimated-arrow span:before {\n    top: -7px;\n    width: 23px;\n}\n.wsanimated-arrow span:after {\n    bottom: -7px;\n    width: 17px;\n}\n.wsanimated-arrow span,\n  .wsanimated-arrow span:before,\n  .wsanimated-arrow span:after {\n    transition: all 500ms ease-in-out;\n}\n.wsactive .wsanimated-arrow span:after {\n    width: 23px;\n}\n.wsactive .wsanimated-arrow span {\n    background-color: transparent;\n}\n.wsactive .wsanimated-arrow span:before,\n  .wsactive .wsanimated-arrow.active span:after {\n    top: 7px;\n}\n.wsactive .wsanimated-arrow span:before {\n    transform: rotate(45deg);\n    -moz-transform: rotate(45deg);\n    -ms-transform: rotate(45deg);\n    -o-transform: rotate(45deg);\n    -webkit-transform: rotate(45deg);\n    bottom: 0px;\n}\n.wsactive .wsanimated-arrow span:after {\n    transform: rotate(-45deg);\n    -moz-transform: rotate(-45deg);\n    -ms-transform: rotate(-45deg);\n    -o-transform: rotate(-45deg);\n    -webkit-transform: rotate(-45deg);\n}\n\n  /* ================== Mobile Overlay/Drawer CSS ================== */\n.wsmenu>.overlapblackbg {\n    right: 0;\n    width: calc(100% - 260px);\n    height: 100vh;\n    min-height: 100%;\n    position: fixed;\n    top: 0;\n    opacity: 0;\n    visibility: hidden;\n    background-color: rgba(0, 0, 0, 0.45);\n    cursor: pointer;\n}\n.wsactive .wsmenu>.overlapblackbg {\n    opacity: 1;\n    visibility: visible;\n    -webkit-transition: opacity 1.5s ease-in-out;\n    -moz-transition: opacity 1.5s ease-in-out;\n    -ms-transition: opacity 1.5s ease-in-out;\n    -o-transition: opacity 1.5s ease-in-out;\n}\n.wsmenucontainer {\n    -webkit-transition: all 0.25s ease-in-out;\n    -moz-transition: all 0.25s ease-in-out;\n    -o-transition: all 0.25s ease-in-out;\n    -ms-transition: all 0.25s ease-in-out;\n    transition: all 0.25s ease-in-out;\n}\n.wsmenucontainer {\n    margin-left: 260px;\n    margin-bottom: 80px;\n    -webkit-transition: all 0.25s ease-in-out;\n    -moz-transition: all 0.25s ease-in-out;\n    -o-transition: all 0.25s ease-in-out;\n    -ms-transition: all 0.25s ease-in-out;\n    transition: all 0.25s ease-in-out;\n}\n.wsactive .wsmenu {\n    overflow-y: scroll;\n    -webkit-overflow-scrolling: touch;\n    visibility: visible;\n    z-index: 1000;\n    top: 0;\n}\n.wsactive .wsmenu>.wsmenu-list {\n    -webkit-transition: all 0.25s ease-in-out;\n    -moz-transition: all 0.25s ease-in-out;\n    -o-transition: all 0.25s ease-in-out;\n    -ms-transition: all 0.25s ease-in-out;\n    transition: all 0.25s ease-in-out;\n    margin-left: 0;\n}\n\n  /* ================== Mobile Sub Menu Expander Arrows  ================== */\n.wsmenu>.wsmenu-list>li>.wsmenu-click {\n    border-left: 1px solid;\n    cursor: pointer;\n    display: block;\n    height: 60px;\n    position: absolute;\n    right: 0;\n    top: 0;\n    width: 49px;\n    z-index: 10;\n}\n.wsmenu>.wsmenu-list>li>.wsmenu-click>i {\n    display: block;\n    height: 8px;\n    width: 8px;\n    float: right;\n    transform: rotate(-225deg);\n    margin: 23px 21px 0px 0px;\n}\n.wsmenu>.wsmenu-list>li>.wsmenu-click>i:before {\n    content: \"\";\n    width: 100%;\n    height: 100%;\n    border-width: 1.5px 1.5px 0 0;\n    border-style: solid;\n    border-color: rgba(0, 0, 0, 0.40);\n    transition: 0.2s ease;\n    display: block;\n    transform-origin: 100% 0;\n}\n.wsmenu>.wsmenu-list>li>.wsmenu-click.ws-activearrow>i {\n    transform: rotate(-45deg);\n    margin-top: 27px;\n}\n.wsmenu .wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li>.wsmenu-click02 {\n    border-left: 1px solid #f3f3f3;\n    cursor: pointer;\n    display: block;\n    height: 45px;\n    position: absolute;\n    right: 0;\n    top: 0;\n    width: 49px;\n    z-index: 10;\n    background-color: #f5f5f5;\n}\n.wsmenu .wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li>.wsmenu-click02 i {\n    display: block;\n    height: 8px;\n    width: 8px;\n    float: right;\n    transform: rotate(-225deg);\n    margin: 17px 21px 0px 0px;\n}\n.wsmenu .wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li>.wsmenu-click02 i:before {\n    content: \"\";\n    width: 100%;\n    height: 100%;\n    border-width: 1.5px 1.5px 0 0;\n    border-style: solid;\n    border-color: rgba(0, 0, 0, 0.40);\n    transition: 0.2s ease;\n    display: block;\n    transform-origin: 100% 0;\n}\n.wsmenu .wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li>.wsmenu-click02.ws-activearrow02>i {\n    transform: rotate(-45deg);\n    margin-top: 21px;\n}\n.wsmenu .wsmenu-list>li>.wtsbrandmenu>.wsshoptabingwp>.wstabitem02>li>.wsmenu-click03 {\n    border-left: 1px solid #f3f3f3;\n    cursor: pointer;\n    display: block;\n    height: 45px;\n    position: absolute;\n    right: 0;\n    top: 0;\n    width: 49px;\n    z-index: 10;\n    background-color: #f3f3f3;\n}\n.wsmenu .wsmenu-list>li>.wtsbrandmenu>.wsshoptabingwp>.wstabitem02>li>.wsmenu-click03 i {\n    display: block;\n    height: 8px;\n    width: 8px;\n    float: right;\n    transform: rotate(-225deg);\n    margin: 17px 21px 0px 0px;\n}\n.wsmenu .wsmenu-list>li>.wtsbrandmenu>.wsshoptabingwp>.wstabitem02>li>.wsmenu-click03 i:before {\n    content: \"\";\n    width: 100%;\n    height: 100%;\n    border-width: 1.5px 1.5px 0 0;\n    border-style: solid;\n    border-color: rgba(0, 0, 0, 0.40);\n    transition: 0.2s ease;\n    display: block;\n    transform-origin: 100% 0;\n}\n.wsmenu .wsmenu-list>li>.wtsbrandmenu>.wsshoptabingwp>.wstabitem02>li>.wsmenu-click03.ws-activearrow03>i {\n    transform: rotate(-45deg);\n    margin-top: 21px;\n}\n\n  /*End Media Query*/\n}\n\n/* Extra @Media Query*/\n@media only screen and (min-width: 992px) and (max-width:1262px) {\n.wsmenu>.wsmenu-list>li.wssearchbar {\n    width: 21%;\n}\n.smllogo {\n    width: 10%;\n    padding: 15px 0px 0 10px;\n}\n.wsmenu {\n    width: 90%\n}\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./resources/js/components/css/white-gry.css":
+/*!************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./resources/js/components/css/white-gry.css ***!
+  \************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* Desktop Main Menu Color */\n.headerfull {\n  background-color: #fff;\n}\n.wsmenu>.wsmenu-list {\n  background-color: #fff;\n}\n.wsmenu>.wsmenu-list>li>.navtext>span {\n  color: #9e9e9e;\n}\n.wsmenu>.wsmenu-list>li>.navtext>span+span {\n  color: #555555;\n}\n.wsmenu>.wsmenu-list>li>.navtext>span+span:after {\n  color: #9e9e9e\n}\n.wsmenu>.wsmenu-list>li.wsshopmyaccount>a {\n  color: #828181;\n}\n.wsmenu>.wsmenu-list>.wsshopmyaccount>a i {\n  color: #7b7b7b;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch>input {\n  background-color: #eeeeee;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch>.btnstyle {\n  background-color: #eeeeee;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch>input:focus {\n  color: #000;\n}\n.wsmenu>.wsmenu-list>li>a {\n  color: #fff;\n}\n.wsmenu>.wsmenu-list>li>a .wsarrow:after {\n  border-top-color: #b3b3b3;\n}\n.wsmenu>.wsmenu-list>li>a:hover .wsarrow:after {\n  border-top-color: #333;\n}\n.wsmenu>.wsmenu-list>li>a.active .wsarrow:after {\n  border-top-color: #333;\n}\n.wsmenu>.wsmenu-list>li:hover>a .wsarrow:after {\n  border-top-color: #333;\n}\n.wsmenu>.wsmenu-list>li>a>i {\n  color: #898d91;\n}\n.wsmenu>.wsmenu-list>li>a.active i {\n  color: #333;\n}\n.wsmenu>.wsmenu-list>li:hover>a>i {\n  color: #333;\n}\n.wsmenu>.wsmenu-list>li>a:hover i {\n  color: #333;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch>.btnstyle:hover {\n  background-color: #d7d7d7;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch>.btnstyle:hover i {\n  color: #333;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch>input:focus~.btnstyle {\n  background-color: #d7d7d7;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch>input:focus~.btnstyle>i {\n  color: #333;\n}\n.wsmenu>.wsmenu-list>li.wssearchbar>.topmenusearch>input:focus~.btnstyle i {\n  color: #333;\n}\n.wsmenu>.wsmenu-list>li>a.active {\n  background-color: #f5f5f5;\n  color: #333;\n}\n.wsmenu>.wsmenu-list>li:hover>a {\n  background-color: #f5f5f5;\n  color: #333;\n}\n.wsmenu>.wsmenu-list>li>ul.sub-menu>li:hover>a {\n  background-color: #f5f5f5;\n  color: #333;\n  text-decoration: none;\n}\n.wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li:hover>a {\n  background-color: #f5f5f5;\n  color: #333;\n}\n.wsmenu>.wsmenu-list>li>.wsshoptabing>.wsshopwp>.wstabitem>li.wsshoplink-active>a {\n  background-color: #f5f5f5;\n  color: #555555;\n  border-left: 3px solid #DA4B38;\n}\n\n/* Mobile Header Color */\n.wsmobileheader {\n  background-color: #fff;\n}\n.wsactive .wsmobileheader {\n  border-left: solid 1px #e0e0e0;\n}\n.wsmenu>.wsmenu-list>li>.wsmenu-click {\n  border-color: rgba(0, 0, 0, 0.1);\n}\n.wsmenu>.wsmenu-list>li>.wsmenu-click>i {\n  color: rgba(0, 0, 0, 0.25);\n}\n.wsmenu>.wsmenu-list>li>a {\n  border-bottom-color: rgba(0, 0, 0, 0.13);\n}", ""]);
 
 // exports
 
@@ -14309,66 +14767,1357 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "nav",
-    { staticClass: "nav-container container" },
+    "div",
+    {
+      staticClass: "wsmenucontainer",
+      class: { wsactive: _vm.iswsActive == true }
+    },
     [
-      _c("router-link", { staticClass: "nav-link", attrs: { to: "/home" } }, [
-        _c("img", {
-          attrs: { src: "http://comlibra.com/images/logo.svg", width: "66" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "nav-container-right" }, [
+      _c("div", { staticClass: "wsmobileheader clearfix" }, [
         _c(
-          "ul",
+          "a",
           {
-            staticStyle: { display: "flex", "justify-content": "space-between" }
+            staticClass: "wsanimated-arrow",
+            attrs: { id: "wsnavtoggle" },
+            on: {
+              click: function($event) {
+                _vm.iswsActive = !_vm.iswsActive
+              }
+            }
+          },
+          [_c("span")]
+        ),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "wssearch clearfix",
+            class: { wsopensearch: _vm.issearchActive == true }
           },
           [
-            _c(
-              "li",
-              [
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "nav-link",
-                    attrs: { to: { name: "order.checkout" } }
-                  },
-                  [
-                    _c(
-                      "svg",
-                      {
-                        staticClass: "icon svg-icon",
-                        attrs: { "aria-hidden": "true" }
-                      },
-                      [_c("use", { attrs: { "xlink:href": "#icon-gouwuche" } })]
-                    ),
-                    _vm._v(
-                      "\n          ( " +
-                        _vm._s(_vm.$store.state.cart.length) +
-                        " ) Items\n        "
-                    )
-                  ]
-                )
-              ],
-              1
-            ),
+            _c("i", {
+              staticClass: "wsopensearch fas fa-search",
+              on: {
+                click: function($event) {
+                  _vm.issearchActive = true
+                }
+              }
+            }),
             _vm._v(" "),
-            _vm.$store.state.auth.userInfo
-              ? _c(
-                  "li",
-                  [
+            _c("i", {
+              staticClass: "wsclosesearch fas fa-times",
+              on: {
+                click: function($event) {
+                  _vm.issearchActive = false
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "wssearchform clearfix" }, [
+              _c("form", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.searchWord,
+                      expression: "searchWord"
+                    }
+                  ],
+                  attrs: { type: "text", placeholder: "Search Here" },
+                  domProps: { value: _vm.searchWord },
+                  on: {
+                    keyup: function($event) {
+                      return _vm.submitSearch()
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.searchWord = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "headerfull" }, [
+        _c("div", { staticClass: "wsmain clearfix" }, [
+          _c(
+            "div",
+            { staticClass: "smllogo" },
+            [
+              _c("router-link", { attrs: { to: "/home" } }, [
+                _c("img", {
+                  attrs: {
+                    src: "http://online.comlibra.com/img/logo.e8b1340e.svg",
+                    alt: "",
+                    width: "80"
+                  }
+                })
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "nav",
+            { staticClass: "wsmenu clearfix", staticStyle: { height: "100%" } },
+            [
+              _c("div", { staticClass: "overlapblackbg" }),
+              _vm._v(" "),
+              _c("ul", { staticClass: "wsmenu-list" }, [
+                _c("li", { attrs: { "aria-haspopup": "true" } }, [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "wsmenu-click",
+                      class: {
+                        "ws-activearrow": _vm.iswholeDartmentActive == true
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.iswholeDartmentActive = !_vm.iswholeDartmentActive
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "wsmenu-arrow" })]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "wsshoptabing wtsdepartmentmenu clearfix",
+                      style: {
+                        display:
+                          _vm.iswholeDartmentActive == true ||
+                          _vm.iswsActive == false
+                            ? "block"
+                            : "none"
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "wsshopwp clearfix",
+                          staticStyle: { height: "auto" }
+                        },
+                        [
+                          _c("ul", { staticClass: "wstabitem clearfix" }, [
+                            _c(
+                              "li",
+                              {
+                                class: {
+                                  "wsshoplink-active": 3 == _vm.isActive
+                                },
+                                on: {
+                                  mouseenter: function($event) {
+                                    return _vm.toggleClass(3)
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "wsmenu-click02",
+                                    class: {
+                                      "ws-activearrow02": _vm.isArrowActive == 2
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.toggleSubmenu(2)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "wsmenu-arrow" })]
+                                ),
+                                _vm._v(" "),
+                                _vm._m(2),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "wstitemright clearfix",
+                                    style: {
+                                      display:
+                                        _vm.isArrowActive == 2 ? "block" : ""
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "container-fluid" },
+                                      [
+                                        _c("div", { staticClass: "row" }, [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "col-lg-3 col-md-12 clearfix"
+                                            },
+                                            [
+                                              _c(
+                                                "ul",
+                                                {
+                                                  staticClass:
+                                                    "wstliststy02 clearfix"
+                                                },
+                                                [
+                                                  _c(
+                                                    "li",
+                                                    {
+                                                      staticClass:
+                                                        "wstheading clearfix"
+                                                    },
+                                                    [_vm._v("Household scale")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "connected-bathroom-scale"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Connected Bathroom Scale\n                                 "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "bathroom-scale"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Bathroom Scale\n                                 "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "kitchen-scale"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Kitchen Scale\n                                "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "luggage-scale"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Luggage Scale\n                                 "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "pocket-scale"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Pocket Scale\n                                 "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "col-lg-3 col-md-12 clearfix"
+                                            },
+                                            [
+                                              _c(
+                                                "ul",
+                                                {
+                                                  staticClass:
+                                                    "wstliststy02 clearfix"
+                                                },
+                                                [
+                                                  _c(
+                                                    "li",
+                                                    {
+                                                      staticClass:
+                                                        "wstheading clearfix"
+                                                    },
+                                                    [_vm._v("Retail Scale")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "tabletop-price-scale"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Tabletop Price Scale\n                                 "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "platform-price-scale"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Platform Price Scale\n                                 "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "barcode-printing-scale"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Barcode Printing Scale\n                                 "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "col-lg-3 col-md-12 clearfix"
+                                            },
+                                            [
+                                              _c(
+                                                "ul",
+                                                {
+                                                  staticClass:
+                                                    "wstliststy02 clearfix"
+                                                },
+                                                [
+                                                  _c(
+                                                    "li",
+                                                    {
+                                                      staticClass:
+                                                        "wstheading clearfix"
+                                                    },
+                                                    [_vm._v("Industrial Scale")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "floor-scale"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Floor Scale\n                                 "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "crane-scale"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Crane Scale\n                                 "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "roller-conveyor-scale"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Roller Conveyor Scale\n                                 "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "height-scale"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Hospital Height Scale\n                                 "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "col-lg-3 col-md-12 clearfix"
+                                            },
+                                            [
+                                              _c(
+                                                "ul",
+                                                {
+                                                  staticClass:
+                                                    "wstliststy02 clearfix"
+                                                },
+                                                [
+                                                  _c(
+                                                    "li",
+                                                    {
+                                                      staticClass:
+                                                        "wstheading clearfix"
+                                                    },
+                                                    [_vm._v("Spare Parts")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "load-cell"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Load Cell\n                                 "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "battery"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Battery\n                                 "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "other-scale-parts"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Other Scale Parts\n                                 "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _vm._m(3),
+                                          _vm._v(" "),
+                                          _vm._m(4)
+                                        ])
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                class: {
+                                  "wsshoplink-active": 4 == _vm.isActive
+                                },
+                                on: {
+                                  mouseenter: function($event) {
+                                    return _vm.toggleClass(4)
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "wsmenu-click02",
+                                    class: {
+                                      "ws-activearrow02": _vm.isArrowActive == 3
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.toggleSubmenu(3)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "wsmenu-arrow" })]
+                                ),
+                                _vm._v(" "),
+                                _vm._m(5),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "wstitemright clearfix kitchenmenuimg",
+                                    style: {
+                                      display:
+                                        _vm.isArrowActive == 3 ? "block" : ""
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "container-fluid" },
+                                      [
+                                        _c("div", { staticClass: "row" }, [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-lg-3 col-md-12"
+                                            },
+                                            [
+                                              _c(
+                                                "ul",
+                                                {
+                                                  staticClass:
+                                                    "wstliststy02 clearfix"
+                                                },
+                                                [
+                                                  _c(
+                                                    "li",
+                                                    {
+                                                      staticClass:
+                                                        "wstheading clearfix"
+                                                    },
+                                                    [_vm._v("Home Appliances")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "bathroom-scale"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                    Bathroom Scale\n                                "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-lg-3 col-md-12"
+                                            },
+                                            [
+                                              _c(
+                                                "ul",
+                                                {
+                                                  staticClass:
+                                                    "wstliststy02 clearfix"
+                                                },
+                                                [
+                                                  _c(
+                                                    "li",
+                                                    {
+                                                      staticClass:
+                                                        "wstheading clearfix"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "Kitchen Appliances"
+                                                      )
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "kitchen-scale"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Kitchen Scale\n                                "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "timer"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Timer\n                                "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "blender"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Blender\n                                "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                class: {
+                                  "wsshoplink-active": 5 == _vm.isActive
+                                },
+                                on: {
+                                  mouseenter: function($event) {
+                                    return _vm.toggleClass(5)
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "wsmenu-click02",
+                                    class: {
+                                      "ws-activearrow02": _vm.isArrowActive == 4
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.toggleSubmenu(4)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "wsmenu-arrow" })]
+                                ),
+                                _vm._v(" "),
+                                _vm._m(6),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "wstitemright clearfix",
+                                    style: {
+                                      display:
+                                        _vm.isArrowActive == 4 ? "block" : ""
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "container-fluid" },
+                                      [
+                                        _c("div", { staticClass: "row" }, [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-lg-3 col-md-12"
+                                            },
+                                            [
+                                              _c(
+                                                "ul",
+                                                {
+                                                  staticClass:
+                                                    "wstliststy02 clearfix"
+                                                },
+                                                [
+                                                  _c(
+                                                    "li",
+                                                    {
+                                                      staticClass:
+                                                        "wstheading clearfix"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "Phones Accessories"
+                                                      )
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "live-streaming"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                    Live Streaming\n                                "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "wireless-earphone"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                    Wireless Earphone\n                                "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "phone-radiator"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                    Phone Radiator\n                                "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-lg-3 col-md-12"
+                                            },
+                                            [
+                                              _c(
+                                                "ul",
+                                                {
+                                                  staticClass:
+                                                    "wstliststy02 clearfix"
+                                                },
+                                                [
+                                                  _c(
+                                                    "li",
+                                                    {
+                                                      staticClass:
+                                                        "wstheading clearfix"
+                                                    },
+                                                    [_vm._v("Wearable Device")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "activity-tracker"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                    Activity Tracker\n                                "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-lg-3 col-md-12"
+                                            },
+                                            [
+                                              _c(
+                                                "ul",
+                                                {
+                                                  staticClass:
+                                                    "wstliststy02 clearfix"
+                                                },
+                                                [
+                                                  _c(
+                                                    "li",
+                                                    {
+                                                      staticClass:
+                                                        "wstheading clearfix"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                                Computer Accessories\n                              "
+                                                      )
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "hanging-light-bar"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                  Hanging Light Bar\n                                "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                class: {
+                                  "wsshoplink-active": 7 == _vm.isActive
+                                },
+                                on: {
+                                  mouseenter: function($event) {
+                                    return _vm.toggleClass(7)
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "wsmenu-click02",
+                                    class: {
+                                      "ws-activearrow02": _vm.isArrowActive == 5
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.toggleSubmenu(5)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "wsmenu-arrow" })]
+                                ),
+                                _vm._v(" "),
+                                _vm._m(7),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "wstitemright clearfix wstpngsml",
+                                    style: {
+                                      display:
+                                        _vm.isArrowActive == 5 ? "block" : ""
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "container-fluid" },
+                                      [
+                                        _c("div", { staticClass: "row" }, [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-lg-3 col-md-12"
+                                            },
+                                            [
+                                              _c(
+                                                "ul",
+                                                {
+                                                  staticClass:
+                                                    "wstliststy02 clearfix"
+                                                },
+                                                [
+                                                  _c(
+                                                    "li",
+                                                    {
+                                                      staticClass:
+                                                        "wstheading clearfix"
+                                                    },
+                                                    [_vm._v("Personal Care")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "li",
+                                                    [
+                                                      _c(
+                                                        "router-link",
+                                                        {
+                                                          attrs: {
+                                                            to: {
+                                                              name: "category",
+                                                              params: {
+                                                                category:
+                                                                  "oral-care"
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                    Oral "
+                                                          ),
+                                                          _c(
+                                                            "span",
+                                                            {
+                                                              staticClass:
+                                                                "wstmenutag bluetag"
+                                                            },
+                                                            [_vm._v("Popular")]
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "wssearchbar clearfix" }, [
+                  _c("form", { staticClass: "topmenusearch" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.searchWord,
+                          expression: "searchWord"
+                        }
+                      ],
+                      attrs: {
+                        placeholder: "Search Product By Name, Category..."
+                      },
+                      domProps: { value: _vm.searchWord },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.searchWord = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
                     _c(
-                      "router-link",
+                      "button",
                       {
-                        staticClass: "nav-link",
-                        attrs: {
-                          to: {
-                            name: "UserProfile",
-                            params: { user: _vm.$store.state.auth.userInfo.id }
+                        staticClass: "btnstyle",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.submitSearch()
                           }
                         }
                       },
+                      [_c("i", { staticClass: "searchicon fas fa-search" })]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "wscarticon clearfix" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "order.checkout" } } },
                       [
                         _c(
                           "svg",
@@ -14378,119 +16127,298 @@ var render = function() {
                           },
                           [
                             _c("use", {
-                              attrs: { "xlink:href": "#icon-login" }
+                              attrs: { "xlink:href": "#icon-gouwuche" }
                             })
                           ]
                         ),
                         _vm._v(" "),
-                        _c("span", [_vm._v("Profile")])
+                        _c("em", { staticClass: "roundpoint" }, [
+                          _vm._v(
+                            "\n                 " +
+                              _vm._s(_vm.$store.state.cart.length) +
+                              "\n              "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "hidetxt" }, [
+                          _vm._v(
+                            "\n                Items In Cart\n              "
+                          )
+                        ])
                       ]
                     )
                   ],
                   1
-                )
-              : _c(
-                  "li",
-                  [
-                    _c(
-                      "router-link",
-                      { staticClass: "nav-link", attrs: { to: "/login" } },
-                      [
-                        _c(
-                          "svg",
-                          {
-                            staticClass: "icon svg-icon",
-                            attrs: { "aria-hidden": "true" }
-                          },
-                          [
-                            _c("use", {
-                              attrs: { "xlink:href": "#icon-md-log-in" }
-                            })
-                          ]
-                        ),
-                        _vm._v("Sign In/Up\n        ")
-                      ]
-                    )
-                  ],
-                  1
-                ),
-            _vm._v(" "),
-            _c(
-              "li",
-              [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        _vm.submenus = !_vm.submenus
-                      }
-                    }
-                  },
-                  [
-                    _c(
-                      "svg",
-                      {
-                        staticClass: "icon svg-icon",
-                        attrs: { "aria-hidden": "true" }
-                      },
-                      [_c("use", { attrs: { "xlink:href": "#icon-chanpin" } })]
-                    ),
-                    _vm._v(" "),
-                    _c("span", [_vm._v("Products")])
-                  ]
                 ),
                 _vm._v(" "),
-                _c("transition", { attrs: { name: "fade" } }, [
-                  _vm.submenus
-                    ? _c("div", { staticClass: "submenu" }, [
+                _vm.$store.state.auth.userInfo
+                  ? _c(
+                      "li",
+                      {
+                        staticClass: "wsshopmyaccount",
+                        attrs: { "aria-haspopup": "true" }
+                      },
+                      [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "wsmenu-click",
+                            class: {
+                              "ws-activearrow": _vm.isaccountActive == true
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.isaccountActive = !_vm.isaccountActive
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "wsmenu-arrow" })]
+                        ),
+                        _vm._v(" "),
+                        _c("a", { attrs: { href: "#" } }, [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "icon svg-icon wsmenu-arrow",
+                              attrs: { "aria-hidden": "true" }
+                            },
+                            [
+                              _c("use", {
+                                attrs: { "xlink:href": "#icon-login" }
+                              })
+                            ]
+                          ),
+                          _vm._v(" My Account\n              ")
+                        ]),
+                        _vm._v(" "),
                         _c(
                           "ul",
-                          _vm._l(_vm.categories, function(cat, index) {
-                            return _c(
+                          {
+                            staticClass: "sub-menu",
+                            style: {
+                              display:
+                                _vm.isaccountActive == true &&
+                                _vm.iswsActive == true
+                                  ? "block"
+                                  : ""
+                            }
+                          },
+                          [
+                            _c(
                               "li",
-                              { key: index },
                               [
                                 _c(
                                   "router-link",
                                   {
                                     attrs: {
                                       to: {
-                                        name: "category",
-                                        params: { category: cat.slug }
+                                        name: "UserProfile",
+                                        params: {
+                                          user:
+                                            _vm.$store.state.auth.userInfo.id
+                                        }
                                       }
                                     }
                                   },
                                   [
                                     _vm._v(
-                                      "\n                  " +
-                                        _vm._s(cat.name) +
-                                        "\n                "
+                                      "\n                  View Profile\n                "
                                     )
                                   ]
                                 )
                               ],
                               1
-                            )
-                          }),
-                          0
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    attrs: {
+                                      to: {
+                                        name: "UserOrder",
+                                        params: {
+                                          user:
+                                            _vm.$store.state.auth.userInfo.id
+                                        }
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                  My Order\n                "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    attrs: {
+                                      to: {
+                                        name: "UserAddress",
+                                        params: {
+                                          user:
+                                            _vm.$store.state.auth.userInfo.id
+                                        }
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                  My Address\n                "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c(
+                                "a",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.signOut()
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                  Logout\n                "
+                                  )
+                                ]
+                              )
+                            ])
+                          ]
                         )
-                      ])
-                    : _vm._e()
-                ])
-              ],
-              1
-            )
-          ]
-        )
+                      ]
+                    )
+                  : _c(
+                      "li",
+                      { staticClass: "wsshopmyaccount" },
+                      [
+                        _c(
+                          "router-link",
+                          { staticClass: "nav-link", attrs: { to: "/login" } },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "icon svg-icon",
+                                attrs: { "aria-hidden": "true" }
+                              },
+                              [
+                                _c("use", {
+                                  attrs: { "xlink:href": "#icon-md-log-in" }
+                                })
+                              ]
+                            ),
+                            _vm._v("Sign In/Up\n            ")
+                          ]
+                        )
+                      ],
+                      1
+                    )
+              ])
+            ]
+          )
+        ])
       ])
-    ],
-    1
+    ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "smllogo" }, [
+      _c("img", {
+        attrs: {
+          src: "http://online.comlibra.com/img/logo.e8b1340e.svg",
+          width: "80",
+          alt: ""
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "navtext", attrs: { href: "#" } }, [
+      _c("span", [_vm._v("Shop By")]),
+      _vm._v(" "),
+      _c("span", [_vm._v("Department")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-balance-scale" }),
+      _vm._v("\n                      Weight Scales\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-6 wstadsize01 clearfix" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("img", { attrs: { src: "", alt: "" } })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-6 wstadsize02 clearfix" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("img", { attrs: { src: "", alt: "" } })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-utensils" }),
+      _vm._v("Home & Kitchen")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-tv" }),
+      _vm._v("Electronics Appliances")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-heartbeat" }),
+      _vm._v("Health Care Products")
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -31476,6 +33404,7 @@ var routes = [{
   path: '/',
   redirect: '/home'
 }, {
+  // 增加搜索功能;
   path: '/products',
   name: 'products.index',
   component: function component() {
@@ -31759,9 +33688,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth */ "./resources/js/store/auth.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vuex_persistedstate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex-persistedstate */ "./node_modules/vuex-persistedstate/dist/vuex-persistedstate.es.js");
+/* harmony import */ var _menu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./menu */ "./resources/js/store/menu.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vuex_persistedstate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex-persistedstate */ "./node_modules/vuex-persistedstate/dist/vuex-persistedstate.es.js");
+
 
 
 
@@ -31850,7 +33781,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   actions: {
     getProducts: function getProducts(_ref3) {
       var commit = _ref3.commit;
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('/api/products').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_4___default.a.get('/api/products').then(function (response) {
         commit('updateProducts', response.data);
       })["catch"](function (error) {
         return console.error(error);
@@ -31858,7 +33789,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     getCategories: function getCategories(_ref4) {
       var commit = _ref4.commit;
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('/api/categories').then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_4___default.a.get('/api/categories').then(function (res) {
         return commit('SET_CATEGORIES', res.data);
       })["catch"](function (err) {
         return alert(err);
@@ -31879,12 +33810,42 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     }
   },
   modules: {
-    auth: _auth__WEBPACK_IMPORTED_MODULE_2__["default"]
+    auth: _auth__WEBPACK_IMPORTED_MODULE_2__["default"],
+    menu: _menu__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  plugins: [Object(vuex_persistedstate__WEBPACK_IMPORTED_MODULE_4__["default"])({
+  plugins: [Object(vuex_persistedstate__WEBPACK_IMPORTED_MODULE_5__["default"])({
     storage: window.sessionStorage
   })]
 }));
+
+/***/ }),
+
+/***/ "./resources/js/store/menu.js":
+/*!************************************!*\
+  !*** ./resources/js/store/menu.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var state = {
+  searchWord: ''
+};
+var getters = {};
+var mutations = {
+  setsearchWord: function setsearchWord(state, word) {
+    state.searchWord = word;
+  }
+};
+var actions = {};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions
+});
 
 /***/ }),
 

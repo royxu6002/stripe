@@ -99,7 +99,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(['SET_CATEGORY'])),
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['productsFilteredBy'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categories']))
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['productsFilteredBy'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categories'])), {}, {
+    productsFilteredBySearch: function productsFilteredBySearch() {
+      var _this = this;
+
+      return this.$store.state.products.filter(function (product) {
+        return JSON.stringify(product.categories).toLowerCase().indexOf(_this.$store.state.menu.searchWord) > -1 || JSON.stringify(product.name).toLowerCase().indexOf(_this.$store.state.menu.searchWord) > -1 || JSON.stringify(product.description).toLowerCase().indexOf(_this.$store.state.menu.searchWord) > -1;
+      });
+    }
+  })
 });
 
 /***/ }),
@@ -167,7 +175,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "row" },
-        _vm._l(_vm.productsFilteredBy, function(product) {
+        _vm._l(_vm.productsFilteredBySearch, function(product) {
           return _c(
             "div",
             { key: product.id, staticClass: "col-lg-3 col-md-4 col-sm-6 mb-4" },
