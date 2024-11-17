@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadScript", function() { return loadScript; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "version", function() { return version; });
 /*!
- * paypal-js v3.1.6 (2021-04-02T19:09:10.301Z)
+ * paypal-js v3.1.11 (2021-06-03T21:16:51.218Z)
  * Copyright 2020-present, PayPal, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +29,7 @@ __webpack_require__.r(__webpack_exports__);
  * limitations under the License.
  */
 function findScript(url, attributes) {
-  var currentScript = document.querySelector("script[src=\"".concat(url, "\"]"));
+  var currentScript = document.querySelector("script[src=\"" + url + "\"]");
   if (currentScript === null) return null;
   var nextScript = createScriptElement(url, attributes); // ignore the data-uid-auto attribute that gets auto-assigned to every script tag
 
@@ -49,11 +49,11 @@ function findScript(url, attributes) {
   });
   return isExactMatch ? currentScript : null;
 }
-function insertScriptElement(_ref) {
-  var url = _ref.url,
-      attributes = _ref.attributes,
-      onSuccess = _ref.onSuccess,
-      onError = _ref.onError;
+function insertScriptElement(_a) {
+  var url = _a.url,
+      attributes = _a.attributes,
+      onSuccess = _a.onSuccess,
+      onError = _a.onError;
   var newScript = createScriptElement(url, attributes);
   newScript.onerror = onError;
   newScript.onload = onSuccess;
@@ -70,7 +70,7 @@ function processOptions(options) {
   var processedMerchantIDAttributes = processMerchantID(options["merchant-id"], options["data-merchant-id"]);
   var newOptions = Object.assign({}, options, processedMerchantIDAttributes);
 
-  var _Object$keys$filter$r = Object.keys(newOptions).filter(function (key) {
+  var _a = Object.keys(newOptions).filter(function (key) {
     return typeof newOptions[key] !== "undefined" && newOptions[key] !== null && newOptions[key] !== "";
   }).reduce(function (accumulator, key) {
     var value = newOptions[key].toString();
@@ -86,11 +86,11 @@ function processOptions(options) {
     queryParams: {},
     dataAttributes: {}
   }),
-      queryParams = _Object$keys$filter$r.queryParams,
-      dataAttributes = _Object$keys$filter$r.dataAttributes;
+      queryParams = _a.queryParams,
+      dataAttributes = _a.dataAttributes;
 
   return {
-    url: "".concat(sdkBaseURL, "?").concat(objectToQueryString(queryParams)),
+    url: sdkBaseURL + "?" + objectToQueryString(queryParams),
     dataAttributes: dataAttributes
   };
 }
@@ -103,8 +103,11 @@ function objectToQueryString(params) {
   return queryString;
 }
 
-function createScriptElement(url) {
-  var attributes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+function createScriptElement(url, attributes) {
+  if (attributes === void 0) {
+    attributes = {};
+  }
+
   var newScript = document.createElement("script");
   newScript.src = url;
   Object.keys(attributes).forEach(function (key) {
@@ -149,15 +152,18 @@ function processMerchantID(merchantID, dataMerchantID) {
  * @return {Promise<Object>} paypalObject - reference to the global window PayPal object.
  */
 
-function loadScript(options) {
-  var PromisePonyfill = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : getDefaultPromiseImplementation();
+function loadScript(options, PromisePonyfill) {
+  if (PromisePonyfill === void 0) {
+    PromisePonyfill = getDefaultPromiseImplementation();
+  }
+
   validateArguments(options, PromisePonyfill); // resolve with null when running in Node
 
   if (typeof window === "undefined") return PromisePonyfill.resolve(null);
 
-  var _processOptions = processOptions(options),
-      url = _processOptions.url,
-      dataAttributes = _processOptions.dataAttributes;
+  var _a = processOptions(options),
+      url = _a.url,
+      dataAttributes = _a.dataAttributes;
 
   var namespace = dataAttributes["data-namespace"] || "paypal";
   var existingWindowNamespace = getPayPalWindowNamespace(namespace); // resolve with the existing global paypal namespace when a script with the same params already exists
@@ -176,7 +182,7 @@ function loadScript(options) {
       return newWindowNamespace;
     }
 
-    throw new Error("The window.".concat(namespace, " global variable is not available."));
+    throw new Error("The window." + namespace + " global variable is not available.");
   });
 }
 /**
@@ -187,8 +193,11 @@ function loadScript(options) {
  * @return {Promise<void>} returns a promise to indicate if the script was successfully loaded.
  */
 
-function loadCustomScript(options) {
-  var PromisePonyfill = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : getDefaultPromiseImplementation();
+function loadCustomScript(options, PromisePonyfill) {
+  if (PromisePonyfill === void 0) {
+    PromisePonyfill = getDefaultPromiseImplementation();
+  }
+
   validateArguments(options, PromisePonyfill);
   var url = options.url,
       attributes = options.attributes;
@@ -211,7 +220,7 @@ function loadCustomScript(options) {
         return resolve();
       },
       onError: function onError() {
-        return reject(new Error("The script \"".concat(url, "\" failed to load.")));
+        return reject(new Error("The script \"" + url + "\" failed to load."));
       }
     });
   });
@@ -240,7 +249,7 @@ function validateArguments(options, PromisePonyfill) {
   }
 }
 
-var version = "3.1.6";
+var version = "3.1.11";
 
 
 
