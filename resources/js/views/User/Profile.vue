@@ -320,9 +320,9 @@ export default {
            if(res.data.errors) {
                 this.errors = res.data.errors;
                 return;
-                console.log(this.errors);
             }
           if(res.data.status === 'succ') {
+            this.errors = '';
             alert('update successfully');
           } 
         })

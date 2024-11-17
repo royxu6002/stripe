@@ -331,10 +331,10 @@ __webpack_require__.r(__webpack_exports__);
         if (res.data.errors) {
           _this.errors = res.data.errors;
           return;
-          console.log(_this.errors);
         }
 
         if (res.data.status === 'succ') {
+          _this.errors = '';
           alert('update successfully');
         }
       })["catch"](function (err) {

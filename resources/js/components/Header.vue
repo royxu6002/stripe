@@ -7,7 +7,7 @@
       </a>
 
       <span class="smllogo">
-        <img src="http://online.comlibra.com/img/logo.e8b1340e.svg" width="80" alt="">
+        <img src="./css/logo.svg" width="80" alt="">
       </span>
 
       <div class="wssearch clearfix"
@@ -33,7 +33,7 @@
       <div class="wsmain clearfix">
         <div class="smllogo">
           <router-link to="/home">
-            <img src="http://online.comlibra.com/img/logo.e8b1340e.svg" alt="" width="80">
+            <img src="./css/logo.svg" alt="" width="80">
           </router-link>
         </div>
         <nav class="wsmenu clearfix" style="height: 100%;">

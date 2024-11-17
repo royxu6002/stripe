@@ -14855,7 +14855,7 @@ var render = function() {
               _c("router-link", { attrs: { to: "/home" } }, [
                 _c("img", {
                   attrs: {
-                    src: "http://online.comlibra.com/img/logo.e8b1340e.svg",
+                    src: __webpack_require__(/*! ./css/logo.svg */ "./resources/js/components/css/logo.svg"),
                     alt: "",
                     width: "80"
                   }
@@ -16344,11 +16344,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "smllogo" }, [
       _c("img", {
-        attrs: {
-          src: "http://online.comlibra.com/img/logo.e8b1340e.svg",
-          width: "80",
-          alt: ""
-        }
+        attrs: { src: __webpack_require__(/*! ./css/logo.svg */ "./resources/js/components/css/logo.svg"), width: "80", alt: "" }
       })
     ])
   },
@@ -33312,6 +33308,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_template_id_1f42fb90_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/css/logo.svg":
+/*!**********************************************!*\
+  !*** ./resources/js/components/css/logo.svg ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/logo.svg?e8b1340e9c151737e6892fca95870f6e";
 
 /***/ }),
 
