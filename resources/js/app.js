@@ -9,8 +9,10 @@ import store from "./store/index";
 
 import baseUrl from "./api/baseUrl";
 Vue.prototype.GLOBAL = baseUrl;
+
 import billFrom from "./api/billFrom";
 Vue.prototype.BILLFROM = billFrom;
+
 
 axios.interceptors.request.use((config) => {
     config.headers['Authorization'] = `Bearer ${window.sessionStorage.getItem('cle_store_token')}`;
