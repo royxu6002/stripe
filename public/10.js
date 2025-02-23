@@ -243,6 +243,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Proforma',
@@ -787,20 +791,18 @@ var render = function() {
             _vm._v(" "),
             _c("br"),
             _vm._v(" "),
-            _c("div", { staticStyle: { "font-weight": "500" } }, [
-              _vm.grandTotal(_vm.order[0]) <= 1000
-                ? _c("div", [
-                    _vm._v(
-                      "\n                            Paypal account: \n                            "
-                    ),
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c("br")
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm._m(4)
-            ])
+            _vm.grandTotal(_vm.order[0]) <= 1000
+              ? _c("div", [
+                  _vm._v(
+                    "\n                            Paypal account: \n                            "
+                  ),
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("br")
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm._m(4)
           ])
         ]),
         _vm._v(" "),
@@ -889,30 +891,34 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("div", [
         _vm._v("A/C NO. FOR USD: "),
-        _c("strong", [_vm._v("NRA1-5623-1420-1050-0000-153")])
+        _c("strong", [
+          _vm._v(
+            "\n                                77729999990003740\n                            "
+          )
+        ])
       ]),
       _vm._v(" "),
       _c("div", [
         _vm._v("BENEFICIARY BANK: "),
-        _c("strong", [_vm._v("ZHEJIANG CHOUZHOU COMMERCIAL BANK")])
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _vm._v("ADDRESS: "),
         _c("strong", [
-          _vm._v("YIWULEYUAN EAST, JIANGBIN RD, YIWU, ZHEJIANG, CHINA")
+          _vm._v(
+            "\n                                CITIBANK N.A. New York Branch\n                            "
+          )
         ])
       ]),
       _vm._v(" "),
-      _c("div", [_vm._v("SWIFT BIC: "), _c("strong", [_vm._v("CZCBCN2X")])]),
-      _vm._v(" "),
       _c("div", [
-        _vm._v("CORRESPONDENT BANK: "),
-        _c("strong", [_vm._v("BANK OF AMERICA N.A.NEW YORK BRANCH")])
+        _vm._v("BANK ADDRESS: "),
+        _c("strong", [
+          _vm._v(
+            "\n                                388 Greenwich Street New York, NY 10013,\n                            "
+          )
+        ])
       ]),
       _vm._v(" "),
       _c("div", [
-        _c("div", [_vm._v("SWIFT BIC: "), _c("strong", [_vm._v("BOFAUS3N")])])
+        _vm._v("SWIFT/BIC CODE: "),
+        _c("strong", [_vm._v("CITIUS33XXX")])
       ])
     ])
   },

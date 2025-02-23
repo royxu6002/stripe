@@ -161,7 +161,6 @@
                         PAYMENT TERMS: {{order[0].payment_term}} <br> 
                         Please kindly remit the payment to following beneficiary's account:<br>
                         <br>
-                        <div style="font-weight: 500;">
                             <div v-if="grandTotal(order[0]) <= 1000">
                                 Paypal account: 
                                 <div>
