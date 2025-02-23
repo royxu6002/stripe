@@ -94,14 +94,21 @@
                 
                 <ul class="wc-bacs-bank-details order_details bacs_details">
                     <li class="bank_name">BENEFICIARY NAME: <strong>COMLIBRA ELECTRONIC CO., LTD.</strong></li>
-                    <li class="account_number">Account number: <strong>NRA1-5623-1420-1050-0000-153</strong></li>
-                    <li class="sort_code"> BENEFICIARY BANK: <strong>ZHEJIANG CHOUZHOU COMMERCIAL BANK</strong></li>
-                    <li class="bank_address">ADDRESS: <strong>YIWULEYUAN EAST, JIANGBIN RD, YIWU, ZHEJIANG, CHINA</strong></li>
-                    <li class="bank_swift_bank">
-                        SWIFT BIC: <strong>CZCBCN2X</strong> 
+                    <li class="account_number">ACCOUNT NUMBER: <strong>
+                        77729999990003740
+                    </strong></li>
+                    <li class="sort_code"> BENEFICIARY BANK: <strong>
+                        CITIBANK N.A. New York Branch
+                    </strong></li>
+                    <li class="bank_address">ADDRESS: <strong>
+                        388 Greenwich Street New York, NY 10013,
+                    </strong>
                     </li>
-                    <li class="corresponding_bank">CORRESPONDENT BANK: <strong>BANK OF AMERICA N.A.NEW YORK BRANCH</strong></li>
-                    <li class="bic">SWIFT BIC: <strong>BOFAUS3N</strong></li>
+                    <li class="bank_swift_bank">
+                        SWIFT/BIC CODE: <strong>
+                            CITIUS33XXX
+                        </strong> 
+                    </li>
                 </ul>
                 <div v-if="Number(order[0].total/100)<=1000">
                     <h5 >

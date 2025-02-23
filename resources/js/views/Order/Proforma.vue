@@ -181,10 +181,10 @@
                                 <div>BENEFICIARY BANK: <strong>
                                     CITIBANK N.A. New York Branch
                                 </strong></div>
-                                <div>ADDRESS: <strong>
+                                <div>BANK ADDRESS: <strong>
                                     388 Greenwich Street New York, NY 10013,
                                 </strong></div>
-                                <div>SWIFT BIC: <strong>CITIUS33XXX</strong> </div>
+                                <div>SWIFT/BIC CODE: <strong>CITIUS33XXX</strong> </div>
                             </div>
 
 

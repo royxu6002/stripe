@@ -138,6 +138,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'OrderReview',
@@ -541,35 +548,37 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("li", { staticClass: "account_number" }, [
-          _vm._v("Account number: "),
-          _c("strong", [_vm._v("NRA1-5623-1420-1050-0000-153")])
+          _vm._v("ACCOUNT NUMBER: "),
+          _c("strong", [
+            _vm._v("\n                    77729999990003740\n                ")
+          ])
         ]),
         _vm._v(" "),
         _c("li", { staticClass: "sort_code" }, [
           _vm._v(" BENEFICIARY BANK: "),
-          _c("strong", [_vm._v("ZHEJIANG CHOUZHOU COMMERCIAL BANK")])
+          _c("strong", [
+            _vm._v(
+              "\n                    CITIBANK N.A. New York Branch\n                "
+            )
+          ])
         ]),
         _vm._v(" "),
         _c("li", { staticClass: "bank_address" }, [
           _vm._v("ADDRESS: "),
           _c("strong", [
-            _vm._v("YIWULEYUAN EAST, JIANGBIN RD, YIWU, ZHEJIANG, CHINA")
+            _vm._v(
+              "\n                    388 Greenwich Street New York, NY 10013,\n                "
+            )
           ])
         ]),
         _vm._v(" "),
         _c("li", { staticClass: "bank_swift_bank" }, [
-          _vm._v("\n                    SWIFT BIC: "),
-          _c("strong", [_vm._v("CZCBCN2X")])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "corresponding_bank" }, [
-          _vm._v("CORRESPONDENT BANK: "),
-          _c("strong", [_vm._v("BANK OF AMERICA N.A.NEW YORK BRANCH")])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "bic" }, [
-          _vm._v("SWIFT BIC: "),
-          _c("strong", [_vm._v("BOFAUS3N")])
+          _vm._v("\n                    SWIFT/BIC CODE: "),
+          _c("strong", [
+            _vm._v(
+              "\n                        CITIUS33XXX\n                    "
+            )
+          ])
         ])
       ]
     )
