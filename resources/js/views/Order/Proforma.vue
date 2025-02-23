@@ -173,17 +173,22 @@
                             <div>
                                 <div>Bank account:</div>
                                 <div>BENEFICIARY NAME: <strong>COMLIBRA ELECTRONIC CO., LTD.</strong></div>
-                                <div>A/C NO. FOR USD: <strong>NRA1-5623-1420-1050-0000-153</strong></div>
-                                <!---->
-                                <div>BENEFICIARY BANK: <strong>ZHEJIANG CHOUZHOU COMMERCIAL BANK</strong></div>
-                                <div>ADDRESS: <strong>YIWULEYUAN EAST, JIANGBIN RD, YIWU, ZHEJIANG, CHINA</strong></div>
-                                <div>SWIFT BIC: <strong>CZCBCN2X</strong> </div>
-                                <div>CORRESPONDENT BANK: <strong>BANK OF AMERICA N.A.NEW YORK BRANCH</strong></div>
-                                <div>
-                                    <div>SWIFT BIC: <strong>BOFAUS3N</strong></div>
-                                    </div>
-                                </div>
+                                <div>A/C NO. FOR USD: <strong>
+                                    77729999990003740
+                                </strong>
                             </div>
+                                <!---->
+                                <div>BENEFICIARY BANK: <strong>
+                                    CITIBANK N.A. New York Branch
+                                </strong></div>
+                                <div>ADDRESS: <strong>
+                                    388 Greenwich Street New York, NY 10013,
+                                </strong></div>
+                                <div>SWIFT BIC: <strong>CITIUS33XXX</strong> </div>
+                            </div>
+
+
+
                         </td>
                     </tr>
                     <tr>
