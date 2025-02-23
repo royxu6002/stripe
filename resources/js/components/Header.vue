@@ -13,10 +13,10 @@
       <div class="wssearch clearfix"
         :class="{'wsopensearch': issearchActive == true}">
         <i class="wsopensearch fas fa-search" 
-        @click="issearchActive = true"></i>
+         @click="issearchActive = true"></i>
 
         <i class="wsclosesearch fas fa-times"
-        @click="issearchActive = false">
+         @click="issearchActive = false">
         </i>
         <div class="wssearchform clearfix">
           <form>
